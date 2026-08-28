@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>팀 커핑 & 컵노트 대시보드</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #d35400;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+        }
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+            color: var(--primary-color);
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .form-section, .dashboard-section {
+            background: var(--card-bg);
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            flex: 1;
+            min-width: 300px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .input-group input[type="text"], .input-group input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        .slider-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .slider-group label {
+            flex: 1;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+        .slider-group input[type="range"] {
+            flex: 2;
+            margin: 0 10px;
+        }
+        .slider-group span {
+            width: 30px;
+            text-align: right;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+        .tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .tag {
+            padding: 6px 12px;
+            background: #e9ecef;
+            border-radius: 20px;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tag.selected {
+            background: var(--primary-color);
+            color: white;
+        }
+        .total-score {
+            font-size: 1.5em;
+            text-align: center;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 15px;
+            background: #fdf2e9;
+            border-radius: 8px;
+            color: var(--accent-color);
+        }
+        button.submit-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button.submit-btn:hover {
+            background-color: #bf4d00;
+        }
+        .card {
+            border: 1px solid #eee;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background: #fafafa;
+        }
+        .card h3 {
+            margin-top: 0;
+            color: var(--accent-color);
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>☕ 팀 컵노트 공유 플랫폼</h1>
+
+    <div class="container">
+        <div class="form-section">
+            <h2>새 컵노트 작성</h2>
+            
+            <div class="input-group">
+                <label>평가자 이름 (팀원)</label>
+                <input type="text" id="cupperName" placeholder="이름을 입력하세요">
+            </div>
+            <div class="input-group">
+                <label>원두 정보 / 샘플명</label>
+                <input type="text" id="beanInfo" placeholder="예: Ethiopia Yirgacheffe Washed">
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+
+            <div class="slider-group">
+                <label>Aroma</label>
+                <input type="range" class="score-slider" min="6" max="10" step="0.25" value="8" oninput="updateScore(this)">
+                <span>8</span>
+            </div>
+            <div class="slider-group">
+                <label>Flavor</label>
+                <input type="range" class="score-slider" min="6" max="10" step="0.25" value="8" oninput="updateScore(this)">
+                <span>8</span>
+            </div>
+            <div class="slider-group">
+                <label>Aftertaste</label>
+                <input type="range" class="score-slider" min="6" max="10" step="0.25" value="8" oninput="updateScore(this)">
+                <span>8</span>
+            </div>
+            <div class="slider-group">
+                <label>Acidity</label>
+                <input type="range" class="score-slider" min="6" max="10" step="0.25" value="8" oninput="updateScore(this)">
+                <span>8</span>
+            </div>
+            <div class="slider-group">
+                <label>Body</label>
+                <input type="range" class="score-slider" min="6" max="10" step="0.25" value="8" oninput="updateScore(this)">
+                <span>8</span>
+            </div>
+            <div class="slider-group">
+                <label>Balance</label>
+                <input type="range" class="score-slider" min="6" max="10" step="0.25" value="8" oninput="updateScore(this)">
+                <span>8</span>
+            </div>
+            <div class="slider-group">
+                <label>Overall</label>
+                <input type="range" class="score-slider" min="6" max="10" step="0.25" value="8" oninput="updateScore(this)">
+                <span>8</span>
+            </div>
+
+            <h3 style="margin-top: 25px; font-size: 1em;">Tasting Notes</h3>
+            <div class="tags" id="tagContainer">
+                <div class="tag" onclick="toggleTag(this)">Floral</div>
+                <div class="tag" onclick="toggleTag(this)">Citrus</div>
+                <div class="tag" onclick="toggleTag(this)">Berry</div>
+                <div class="tag" onclick="toggleTag(this)">Stone Fruit</div>
+                <div class="tag" onclick="toggleTag(this)">Chocolate</div>
+                <div class="tag" onclick="toggleTag(this)">Nutty</div>
+                <div class="tag" onclick="toggleTag(this)">Caramel</div>
+                <div class="tag" onclick="toggleTag(this)">Spicy</div>
+            </div>
+
+            <div class="total-score" id="totalScoreDisplay">Total Score: 86.00</div>
+
+            <button class="submit-btn" onclick="submitNote()">노트 공유하기</button>
+        </div>
+
+        <div class="dashboard-section">
+            <h2>팀 대시보드 (공유된 데이터)</h2>
+            <div id="dashboardContainer">
+                <p style="text-align: center; color: #888;">아직 공유된 컵노트가 없습니다.<br>첫 번째 노트를 작성해 보세요!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 베이스 점수 (Clean Cup, Sweetness, Uniformity = 10점씩 총 30점 기본 가정)
+        const baseScore = 30;
+
+        function updateScore(slider) {
+            slider.nextElementSibling.innerText = slider.value;
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            const sliders = document.querySelectorAll('.score-slider');
+            let sum = baseScore;
+            sliders.forEach(slider => {
+                sum += parseFloat(slider.value);
+            });
+            document.getElementById('totalScoreDisplay').innerText = `Total Score: ${sum.toFixed(2)}`;
+            return sum.toFixed(2);
+        }
+
+        function toggleTag(element) {
+            element.classList.toggle('selected');
+        }
+
+        function submitNote() {
+            const name = document.getElementById('cupperName').value;
+            const bean = document.getElementById('beanInfo').value;
+            if(!name || !bean) {
+                alert("평가자 이름과 원두 정보를 입력해주세요.");
+                return;
+            }
+
+            const total = calculateTotal();
+            
+            // 선택된 태그 수집
+            const selectedTags = Array.from(document.querySelectorAll('.tag.selected'))
+                                      .map(tag => tag.innerText).join(', ');
+
+            // 대시보드에 추가할 카드 HTML 생성
+            const cardHTML = `
+                <div class="card">
+                    <h3>${bean}</h3>
+                    <p><strong>평가자:</strong> ${name}</p>
+                    <p><strong>Total Score:</strong> <span style="color: #d35400; font-weight: bold;">${total}</span></p>
+                    <p><strong>Tasting Notes:</strong> ${selectedTags || '없음'}</p>
+                </div>
+            `;
+
+            const dashboard = document.getElementById('dashboardContainer');
+            if(dashboard.innerHTML.includes("아직 공유된 컵노트가 없습니다")) {
+                dashboard.innerHTML = '';
+            }
+            
+            dashboard.innerHTML = cardHTML + dashboard.innerHTML;
+
+            // 폼 초기화 유도 알림
+            alert("대시보드에 성공적으로 공유되었습니다!");
+        }
+    </script>
+</body>
+</html>
