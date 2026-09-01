@@ -56,23 +56,6 @@
             font-size: 1em; 
             font-family: inherit; 
         }
-        .slider-group { 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            margin-bottom: 12px; 
-            padding-bottom: 12px; 
-            border-bottom: 1px solid #f0f0f0; 
-        }
-        .slider-group label { flex: 1; font-weight: 600; }
-        .slider-group input[type="range"] { flex: 2; margin: 0 10px; }
-        .slider-group span { 
-            width: 40px; 
-            text-align: right; 
-            font-weight: bold; 
-            color: var(--accent-color); 
-            font-size: 1.1em; 
-        }
         
         .category-title { font-size: 0.9em; color: #666; margin: 15px 0 8px 0; font-weight: bold; }
         .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 15px; }
@@ -87,7 +70,6 @@
         }
         .tag.selected { background: var(--accent-color); color: white; font-weight: bold; }
         
-        .total-score { font-size: 1.8em; text-align: center; font-weight: bold; margin: 25px 0; color: var(--accent-color); }
         button.submit-btn { 
             width: 100%; 
             padding: 16px; 
@@ -98,16 +80,21 @@
             font-size: 1.2em; 
             font-weight: bold; 
             cursor: pointer; 
+            margin-top: 15px;
         }
         button.submit-btn:disabled { background-color: #ccc; cursor: not-allowed; }
+        
+        /* 결과 카드 디자인 */
         .card { border: 1px solid #eee; padding: 15px; border-radius: 8px; margin-bottom: 15px; background: #fafafa; }
-        .card h3 { margin-top: 0; color: var(--primary-color); border-bottom: 2px solid var(--accent-color); padding-bottom: 8px; display: inline-block; }
+        .card h3 { margin-top: 0; color: var(--primary-color); border-bottom: 2px solid var(--accent-color); padding-bottom: 8px; display: inline-block; font-size: 1.1em;}
+        .loading-text { text-align: center; color: #888; font-weight: bold; margin: 20px 0; }
     </style>
 </head>
 <body>
 
     <h1>☕ &lt;No Doubt&gt; Cupping Note</h1>
 
+    <!-- 🔑 1. 입장 코드 입력 화면 -->
     <div class="code-section" id="codeSection">
         <h2 style="text-align: center; margin-top: 0;">커핑 입장 코드 입력</h2>
         <p style="text-align: center; color: #666; font-size: 0.9em;">전달받으신 샘플 입장 코드를 입력해 주세요.</p>
@@ -117,24 +104,14 @@
         <button class="submit-btn" onclick="verifyCode()">입장하기</button>
     </div>
 
+    <!-- 📝 2. 커핑 평가 폼 화면 (점수표 제외, 심플 버전) -->
     <div class="form-section" id="formSection">
-        <div class="bean-display" id="currentBeanInfo">
-            </div>
+        <div class="bean-display" id="currentBeanInfo"></div>
 
         <div class="input-group">
             <label>평가자 이름</label>
             <input type="text" id="cupperName" placeholder="이름을 입력하세요">
         </div>
-
-        <h3 style="margin-top: 30px;">Score Evaluation</h3>
-        
-        <div class="slider-group"><label>Aroma</label><input type="range" id="val_aroma" class="score-slider" min="6" max="10" step="0.25" value="8" oninput="updateScore(this)"><span>8.00</span></div>
-        <div class="slider-group"><label>Flavor</label><input type="range" id="val_flavor" class="score-slider" min="6" max="10" step="0.25" value="8" oninput="updateScore(this)"><span>8.00</span></div>
-        <div class="slider-group"><label>Aftertaste</label><input type="range" id="val_aftertaste" class="score-slider" min="6" max="10" step="0.25" value="8" oninput="updateScore(this)"><span>8.00</span></div>
-        <div class="slider-group"><label>Acidity</label><input type="range" id="val_acidity" class="score-slider" min="6" max="10" step="0.25" value="8" oninput="updateScore(this)"><span>8.00</span></div>
-        <div class="slider-group"><label>Body</label><input type="range" id="val_body" class="score-slider" min="6" max="10" step="0.25" value="8" oninput="updateScore(this)"><span>8.00</span></div>
-        <div class="slider-group"><label>Balance</label><input type="range" id="val_balance" class="score-slider" min="6" max="10" step="0.25" value="8" oninput="updateScore(this)"><span>8.00</span></div>
-        <div class="slider-group"><label>Overall</label><input type="range" id="val_overall" class="score-slider" min="6" max="10" step="0.25" value="8" oninput="updateScore(this)"><span>8.00</span></div>
 
         <h3 style="margin-top: 30px; margin-bottom: 5px;">Tasting Notes (다중 선택)</h3>
         
@@ -181,41 +158,43 @@
 
         <div class="input-group" style="margin-top: 25px;">
             <label>한줄평 / 의견</label>
-            <textarea id="oneLiner" rows="2" placeholder="예: 클린컵이 우수하고 식을수록 산미가 선명해짐."></textarea>
+            <textarea id="oneLiner" rows="3" placeholder="예: 클린컵이 우수하고 식을수록 산미가 선명해짐."></textarea>
         </div>
 
-        <div class="total-score" id="totalScoreDisplay">Total: 86.00</div>
-
-        <button class="submit-btn" id="submitBtn" onclick="submitNote()">평가 완료 및 전송</button>
+        <button class="submit-btn" id="submitBtn" onclick="submitNote()">의견 제출 및 결과 보기</button>
     </div>
 
+    <!-- ✅ 3. 팀 결과 모아보기 화면 -->
     <div class="dashboard-section" id="dashboardSection">
-        <h2>📊 평가 제출이 완료되었습니다!</h2>
-        <div id="dashboardContainer"></div>
-        <button class="submit-btn" style="background-color: #555; margin-top: 20px;" onclick="location.reload()">다음 샘플 평가하기 (새로고침)</button>
+        <h2 style="margin-top: 0; color: var(--accent-color);">📊 팀 캘리브레이션</h2>
+        <p style="color: #666; font-size: 0.9em;">나를 포함해 팀원들이 남긴 의견입니다.</p>
+        
+        <div id="teamResultsContainer">
+            <div class="loading-text">팀원들의 데이터를 불러오는 중입니다 ⏳</div>
+        </div>
+        
+        <button class="submit-btn" style="background-color: #555; margin-top: 30px;" onclick="location.reload()">다른 샘플 평가하기 (새로고침)</button>
     </div>
 
     <script>
         // =========================================================================
-        // 💡 1. 입장 코드 매핑 (새로운 원두나 샘플 준비 시 수정/추가)
+        // 💡 1. 입장 코드 (언제든 필요할 때 원두 추가/수정 가능)
         // =========================================================================
         const ACCESS_CODES = {
-            "101": "Sample A : 에티오피아 예가체프 워시드 (Batch #001)",
-            "102": "Sample B : 콜롬비아 게이샤 무산소 (Batch #002)",
-            "103": "Sample C : 과테말라 안티구아 (Batch #003)",
-            "TEST": "<No Doubt> 커핑 테스트"
-            
+            "101": "Sample A : 에티오피아 예가체프 워시드",
+            "102": "Sample B : 콜롬비아 게이샤 무산소",
+            "103": "Sample C : 과테말라 안티구아",
+            "ND01": "<No Doubt> 하우스 블렌드 테스트"
         };
 
         // =========================================================================
-        // 🔗 2. 연동된 구글 앱스 스크립트 웹 앱 URL
+        // 🔗 2. 전달해주신 구글 웹 앱 URL (자동 세팅됨!)
         // =========================================================================
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwpTu3I_mt-UeNUQ-QwTmFf4uJLbyqhaeMqCUxXsbXGZPDV9xmY5WG9FzHwNBAmxNAQ-g/exec";
         // =========================================================================
 
         let currentCode = "";
         let currentBean = "";
-        const baseScore = 30;
 
         function verifyCode() {
             const input = document.getElementById('accessCodeInput').value.trim();
@@ -235,20 +214,9 @@
             }
         }
 
-        function updateScore(slider) {
-            slider.nextElementSibling.innerText = parseFloat(slider.value).toFixed(2);
-            calculateTotal();
+        function toggleTag(element) { 
+            element.classList.toggle('selected'); 
         }
-
-        function calculateTotal() {
-            const sliders = document.querySelectorAll('.score-slider');
-            let sum = baseScore;
-            sliders.forEach(slider => { sum += parseFloat(slider.value); });
-            document.getElementById('totalScoreDisplay').innerText = `Total: ${sum.toFixed(2)}`;
-            return sum.toFixed(2);
-        }
-
-        function toggleTag(element) { element.classList.toggle('selected'); }
 
         async function submitNote() {
             const name = document.getElementById('cupperName').value.trim();
@@ -256,57 +224,72 @@
             
             if(!name) { alert("평가자 이름을 입력해주세요!"); return; }
 
-            const total = calculateTotal();
             const selectedTags = Array.from(document.querySelectorAll('.tag.selected'))
                                       .map(tag => tag.innerText).join(', ');
             
             const btn = document.getElementById('submitBtn');
-            btn.innerText = "데이터 전송 중...";
+            btn.innerText = "결과 취합 중...";
             btn.disabled = true;
 
             const payload = {
                 accessCode: currentCode,
                 beanInfo: currentBean,
                 name: name,
-                totalScore: total,
                 oneLiner: oneLiner,
-                tags: selectedTags,
-                aroma: document.getElementById('val_aroma').value,
-                flavor: document.getElementById('val_flavor').value,
-                aftertaste: document.getElementById('val_aftertaste').value,
-                acidity: document.getElementById('val_acidity').value,
-                body: document.getElementById('val_body').value,
-                balance: document.getElementById('val_balance').value,
-                overall: document.getElementById('val_overall').value
+                tags: selectedTags
             };
 
             try {
-                await fetch(GOOGLE_SCRIPT_URL, {
+                // 1. 구글 시트로 내 데이터 전송
+                fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
 
-                const cardHTML = `
-                    <div class="card">
-                        <h3>${name} 님의 평가 결과</h3>
-                        <p><strong>원두:</strong> ${currentBean}</p>
-                        <p><strong>총점:</strong> <span style="color: #d35400; font-weight: bold; font-size: 1.2em;">${total}</span></p>
-                        <p><strong>선택 노트:</strong> ${selectedTags || '선택 없음'}</p>
-                        <p><strong>한줄평:</strong> ${oneLiner || '없음'}</p>
-                        <p style="color: green; font-size: 0.9em; margin-top: 10px;">✓ 데이터가 구글 스프레드시트에 전송되었습니다.</p>
-                    </div>
-                `;
-                document.getElementById('dashboardContainer').innerHTML = cardHTML;
-                document.getElementById('formSection').style.display = 'none';
-                document.getElementById('dashboardSection').style.display = 'block';
-                window.scrollTo(0, 0);
+                // 2. 구글 시트에 기록될 시간을 약간 벌어준 뒤 화면 전환
+                setTimeout(async () => {
+                    document.getElementById('formSection').style.display = 'none';
+                    document.getElementById('dashboardSection').style.display = 'block';
+                    window.scrollTo(0, 0);
+                    
+                    // 3. 시트에서 같은 원두(코드)를 평가한 팀원들의 데이터를 불러옴
+                    await loadTeamData();
+                }, 1500);
 
             } catch(e) {
-                alert("전송 중 오류가 발생했습니다.");
-                btn.innerText = "평가 완료 및 전송";
+                alert("오류가 발생했습니다. 인터넷 연결을 확인해주세요.");
+                btn.innerText = "의견 제출 및 결과 보기";
                 btn.disabled = false;
+            }
+        }
+
+        // 웹사이트에서 팀원 데이터를 모아 보여주는 함수
+        async function loadTeamData() {
+            const container = document.getElementById('teamResultsContainer');
+            try {
+                // GET 요청으로 데이터 불러오기
+                const response = await fetch(GOOGLE_SCRIPT_URL + "?accessCode=" + currentCode);
+                const teamData = await response.json();
+
+                container.innerHTML = ""; // 로딩 텍스트 지우기
+
+                if(teamData.length === 0) {
+                    container.innerHTML = "<p style='text-align:center;'>아직 기록된 팀원의 평가가 없습니다.</p>";
+                } else {
+                    teamData.forEach(item => {
+                        container.innerHTML += `
+                            <div class="card">
+                                <h3>👤 ${item.name}</h3>
+                                <p><strong>선택 노트:</strong> <span style="color: #d35400;">${item.tags || '선택 없음'}</span></p>
+                                <p><strong>의견:</strong> ${item.oneLiner || '작성된 의견 없음'}</p>
+                            </div>
+                        `;
+                    });
+                }
+            } catch (error) {
+                container.innerHTML = "<p style='text-align:center; color: red;'>결과를 불러오는 데 실패했습니다.</p>";
             }
         }
     </script>
