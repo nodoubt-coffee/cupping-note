@@ -5,28 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><No Doubt> Cupping Note</title>
     <style>
-        :root { --primary-color: #1a1a1a; --accent-color: #d35400; --bg-color: #f4f7f6; --card-bg: #ffffff; }
-        body { font-family: 'Pretendard', -apple-system, sans-serif; background-color: var(--bg-color); color: var(--primary-color); max-width: 800px; margin: 0 auto; padding: 20px; }
-        h1 { text-align: center; font-weight: 900; letter-spacing: -1px; }
-        .bean-display { background-color: var(--primary-color); color: white; text-align: center; padding: 15px; border-radius: 8px; margin-bottom: 25px; font-size: 1.1em; font-weight: bold; }
-        .form-section, .dashboard-section { background: var(--card-bg); padding: 20px 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        .dashboard-section { display: none; }
+        :root { 
+            --primary-color: #1a1a1a; 
+            --accent-color: #d35400; 
+            --bg-color: #f4f7f6; 
+            --card-bg: #ffffff; 
+        }
+        body { 
+            font-family: 'Pretendard', -apple-system, sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--primary-color); 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+        h1 { 
+            text-align: center; 
+            font-weight: 900; 
+            letter-spacing: -1px; 
+        }
+        .bean-display { 
+            background-color: var(--primary-color); 
+            color: white; 
+            text-align: center; 
+            padding: 15px; 
+            border-radius: 8px; 
+            margin-bottom: 25px; 
+            font-size: 1.1em; 
+            font-weight: bold; 
+        }
+        .form-section, .dashboard-section, .code-section { 
+            background: var(--card-bg); 
+            padding: 25px 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+            margin-bottom: 20px; 
+        }
+        
+        /* 초기 화면 제어 */
+        .form-section, .dashboard-section { display: none; }
+        
         .input-group { margin-bottom: 20px; }
         .input-group label { display: block; margin-bottom: 8px; font-weight: bold; }
-        .input-group input[type="text"], .input-group textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1em; font-family: inherit; }
-        .slider-group { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #f0f0f0; }
+        .input-group input[type="text"], .input-group textarea { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #ccc; 
+            border-radius: 6px; 
+            box-sizing: border-box; 
+            font-size: 1em; 
+            font-family: inherit; 
+        }
+        .slider-group { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            margin-bottom: 12px; 
+            padding-bottom: 12px; 
+            border-bottom: 1px solid #f0f0f0; 
+        }
         .slider-group label { flex: 1; font-weight: 600; }
         .slider-group input[type="range"] { flex: 2; margin: 0 10px; }
-        .slider-group span { width: 40px; text-align: right; font-weight: bold; color: var(--accent-color); font-size: 1.1em; }
+        .slider-group span { 
+            width: 40px; 
+            text-align: right; 
+            font-weight: bold; 
+            color: var(--accent-color); 
+            font-size: 1.1em; 
+        }
         
-        /* 태그 카테고리 스타일 */
         .category-title { font-size: 0.9em; color: #666; margin: 15px 0 8px 0; font-weight: bold; }
         .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 15px; }
-        .tag { padding: 6px 12px; background: #e9ecef; border-radius: 16px; font-size: 0.85em; cursor: pointer; transition: all 0.2s; user-select: none; }
+        .tag { 
+            padding: 6px 12px; 
+            background: #e9ecef; 
+            border-radius: 16px; 
+            font-size: 0.85em; 
+            cursor: pointer; 
+            transition: all 0.2s; 
+            user-select: none; 
+        }
         .tag.selected { background: var(--accent-color); color: white; font-weight: bold; }
         
         .total-score { font-size: 1.8em; text-align: center; font-weight: bold; margin: 25px 0; color: var(--accent-color); }
-        button.submit-btn { width: 100%; padding: 16px; background-color: var(--accent-color); color: white; border: none; border-radius: 8px; font-size: 1.2em; font-weight: bold; cursor: pointer; }
+        button.submit-btn { 
+            width: 100%; 
+            padding: 16px; 
+            background-color: var(--accent-color); 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 1.2em; 
+            font-weight: bold; 
+            cursor: pointer; 
+        }
         button.submit-btn:disabled { background-color: #ccc; cursor: not-allowed; }
         .card { border: 1px solid #eee; padding: 15px; border-radius: 8px; margin-bottom: 15px; background: #fafafa; }
         .card h3 { margin-top: 0; color: var(--primary-color); border-bottom: 2px solid var(--accent-color); padding-bottom: 8px; display: inline-block; }
@@ -36,11 +108,19 @@
 
     <h1>☕ &lt;No Doubt&gt; Cupping Note</h1>
 
-    <div class="bean-display" id="currentBeanInfo">
-        Ethiopia Yirgacheffe Washed (Batch #001)
+    <div class="code-section" id="codeSection">
+        <h2 style="text-align: center; margin-top: 0;">커핑 입장 코드 입력</h2>
+        <p style="text-align: center; color: #666; font-size: 0.9em;">전달받으신 샘플 입장 코드를 입력해 주세요.</p>
+        <div class="input-group" style="margin-top: 20px;">
+            <input type="text" id="accessCodeInput" placeholder="예: 101" style="text-align: center; font-size: 1.2em; letter-spacing: 2px;">
+        </div>
+        <button class="submit-btn" onclick="verifyCode()">입장하기</button>
     </div>
 
     <div class="form-section" id="formSection">
+        <div class="bean-display" id="currentBeanInfo">
+            </div>
+
         <div class="input-group">
             <label>평가자 이름</label>
             <input type="text" id="cupperName" placeholder="이름을 입력하세요">
@@ -100,8 +180,8 @@
         </div>
 
         <div class="input-group" style="margin-top: 25px;">
-            <label>한줄평 (종합 소감)</label>
-            <textarea id="oneLiner" rows="2" placeholder="예: 식을수록 산미가 선명해지며 텍스처가 매끄러움."></textarea>
+            <label>한줄평 / 의견</label>
+            <textarea id="oneLiner" rows="2" placeholder="예: 클린컵이 우수하고 식을수록 산미가 선명해짐."></textarea>
         </div>
 
         <div class="total-score" id="totalScoreDisplay">Total: 86.00</div>
@@ -110,20 +190,49 @@
     </div>
 
     <div class="dashboard-section" id="dashboardSection">
-        <h2>📊 완료되었습니다!</h2>
+        <h2>📊 평가 제출이 완료되었습니다!</h2>
         <div id="dashboardContainer"></div>
-        <button class="submit-btn" style="background-color: #555; margin-top: 20px;" onclick="location.reload()">다음 샘플 평가하기</button>
+        <button class="submit-btn" style="background-color: #555; margin-top: 20px;" onclick="location.reload()">다음 샘플 평가하기 (새로고침)</button>
     </div>
 
     <script>
-        
-// =========================================================================
-// 🚨 2. 구글 앱스 스크립트 웹 앱 URL
-// =========================================================================
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbwpTu3I_mt-UeNUQ-QwTmFf4uJLbyqhaeMqCUxXsbXGZPDV9xmY5WG9FzHwNBAmxNAQ-g/exec/exec";
-// =========================================================================
+        // =========================================================================
+        // 💡 1. 입장 코드 매핑 (새로운 원두나 샘플 준비 시 수정/추가)
+        // =========================================================================
+        const ACCESS_CODES = {
+            "101": "Sample A : 에티오피아 예가체프 워시드 (Batch #001)",
+            "102": "Sample B : 콜롬비아 게이샤 무산소 (Batch #002)",
+            "103": "Sample C : 과테말라 안티구아 (Batch #003)",
+            "ND01": "<No Doubt> 하우스 블렌드 테스트"
+        };
 
+        // =========================================================================
+        // 🔗 2. 연동된 구글 앱스 스크립트 웹 앱 URL
+        // =========================================================================
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwpTu3I_mt-UeNUQ-QwTmFf4uJLbyqhaeMqCUxXsbXGZPDV9xmY5WG9FzHwNBAmxNAQ-g/exec";
+        // =========================================================================
+
+        let currentCode = "";
+        let currentBean = "";
         const baseScore = 30;
+
+        function verifyCode() {
+            const input = document.getElementById('accessCodeInput').value.trim();
+            if (!input) {
+                alert("입장 코드를 입력해주세요.");
+                return;
+            }
+            if (ACCESS_CODES[input]) {
+                currentCode = input;
+                currentBean = ACCESS_CODES[input];
+                document.getElementById('currentBeanInfo').innerText = currentBean;
+                document.getElementById('codeSection').style.display = 'none';
+                document.getElementById('formSection').style.display = 'block';
+                window.scrollTo(0, 0);
+            } else {
+                alert("올바르지 않은 입장 코드입니다. 다시 확인해 주세요.");
+            }
+        }
 
         function updateScore(slider) {
             slider.nextElementSibling.innerText = parseFloat(slider.value).toFixed(2);
@@ -141,15 +250,10 @@ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/https://script.goo
         function toggleTag(element) { element.classList.toggle('selected'); }
 
         async function submitNote() {
-            const name = document.getElementById('cupperName').value;
-            const beanInfo = document.getElementById('currentBeanInfo').innerText;
-            const oneLiner = document.getElementById('oneLiner').value;
+            const name = document.getElementById('cupperName').value.trim();
+            const oneLiner = document.getElementById('oneLiner').value.trim();
             
             if(!name) { alert("평가자 이름을 입력해주세요!"); return; }
-            if(GOOGLE_SCRIPT_URL === "여기에_웹앱_URL을_붙여넣으세요") {
-                alert("관리자 알림: 구글 스크립트 URL이 설정되지 않았습니다.");
-                return;
-            }
 
             const total = calculateTotal();
             const selectedTags = Array.from(document.querySelectorAll('.tag.selected'))
@@ -160,8 +264,9 @@ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/https://script.goo
             btn.disabled = true;
 
             const payload = {
+                accessCode: currentCode,
+                beanInfo: currentBean,
                 name: name,
-                beanInfo: beanInfo,
                 totalScore: total,
                 oneLiner: oneLiner,
                 tags: selectedTags,
@@ -184,11 +289,12 @@ const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/https://script.goo
 
                 const cardHTML = `
                     <div class="card">
-                        <h3>${name} 님의 노트</h3>
-                        <p><strong>점수:</strong> <span style="color: #d35400; font-weight: bold; font-size: 1.2em;">${total}</span></p>
+                        <h3>${name} 님의 평가 결과</h3>
+                        <p><strong>원두:</strong> ${currentBean}</p>
+                        <p><strong>총점:</strong> <span style="color: #d35400; font-weight: bold; font-size: 1.2em;">${total}</span></p>
                         <p><strong>선택 노트:</strong> ${selectedTags || '선택 없음'}</p>
                         <p><strong>한줄평:</strong> ${oneLiner || '없음'}</p>
-                        <p style="color: green; font-size: 0.9em; margin-top: 10px;">✓ 구글 스프레드시트에 저장되었습니다.</p>
+                        <p style="color: green; font-size: 0.9em; margin-top: 10px;">✓ 데이터가 구글 스프레드시트에 전송되었습니다.</p>
                     </div>
                 `;
                 document.getElementById('dashboardContainer').innerHTML = cardHTML;
