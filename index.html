@@ -45,7 +45,13 @@
         /* 초기 화면 제어 */
         .form-section, .dashboard-section { display: none; }
         
-        .input-group { margin-bottom: 20px; }
+        .divider {
+            border: 0;
+            border-top: 1px dashed #ccc;
+            margin: 25px 0;
+        }
+
+        .input-group { margin-bottom: 15px; }
         .input-group label { display: block; margin-bottom: 8px; font-weight: bold; }
         .input-group input[type="text"], .input-group textarea { 
             width: 100%; 
@@ -72,15 +78,18 @@
         
         button.submit-btn { 
             width: 100%; 
-            padding: 16px; 
+            padding: 15px; 
             background-color: var(--accent-color); 
             color: white; 
             border: none; 
             border-radius: 8px; 
-            font-size: 1.2em; 
+            font-size: 1.1em; 
             font-weight: bold; 
             cursor: pointer; 
-            margin-top: 15px;
+            margin-top: 10px;
+        }
+        button.submit-btn.secondary {
+            background-color: #2c3e50;
         }
         button.submit-btn:disabled { background-color: #ccc; cursor: not-allowed; }
         
@@ -94,17 +103,24 @@
 
     <h1>☕ &lt;No Doubt&gt; Cupping Note</h1>
 
-    <!-- 🔑 1. 입장 코드 입력 화면 -->
     <div class="code-section" id="codeSection">
-        <h2 style="text-align: center; margin-top: 0;">커핑 입장 코드 입력</h2>
-        <p style="text-align: center; color: #666; font-size: 0.9em;">전달받으신 샘플 입장 코드를 입력해 주세요.</p>
-        <div class="input-group" style="margin-top: 20px;">
-            <input type="text" id="accessCodeInput" placeholder="예: 101" style="text-align: center; font-size: 1.2em; letter-spacing: 2px;">
+        <h2 style="margin-top: 0; font-size: 1.2em; color: var(--accent-color);">📝 커핑 평가 참여하기</h2>
+        <p style="color: #666; font-size: 0.85em; margin-bottom: 15px;">전달받으신 샘플 입장 코드를 입력하여 커핑 평가를 시작합니다.</p>
+        <div class="input-group">
+            <input type="text" id="evalCodeInput" placeholder="입장 코드 (예: 101)" style="text-align: center; font-size: 1.1em; letter-spacing: 2px;">
         </div>
-        <button class="submit-btn" onclick="verifyCode()">입장하기</button>
+        <button class="submit-btn" onclick="startEvaluation()">평가 작성하러 가기</button>
+
+        <hr class="divider">
+
+        <h2 style="margin-top: 0; font-size: 1.2em; color: #2c3e50;">📊 팀 결과만 바로 확인하기</h2>
+        <p style="color: #666; font-size: 0.85em; margin-bottom: 15px;">평가 없이 팀원들이 작성한 커핑 결과만 실시간으로 확인합니다.</p>
+        <div class="input-group">
+            <input type="text" id="resultCodeInput" placeholder="입장 코드 (예: 101)" style="text-align: center; font-size: 1.1em; letter-spacing: 2px;">
+        </div>
+        <button class="submit-btn secondary" onclick="viewResultsDirectly()">결과 대시보드 열기</button>
     </div>
 
-    <!-- 📝 2. 커핑 평가 폼 화면 (점수표 제외, 심플 버전) -->
     <div class="form-section" id="formSection">
         <div class="bean-display" id="currentBeanInfo"></div>
 
@@ -164,21 +180,21 @@
         <button class="submit-btn" id="submitBtn" onclick="submitNote()">의견 제출 및 결과 보기</button>
     </div>
 
-    <!-- ✅ 3. 팀 결과 모아보기 화면 -->
     <div class="dashboard-section" id="dashboardSection">
-        <h2 style="margin-top: 0; color: var(--accent-color);">📊 팀 캘리브레이션</h2>
-        <p style="color: #666; font-size: 0.9em;">나를 포함해 팀원들이 남긴 의견입니다.</p>
+        <div class="bean-display" id="resultBeanInfo" style="background-color: #2c3e50;"></div>
+        <h2 style="margin-top: 0; color: var(--accent-color);">📊 팀 캘리브레이션 결과</h2>
+        <p style="color: #666; font-size: 0.85em; margin-bottom: 20px;">5초마다 자동으로 최신 데이터가 업데이트됩니다 🔄</p>
         
         <div id="teamResultsContainer">
             <div class="loading-text">팀원들의 데이터를 불러오는 중입니다 ⏳</div>
         </div>
         
-        <button class="submit-btn" style="background-color: #555; margin-top: 30px;" onclick="location.reload()">다른 샘플 평가하기 (새로고침)</button>
+        <button class="submit-btn secondary" style="margin-top: 30px;" onclick="location.reload()">첫 화면으로 돌아가기</button>
     </div>
 
     <script>
         // =========================================================================
-        // 💡 1. 입장 코드 (언제든 필요할 때 원두 추가/수정 가능)
+        // 💡 1. 입장 코드 (새로운 원두 추가/수정 시 여기에 추가하세요)
         // =========================================================================
         const ACCESS_CODES = {
             "101": "Sample A : 에티오피아 예가체프 워시드",
@@ -188,7 +204,7 @@
         };
 
         // =========================================================================
-        // 🔗 2. 전달해주신 구글 웹 앱 URL (자동 세팅됨!)
+        // 🔗 2. 연동된 구글 앱스 스크립트 웹 앱 URL
         // =========================================================================
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwpTu3I_mt-UeNUQ-QwTmFf4uJLbyqhaeMqCUxXsbXGZPDV9xmY5WG9FzHwNBAmxNAQ-g/exec";
         // =========================================================================
@@ -196,12 +212,10 @@
         let currentCode = "";
         let currentBean = "";
 
-        function verifyCode() {
-            const input = document.getElementById('accessCodeInput').value.trim();
-            if (!input) {
-                alert("입장 코드를 입력해주세요.");
-                return;
-            }
+        // ① 커핑 평가 작성하러 가기
+        function startEvaluation() {
+            const input = document.getElementById('evalCodeInput').value.trim();
+            if (!input) { alert("입장 코드를 입력해주세요."); return; }
             if (ACCESS_CODES[input]) {
                 currentCode = input;
                 currentBean = ACCESS_CODES[input];
@@ -210,7 +224,27 @@
                 document.getElementById('formSection').style.display = 'block';
                 window.scrollTo(0, 0);
             } else {
-                alert("올바르지 않은 입장 코드입니다. 다시 확인해 주세요.");
+                alert("올바르지 않은 입장 코드입니다.");
+            }
+        }
+
+        // ② 팀 결과만 바로보기
+        async function viewResultsDirectly() {
+            const input = document.getElementById('resultCodeInput').value.trim();
+            if (!input) { alert("입장 코드를 입력해주세요."); return; }
+            if (ACCESS_CODES[input]) {
+                currentCode = input;
+                currentBean = ACCESS_CODES[input];
+                document.getElementById('resultBeanInfo').innerText = currentBean;
+                document.getElementById('codeSection').style.display = 'none';
+                document.getElementById('dashboardSection').style.display = 'block';
+                window.scrollTo(0, 0);
+
+                // 결과 즉시 로드 + 5초마다 자동 갱신 시작
+                await loadTeamData();
+                setInterval(loadTeamData, 5000);
+            } else {
+                alert("올바르지 않은 입장 코드입니다.");
             }
         }
 
@@ -240,7 +274,7 @@
             };
 
             try {
-                // 1. 구글 시트로 내 데이터 전송
+                // 구글 시트로 데이터 전송
                 fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors',
@@ -248,38 +282,37 @@
                     body: JSON.stringify(payload)
                 });
 
-                // 2. 구글 시트에 기록될 시간을 약간 벌어준 뒤 화면 전환
                 setTimeout(async () => {
+                    document.getElementById('resultBeanInfo').innerText = currentBean;
                     document.getElementById('formSection').style.display = 'none';
                     document.getElementById('dashboardSection').style.display = 'block';
                     window.scrollTo(0, 0);
                     
-                    // 3. 시트에서 같은 원두(코드)를 평가한 팀원들의 데이터를 불러옴
+                    // 결과 로드 및 5초 주기 자동 업데이트 시작
                     await loadTeamData();
-                }, 1500);
+                    setInterval(loadTeamData, 5000);
+                }, 1200);
 
             } catch(e) {
-                alert("오류가 발생했습니다. 인터넷 연결을 확인해주세요.");
+                alert("오류가 발생했습니다.");
                 btn.innerText = "의견 제출 및 결과 보기";
                 btn.disabled = false;
             }
         }
 
-        // 웹사이트에서 팀원 데이터를 모아 보여주는 함수
+        // 구글 시트에서 최신 데이터 불러오기
         async function loadTeamData() {
             const container = document.getElementById('teamResultsContainer');
             try {
-                // GET 요청으로 데이터 불러오기
                 const response = await fetch(GOOGLE_SCRIPT_URL + "?accessCode=" + currentCode);
                 const teamData = await response.json();
 
-                container.innerHTML = ""; // 로딩 텍스트 지우기
-
                 if(teamData.length === 0) {
-                    container.innerHTML = "<p style='text-align:center;'>아직 기록된 팀원의 평가가 없습니다.</p>";
+                    container.innerHTML = "<p style='text-align:center;'>아직 제출된 팀원의 평가가 없습니다.</p>";
                 } else {
+                    let html = "";
                     teamData.forEach(item => {
-                        container.innerHTML += `
+                        html += `
                             <div class="card">
                                 <h3>👤 ${item.name}</h3>
                                 <p><strong>선택 노트:</strong> <span style="color: #d35400;">${item.tags || '선택 없음'}</span></p>
@@ -287,9 +320,10 @@
                             </div>
                         `;
                     });
+                    container.innerHTML = html;
                 }
             } catch (error) {
-                container.innerHTML = "<p style='text-align:center; color: red;'>결과를 불러오는 데 실패했습니다.</p>";
+                container.innerHTML = "<p style='text-align:center; color: red;'>결과를 불러오는 중 오류가 발생했습니다.</p>";
             }
         }
     </script>
