@@ -150,7 +150,7 @@
         <h2 style="margin-top: 0; font-size: 1.15em; color: var(--accent-color);">📝 커핑 평가 참여하기</h2>
         <p style="color: #7a6e65; font-size: 0.88em; margin-bottom: 15px;">샘플 입장 코드를 입력하여 컵노트를 작성합니다.</p>
         <div class="input-group">
-            <input type="text" id="evalCodeInput" placeholder="입장 코드 (예: 777)" style="text-align: center; font-size: 1.1em; letter-spacing: 2px;">
+            <input type="text" id="evalCodeInput" placeholder="코드를 입력하세요" style="text-align: center; font-size: 1.1em; letter-spacing: 2px;">
         </div>
         <button class="submit-btn" onclick="startEvaluation()">평가 시작하기</button>
 
@@ -159,7 +159,7 @@
         <h2 style="margin-top: 0; font-size: 1.15em; color: var(--sub-btn-bg);">📊 팀 결과 바로 확인하기</h2>
         <p style="color: #7a6e65; font-size: 0.88em; margin-bottom: 15px;">작성 없이 팀원들의 캘리브레이션 결과만 확인합니다.</p>
         <div class="input-group">
-            <input type="text" id="resultCodeInput" placeholder="입장 코드 (예: 777)" style="text-align: center; font-size: 1.1em; letter-spacing: 2px;">
+            <input type="text" id="resultCodeInput" placeholder="코드를 입력하세요" style="text-align: center; font-size: 1.1em; letter-spacing: 2px;">
         </div>
         <button class="submit-btn secondary" onclick="viewResultsDirectly()">결과 대시보드 열기</button>
     </div>
@@ -169,7 +169,7 @@
 
         <div class="input-group">
             <label>평가자 이름</label>
-            <input type="text" id="cupperName" placeholder="이름을 입력하세요 (예: Mason)">
+            <input type="text" id="cupperName" placeholder="이름을 입력하세요 (예: 민수)">
         </div>
 
         <h3 style="margin-top: 30px; margin-bottom: 6px; font-size: 1.05em;">🎨 1. 시각적 연상 (Color Vibe)</h3>
@@ -260,17 +260,15 @@
     </div>
 
     <script>
-        // 💡 1. 입장 코드 (원두 추가)
         const ACCESS_CODES = {
             "101": "Sample A : 에티오피아 예가체프 워시드",
             "102": "Sample B : 콜롬비아 게이샤 무산소",
             "103": "Sample C : 과테말라 안티구아",
             "ND01": "<No Doubt> 하우스 블렌드 테스트",
             "TEST": "콜롬비아 라스 마가리타스 수단루메 하이브리드 워시드",
-            "777": "에콰도르 루그마파타 시드라 워시드" /* ✨ 새로운 원두 추가 ✨ */
+            "777": "에콰도르 루그마파타 시드라 워시드"
         };
 
-        // 🔗 2. 구글 스크립트 웹 앱 URL
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwpTu3I_mt-UeNUQ-QwTmFf4uJLbyqhaeMqCUxXsbXGZPDV9xmY5WG9FzHwNBAmxNAQ-g/exec";
 
         let currentCode = "";
@@ -313,21 +311,13 @@
             const oneLiner = document.getElementById('oneLiner').value.trim();
             if(!name) { alert("평가자 이름을 입력해주세요!"); return; }
 
-            // 1. 선택된 색채 헥스코드 수집
             const selectedColorHexes = Array.from(document.querySelectorAll('.color-chip.selected')).map(chip => chip.getAttribute('data-bg'));
-            
-            // 2. 선택된 기본 태그 수집
             const selectedTagsArray = Array.from(document.querySelectorAll('.tag.selected')).map(tag => tag.innerText);
-            
-            // 3. 직접 입력한 커스텀 노트 수집 (비어있지 않은 것만)
             const customTagsArray = Array.from(document.querySelectorAll('.custom-tag-input'))
                                          .map(input => input.value.trim())
                                          .filter(val => val !== "");
             
-            // 4. 태그와 직접입력 노트를 쉼표로 예쁘게 합치기
             const allTags = [...selectedTagsArray, ...customTagsArray].join(', ');
-            
-            // 시트에 저장할 형태 조합
             const colorsHexText = selectedColorHexes.join(',');
             const combinedTags = colorsHexText ? `[색채:${colorsHexText}] ${allTags}` : allTags;
 
