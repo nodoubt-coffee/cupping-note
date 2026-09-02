@@ -6,260 +6,175 @@
     <title><No Doubt> Cupping Note</title>
     <style>
         :root { 
-            --primary-color: #3c322c;   
-            --accent-color: #b86b35;    
-            --bg-color: #f4f1ea;        
-            --card-bg: #ffffff;        
-            --tag-bg: #ede7de;         
-            --border-color: #e5ded4;   
-            --sub-btn-bg: #6e6259;     
+            --primary-color: #3c322c; --accent-color: #b86b35; 
+            --bg-color: #f4f1ea; --card-bg: #ffffff; 
+            --tag-bg: #ede7de; --border-color: #e5ded4; --sub-btn-bg: #6e6259;     
         }
-        body { 
-            font-family: 'Pretendard', -apple-system, sans-serif; 
-            background-color: var(--bg-color); 
-            color: var(--primary-color); 
-            max-width: 800px; 
-            margin: 0 auto; 
-            padding: 20px; 
-        }
+        body { font-family: 'Pretendard', -apple-system, sans-serif; background-color: var(--bg-color); color: var(--primary-color); max-width: 800px; margin: 0 auto; padding: 20px; }
         
         /* 👑 로고 스타일 */
-        .brand-logo { 
-            text-align: center; 
-            margin-top: 15px;
-            margin-bottom: 35px;
-            font-family: 'Georgia', 'Times New Roman', serif; 
-            color: #5a2a22; 
-            font-size: 2.2em;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-        .brand-logo span {
-            display: block;
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            font-size: 0.35em;
-            font-weight: 400;
-            letter-spacing: 6px; 
-            color: #7a6e65;
-            margin-top: 8px;
-            margin-left: 6px; 
-        }
+        .brand-logo { text-align: center; margin-top: 15px; margin-bottom: 35px; font-family: 'Georgia', serif; color: #5a2a22; font-size: 2.2em; font-weight: bold; letter-spacing: 1px; }
+        .brand-logo span { display: block; font-family: sans-serif; font-size: 0.35em; font-weight: 400; letter-spacing: 6px; color: #7a6e65; margin-top: 8px; margin-left: 6px; }
 
-        .bean-display { 
-            background-color: var(--primary-color); 
-            color: #f7f4ef; text-align: center; padding: 16px; 
-            border-radius: 10px; margin-bottom: 25px; 
-            font-size: 1.1em; font-weight: bold; letter-spacing: 0.5px;
-        }
-        .form-section, .dashboard-section, .code-section { 
-            background: var(--card-bg); padding: 28px 25px; 
-            border-radius: 16px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03); 
-            margin-bottom: 20px; border: 1px solid var(--border-color);
-        }
+        .bean-display { background-color: var(--primary-color); color: #f7f4ef; text-align: center; padding: 16px; border-radius: 10px; margin-bottom: 25px; font-size: 1.1em; font-weight: bold; }
+        .app-section { background: var(--card-bg); padding: 28px 25px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03); margin-bottom: 20px; border: 1px solid var(--border-color); display: none; }
+        .app-section.active { display: block; }
         
-        .form-section, .dashboard-section { display: none; }
         .divider { border: 0; border-top: 1px dashed var(--border-color); margin: 25px 0; }
-
         .input-group { margin-bottom: 15px; }
         .input-group label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 0.95em; color: #555; }
-        .input-group input[type="text"]:not(.custom-tag-input), .input-group textarea { 
-            width: 100%; padding: 12px 14px; border: 1px solid var(--border-color); 
-            background-color: #faf8f5; border-radius: 8px; box-sizing: border-box; 
-            font-size: 1em; font-family: inherit; color: var(--primary-color); outline: none;
-        }
-        .input-group input[type="text"]:not(.custom-tag-input):focus, .input-group textarea:focus {
-            border-color: var(--accent-color); background-color: #ffffff;
-        }
+        .input-group input[type="text"]:not(.custom-tag-input), .input-group textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--border-color); background-color: #faf8f5; border-radius: 8px; box-sizing: border-box; font-size: 1em; font-family: inherit; outline: none; }
+        .input-group input:focus, .input-group textarea:focus { border-color: var(--accent-color); background-color: #ffffff; }
 
-        /* 🎨 글씨 없는 24색 원형 컬러 팔레트 */
-        .color-grid {
-            display: grid; grid-template-columns: repeat(6, 1fr); 
-            gap: 12px; margin-bottom: 25px; justify-items: center;
-        }
-        .color-chip {
-            width: 100%; max-width: 45px; aspect-ratio: 1 / 1; 
-            border-radius: 50%; cursor: pointer;
-            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05), 0 2px 5px rgba(0,0,0,0.06);
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 3px solid transparent; 
-        }
-        .color-chip.selected {
-            transform: scale(1.15); box-shadow: 0 4px 10px rgba(0,0,0,0.15); border-color: #3c322c; 
-        }
+        /* 🎨 색채 팔레트 */
+        .color-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 25px; justify-items: center; }
+        .color-chip { width: 100%; max-width: 45px; aspect-ratio: 1 / 1; border-radius: 50%; cursor: pointer; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05), 0 2px 5px rgba(0,0,0,0.06); transition: all 0.2s; border: 3px solid transparent; }
+        .color-chip.selected { transform: scale(1.15); box-shadow: 0 4px 10px rgba(0,0,0,0.15); border-color: #3c322c; }
 
-        /* 🏷️ 노트 태그 및 직접 입력 스타일 */
+        /* 🏷️ 노트 태그 */
         .category-title { font-size: 0.88em; color: #7a6e65; margin: 18px 0 8px 0; font-weight: bold; }
         .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 15px; align-items: center; }
-        .tag { 
-            padding: 7px 13px; background: var(--tag-bg); color: var(--primary-color);
-            border-radius: 18px; font-size: 0.85em; cursor: pointer; transition: all 0.2s; 
-        }
+        .tag { padding: 7px 13px; background: var(--tag-bg); color: var(--primary-color); border-radius: 18px; font-size: 0.85em; cursor: pointer; transition: all 0.2s; }
         .tag.selected { background: var(--accent-color); color: white; font-weight: bold; }
-        
-        /* ✍️ 직접 입력 텍스트 칸 스타일 */
-        .custom-tag-input {
-            padding: 6px 12px;
-            background: transparent;
-            border: 1px dashed var(--accent-color);
-            color: var(--primary-color);
-            border-radius: 18px;
-            font-size: 0.85em;
-            outline: none;
-            width: 80px;
-            box-sizing: border-box;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            font-family: inherit;
-        }
-        .custom-tag-input:focus {
-            width: 130px;
-            border-style: solid;
-            background: #ffffff;
-            box-shadow: 0 2px 6px rgba(184, 107, 53, 0.15);
-        }
-        .custom-tag-input::placeholder {
-            color: #b86b35;
-            opacity: 0.8;
-            font-size: 0.95em;
-        }
+        .custom-tag-input { padding: 6px 12px; background: transparent; border: 1px dashed var(--accent-color); color: var(--primary-color); border-radius: 18px; font-size: 0.85em; outline: none; width: 80px; box-sizing: border-box; transition: all 0.3s; font-family: inherit; }
+        .custom-tag-input:focus { width: 130px; border-style: solid; background: #ffffff; }
 
-        button.submit-btn { 
-            width: 100%; padding: 15px; background-color: var(--accent-color); color: white; 
-            border: none; border-radius: 10px; font-size: 1.05em; font-weight: bold; cursor: pointer; 
-            margin-top: 10px; transition: background-color 0.2s;
-        }
+        /* 🔘 버튼 */
+        button.submit-btn { width: 100%; padding: 15px; background-color: var(--accent-color); color: white; border: none; border-radius: 10px; font-size: 1.05em; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.2s; }
         button.submit-btn:hover { background-color: #a05a2b; }
         button.submit-btn.secondary { background-color: var(--sub-btn-bg); }
-        button.submit-btn.secondary:hover { background-color: #584e46; }
-        button.submit-btn:disabled { background-color: #ccc; cursor: not-allowed; }
+        button.submit-btn.outline { background-color: transparent; border: 2px solid var(--sub-btn-bg); color: var(--sub-btn-bg); }
+        button.submit-btn:disabled { background-color: #ccc; border:none; cursor: not-allowed; }
         
+        /* 📊 카드 및 요약(Summary) 박스 */
         .card { border: 1px solid var(--border-color); padding: 18px; border-radius: 12px; margin-bottom: 15px; background: #faf8f5; }
         .card h3 { margin-top: 0; margin-bottom: 12px; color: var(--primary-color); border-bottom: 2px solid var(--border-color); padding-bottom: 8px; font-size: 1.1em; }
         .result-circles-container { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
         .result-circle { width: 28px; height: 28px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.1); }
         .loading-text { text-align: center; color: #8c7f75; font-weight: bold; margin: 25px 0; }
+        
+        /* 🔥 요약 바(Summary Bar) 스타일 */
+        .summary-box { background: #fff5eb; border: 1px solid #fbdcbb; padding: 15px; border-radius: 12px; margin-bottom: 25px; display: flex; flex-direction: column; gap: 10px; }
+        .summary-box h3 { margin: 0 0 5px 0; font-size: 0.95em; color: var(--accent-color); }
+        .summary-row { display: flex; align-items: center; gap: 10px; }
+        .top-tag { font-size: 0.85em; font-weight: bold; background: white; padding: 4px 10px; border-radius: 12px; border: 1px solid #fbdcbb; color: var(--accent-color); }
+
+        /* 🗂️ 비교 모드(Grid) 및 히스토리 리스트 */
+        .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        @media (max-width: 600px) { .compare-grid { grid-template-columns: 1fr; } }
+        .history-item { padding: 15px; border-bottom: 1px solid var(--border-color); cursor: pointer; transition: background 0.2s; border-radius: 8px; }
+        .history-item:hover { background: #fdfaf5; }
+        .history-date { font-size: 0.8em; color: #999; margin-bottom: 4px; }
+        .history-bean { font-weight: bold; color: var(--primary-color); font-size: 1.05em; }
+        .history-code { display: inline-block; background: var(--tag-bg); padding: 2px 8px; border-radius: 10px; font-size: 0.75em; margin-top: 5px; }
     </style>
 </head>
 <body>
 
-    <div class="brand-logo">
+    <div class="brand-logo" onclick="location.reload()" style="cursor:pointer;">
         No Doubt
         <span>COFFEE ROASTERS</span>
     </div>
 
-    <div class="code-section" id="codeSection">
-        <h2 style="margin-top: 0; font-size: 1.15em; color: var(--accent-color);">📝 커핑 평가 참여하기</h2>
-        <p style="color: #7a6e65; font-size: 0.88em; margin-bottom: 15px;">샘플 입장 코드를 입력하여 컵노트를 작성합니다.</p>
+    <!-- 🔑 1. 메인 입장 선택 화면 -->
+    <div class="app-section active" id="menuSection">
+        <h2 style="margin-top: 0; font-size: 1.15em; color: var(--accent-color);">📝 커핑 평가 / 팀 결과 보기</h2>
+        <p style="color: #7a6e65; font-size: 0.88em; margin-bottom: 15px;">코드를 입력하고 평가에 참여하거나 결과를 확인합니다.</p>
         <div class="input-group">
-            <input type="text" id="evalCodeInput" placeholder="코드를 입력하세요" style="text-align: center; font-size: 1.1em; letter-spacing: 2px;">
+            <input type="text" id="mainCodeInput" placeholder="코드를 입력하세요 (예: 777)" style="text-align: center; font-size: 1.1em; letter-spacing: 2px;">
         </div>
-        <button class="submit-btn" onclick="startEvaluation()">평가 시작하기</button>
+        <div style="display: flex; gap: 10px;">
+            <button class="submit-btn" style="margin-top:0;" onclick="startAction('eval')">평가 시작</button>
+            <button class="submit-btn secondary" style="margin-top:0;" onclick="startAction('result')">결과 확인</button>
+        </div>
 
         <hr class="divider">
 
-        <h2 style="margin-top: 0; font-size: 1.15em; color: var(--sub-btn-bg);">📊 팀 결과 바로 확인하기</h2>
-        <p style="color: #7a6e65; font-size: 0.88em; margin-bottom: 15px;">작성 없이 팀원들의 캘리브레이션 결과만 확인합니다.</p>
-        <div class="input-group">
-            <input type="text" id="resultCodeInput" placeholder="코드를 입력하세요" style="text-align: center; font-size: 1.1em; letter-spacing: 2px;">
-        </div>
-        <button class="submit-btn secondary" onclick="viewResultsDirectly()">결과 대시보드 열기</button>
+        <h2 style="margin-top: 0; font-size: 1.15em; color: #4a6fa5;">🔬 로스팅 배치 비교 모드</h2>
+        <p style="color: #7a6e65; font-size: 0.88em; margin-bottom: 15px;">두 개의 다른 샘플/배치를 나란히 놓고 시각적으로 비교합니다.</p>
+        <button class="submit-btn outline" onclick="showSection('compareSetupSection')">비교 모드 열기</button>
+
+        <hr class="divider">
+
+        <h2 style="margin-top: 0; font-size: 1.15em; color: #3c322c;">🗂️ 지난 커핑 아카이브</h2>
+        <p style="color: #7a6e65; font-size: 0.88em; margin-bottom: 15px;">과거에 진행했던 커핑 데이터 기록을 모아봅니다.</p>
+        <button class="submit-btn outline" onclick="openHistory()">과거 기록 찾기</button>
     </div>
 
-    <div class="form-section" id="formSection">
+    <!-- 📝 2. 커핑 평가 폼 화면 -->
+    <div class="app-section" id="formSection">
         <div class="bean-display" id="currentBeanInfo"></div>
+        <div class="input-group"><label>평가자 이름</label><input type="text" id="cupperName" placeholder="이름을 입력하세요 (예: 민수)"></div>
 
-        <div class="input-group">
-            <label>평가자 이름</label>
-            <input type="text" id="cupperName" placeholder="이름을 입력하세요 (예: 민수)">
-        </div>
-
-        <h3 style="margin-top: 30px; margin-bottom: 6px; font-size: 1.05em;">🎨 1. 시각적 연상 (Color Vibe)</h3>
-        <p style="color: #7a6e65; font-size: 0.82em; margin-top: 0; margin-bottom: 15px;">커피를 머금었을 때 떠오르는 색감을 선입견 없이 골라주세요.</p>
-        
+        <h3 style="margin-top: 30px; font-size: 1.05em;">🎨 1. 시각적 연상 (Color Vibe)</h3>
         <div class="color-grid">
-            <div class="color-chip" style="background-color: #FFD1DC;" data-bg="#FFD1DC" onclick="toggleColor(this)"></div>
-            <div class="color-chip" style="background-color: #FFA6B5;" data-bg="#FFA6B5" onclick="toggleColor(this)"></div>
-            <div class="color-chip" style="background-color: #FF4D6D;" data-bg="#FF4D6D" onclick="toggleColor(this)"></div>
-            <div class="color-chip" style="background-color: #D00000;" data-bg="#D00000" onclick="toggleColor(this)"></div>
-            <div class="color-chip" style="background-color: #7B111F;" data-bg="#7B111F" onclick="toggleColor(this)"></div>
-            <div class="color-chip" style="background-color: #4A0E17;" data-bg="#4A0E17" onclick="toggleColor(this)"></div>
-
-            <div class="color-chip" style="background-color: #FFE699;" data-bg="#FFE699" onclick="toggleColor(this)"></div>
-            <div class="color-chip" style="background-color: #FFD60A;" data-bg="#FFD60A" onclick="toggleColor(this)"></div>
-            <div class="color-chip" style="background-color: #FFB703;" data-bg="#FFB703" onclick="toggleColor(this)"></div>
-            <div class="color-chip" style="background-color: #FB8500;" data-bg="#FB8500" onclick="toggleColor(this)"></div>
-            <div class="color-chip" style="background-color: #E76F51;" data-bg="#E76F51" onclick="toggleColor(this)"></div>
-            <div class="color-chip" style="background-color: #A04000;" data-bg="#A04000" onclick="toggleColor(this)"></div>
-
-            <div class="color-chip" style="background-color: #E2F0CB;" data-bg="#E2F0CB" onclick="toggleColor(this)"></div>
-            <div class="color-chip" style="background-color: #B1C15F;" data-bg="#B1C15F" onclick="toggleColor(this)"></div>
-            <div class="color-chip" style="background-color: #8CB369;" data-bg="#8CB369" onclick="toggleColor(this)"></div>
-            <div class="color-chip" style="background-color: #40916C;" data-bg="#40916C" onclick="toggleColor(this)"></div>
-            <div class="color-chip" style="background-color: #2A9D8F;" data-bg="#2A9D8F" onclick="toggleColor(this)"></div>
-            <div class="color-chip" style="background-color: #1B4332;" data-bg="#1B4332" onclick="toggleColor(this)"></div>
-
-            <div class="color-chip" style="background-color: #A2D2FF;" data-bg="#A2D2FF" onclick="toggleColor(this)"></div>
-            <div class="color-chip" style="background-color: #CDB4DB;" data-bg="#CDB4DB" onclick="toggleColor(this)"></div>
-            <div class="color-chip" style="background-color: #7209B7;" data-bg="#7209B7" onclick="toggleColor(this)"></div>
-            <div class="color-chip" style="background-color: #DDB892;" data-bg="#DDB892" onclick="toggleColor(this)"></div>
-            <div class="color-chip" style="background-color: #C98860;" data-bg="#C98860" onclick="toggleColor(this)"></div>
-            <div class="color-chip" style="background-color: #5C4033;" data-bg="#5C4033" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #FFD1DC;" data-bg="#FFD1DC" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #FFA6B5;" data-bg="#FFA6B5" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #FF4D6D;" data-bg="#FF4D6D" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #D00000;" data-bg="#D00000" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #7B111F;" data-bg="#7B111F" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #4A0E17;" data-bg="#4A0E17" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #FFE699;" data-bg="#FFE699" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #FFD60A;" data-bg="#FFD60A" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #FFB703;" data-bg="#FFB703" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #FB8500;" data-bg="#FB8500" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #E76F51;" data-bg="#E76F51" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #A04000;" data-bg="#A04000" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #E2F0CB;" data-bg="#E2F0CB" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #B1C15F;" data-bg="#B1C15F" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #8CB369;" data-bg="#8CB369" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #40916C;" data-bg="#40916C" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #2A9D8F;" data-bg="#2A9D8F" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #1B4332;" data-bg="#1B4332" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #A2D2FF;" data-bg="#A2D2FF" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #CDB4DB;" data-bg="#CDB4DB" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #7209B7;" data-bg="#7209B7" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #DDB892;" data-bg="#DDB892" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #C98860;" data-bg="#C98860" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #5C4033;" data-bg="#5C4033" onclick="toggleColor(this)"></div>
         </div>
 
-        <h3 style="margin-top: 35px; margin-bottom: 5px; font-size: 1.05em;">🏷️ 2. 상세 노트 (다중 선택)</h3>
-        
+        <h3 style="margin-top: 35px; font-size: 1.05em;">🏷️ 2. 상세 노트 (다중 선택)</h3>
         <div class="category-title">🌸 Floral & Tea</div>
-        <div class="tags">
-            <div class="tag" onclick="toggleTag(this)">자스민</div><div class="tag" onclick="toggleTag(this)">히비스커스</div>
-            <div class="tag" onclick="toggleTag(this)">아카시아</div><div class="tag" onclick="toggleTag(this)">라벤더</div>
-            <div class="tag" onclick="toggleTag(this)">베르가못</div><div class="tag" onclick="toggleTag(this)">홍차</div>
-            <input type="text" class="custom-tag-input" placeholder="+ 직접 입력">
-        </div>
-
+        <div class="tags"><div class="tag" onclick="toggleTag(this)">자스민</div><div class="tag" onclick="toggleTag(this)">히비스커스</div><div class="tag" onclick="toggleTag(this)">아카시아</div><div class="tag" onclick="toggleTag(this)">라벤더</div><div class="tag" onclick="toggleTag(this)">베르가못</div><div class="tag" onclick="toggleTag(this)">홍차</div><input type="text" class="custom-tag-input" placeholder="+ 직접 입력"></div>
         <div class="category-title">🍋 Fruity (Citrus & Stone Fruit)</div>
-        <div class="tags">
-            <div class="tag" onclick="toggleTag(this)">레몬</div><div class="tag" onclick="toggleTag(this)">라임</div>
-            <div class="tag" onclick="toggleTag(this)">오렌지</div>
-            <div class="tag" onclick="toggleTag(this)">자두</div><div class="tag" onclick="toggleTag(this)">살구</div><div class="tag" onclick="toggleTag(this)">복숭아</div>
-            <input type="text" class="custom-tag-input" placeholder="+ 직접 입력">
-        </div>
-
+        <div class="tags"><div class="tag" onclick="toggleTag(this)">레몬</div><div class="tag" onclick="toggleTag(this)">라임</div><div class="tag" onclick="toggleTag(this)">오렌지</div><div class="tag" onclick="toggleTag(this)">자두</div><div class="tag" onclick="toggleTag(this)">살구</div><div class="tag" onclick="toggleTag(this)">복숭아</div><input type="text" class="custom-tag-input" placeholder="+ 직접 입력"></div>
         <div class="category-title">🍓 Fruity (Berry & Tropical)</div>
-        <div class="tags">
-            <div class="tag" onclick="toggleTag(this)">딸기</div><div class="tag" onclick="toggleTag(this)">블루베리</div>
-            <div class="tag" onclick="toggleTag(this)">라즈베리</div><div class="tag" onclick="toggleTag(this)">패션후르츠</div>
-            <div class="tag" onclick="toggleTag(this)">망고</div><div class="tag" onclick="toggleTag(this)">리치</div>
-            <input type="text" class="custom-tag-input" placeholder="+ 직접 입력">
-        </div>
-
+        <div class="tags"><div class="tag" onclick="toggleTag(this)">딸기</div><div class="tag" onclick="toggleTag(this)">블루베리</div><div class="tag" onclick="toggleTag(this)">라즈베리</div><div class="tag" onclick="toggleTag(this)">패션후르츠</div><div class="tag" onclick="toggleTag(this)">망고</div><div class="tag" onclick="toggleTag(this)">리치</div><input type="text" class="custom-tag-input" placeholder="+ 직접 입력"></div>
         <div class="category-title">🍷 Process & Sweet</div>
-        <div class="tags">
-            <div class="tag" onclick="toggleTag(this)">와이니(Winey)</div><div class="tag" onclick="toggleTag(this)">럼/위스키</div>
-            <div class="tag" onclick="toggleTag(this)">요거트</div><div class="tag" onclick="toggleTag(this)">펑키(Funky)</div>
-            <div class="tag" onclick="toggleTag(this)">브라운슈가</div><div class="tag" onclick="toggleTag(this)">카라멜</div>
-            <input type="text" class="custom-tag-input" placeholder="+ 직접 입력">
-        </div>
+        <div class="tags"><div class="tag" onclick="toggleTag(this)">와이니(Winey)</div><div class="tag" onclick="toggleTag(this)">럼/위스키</div><div class="tag" onclick="toggleTag(this)">요거트</div><div class="tag" onclick="toggleTag(this)">펑키(Funky)</div><div class="tag" onclick="toggleTag(this)">브라운슈가</div><div class="tag" onclick="toggleTag(this)">카라멜</div><input type="text" class="custom-tag-input" placeholder="+ 직접 입력"></div>
 
-        <div class="input-group" style="margin-top: 25px;">
-            <label>한줄평 / 종합 의견</label>
-            <textarea id="oneLiner" rows="3" placeholder="예: 첫 모금에 화사한 플로럴이 퍼지고, 식을수록 클린컵이 좋습니다."></textarea>
-        </div>
-
-        <button class="submit-btn" id="submitBtn" onclick="submitNote()">의견 제출 및 팀 결과 보기</button>
+        <div class="input-group" style="margin-top: 25px;"><label>한줄평 / 종합 의견</label><textarea id="oneLiner" rows="3" placeholder="예: 첫 모금에 화사한 플로럴이 퍼집니다."></textarea></div>
+        <button class="submit-btn" id="submitBtn" onclick="submitNote()">제출 및 대시보드 보기</button>
+        <button class="submit-btn outline" onclick="location.reload()">메인으로 취소</button>
     </div>
 
-    <div class="dashboard-section" id="dashboardSection">
+    <!-- ✅ 3. 팀 결과 (단일 대시보드) 화면 -->
+    <div class="app-section" id="dashboardSection">
         <div class="bean-display" id="resultBeanInfo" style="background-color: var(--sub-btn-bg);"></div>
         <h2 style="margin-top: 0; color: var(--accent-color); font-size: 1.2em;">📊 팀 캘리브레이션</h2>
-        <p style="color: #7a6e65; font-size: 0.85em; margin-bottom: 20px;">5초마다 팀원들의 평가가 실시간 업데이트됩니다.</p>
-        
-        <div id="teamResultsContainer">
-            <div class="loading-text">데이터를 동기화 중입니다 ⏳</div>
+        <div id="summaryContainer"></div> <!-- 💡 요약 바(Summary Bar)가 들어갈 자리 -->
+        <div id="teamResultsContainer"><div class="loading-text">데이터 동기화 중... ⏳</div></div>
+        <button class="submit-btn secondary" style="margin-top: 25px;" onclick="location.reload()">메인 화면으로 돌아가기</button>
+    </div>
+
+    <!-- 🔬 4. 배치 비교 모드 설정 화면 -->
+    <div class="app-section" id="compareSetupSection">
+        <h2 style="margin-top: 0; color: #4a6fa5;">비교할 두 샘플의 코드를 입력하세요</h2>
+        <div class="input-group"><label>첫 번째 샘플 코드 (A)</label><input type="text" id="compCode1" placeholder="예: 101"></div>
+        <div class="input-group"><label>두 번째 샘플 코드 (B)</label><input type="text" id="compCode2" placeholder="예: TEST"></div>
+        <button class="submit-btn" style="background-color: #4a6fa5;" onclick="startCompare()">나란히 비교하기</button>
+        <button class="submit-btn outline" onclick="location.reload()">뒤로 가기</button>
+    </div>
+
+    <!-- 🔬 4-1. 배치 비교 모드 대시보드 -->
+    <div class="app-section" id="compareDashboardSection" style="max-width: 100%; padding: 20px;">
+        <h2 style="margin-top: 0; color: #4a6fa5; text-align: center;">🔬 배치 비교 분석</h2>
+        <div class="compare-grid">
+            <div>
+                <div class="bean-display" id="compBean1" style="background-color: #4a6fa5; padding: 10px; font-size: 0.9em;"></div>
+                <div id="compSummary1"></div>
+                <div id="compResults1"><div class="loading-text">불러오는 중...</div></div>
+            </div>
+            <div>
+                <div class="bean-display" id="compBean2" style="background-color: #b86b35; padding: 10px; font-size: 0.9em;"></div>
+                <div id="compSummary2"></div>
+                <div id="compResults2"><div class="loading-text">불러오는 중...</div></div>
+            </div>
         </div>
-        
-        <button class="submit-btn secondary" style="margin-top: 25px;" onclick="location.reload()">첫 화면으로 돌아가기</button>
+        <button class="submit-btn outline" style="margin-top: 30px;" onclick="location.reload()">메인 화면으로 돌아가기</button>
+    </div>
+
+    <!-- 🗂️ 5. 과거 아카이브 목록 화면 -->
+    <div class="app-section" id="historySection">
+        <h2 style="margin-top: 0; color: var(--primary-color);">🗂️ 과거 커핑 기록</h2>
+        <p style="color: #7a6e65; font-size: 0.85em; margin-bottom: 20px;">항목을 클릭하면 해당 데이터 대시보드로 이동합니다.</p>
+        <div id="historyListContainer"><div class="loading-text">기록을 찾고 있습니다 ⏳</div></div>
+        <button class="submit-btn outline" style="margin-top: 25px;" onclick="location.reload()">메인 화면으로 돌아가기</button>
     </div>
 
     <script>
+        // 💡 1. 입장 코드 세팅
         const ACCESS_CODES = {
             "101": "Sample A : 에티오피아 예가체프 워시드",
             "102": "Sample B : 콜롬비아 게이샤 무산소",
@@ -269,43 +184,53 @@
             "777": "에콰도르 루그마파타 시드라 워시드"
         };
 
+        // 🔗 2. 구글 스크립트 웹 앱 URL
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwpTu3I_mt-UeNUQ-QwTmFf4uJLbyqhaeMqCUxXsbXGZPDV9xmY5WG9FzHwNBAmxNAQ-g/exec";
 
         let currentCode = "";
         let currentBean = "";
+        let autoRefreshInterval = null;
 
-        function startEvaluation() {
-            const input = document.getElementById('evalCodeInput').value.trim();
+        function showSection(sectionId) {
+            document.querySelectorAll('.app-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // --- 메인 시작 함수 ---
+        function startAction(type) {
+            const input = document.getElementById('mainCodeInput').value.trim();
             if (!input) { alert("입장 코드를 입력해주세요."); return; }
             if (ACCESS_CODES[input.toUpperCase()] || ACCESS_CODES[input]) {
                 currentCode = input.toUpperCase() || input;
                 currentBean = ACCESS_CODES[currentCode];
-                document.getElementById('currentBeanInfo').innerText = currentBean;
-                document.getElementById('codeSection').style.display = 'none';
-                document.getElementById('formSection').style.display = 'block';
-                window.scrollTo(0, 0);
-            } else { alert("올바르지 않은 입장 코드입니다."); }
+                if(type === 'eval') {
+                    document.getElementById('currentBeanInfo').innerText = currentBean;
+                    showSection('formSection');
+                } else {
+                    document.getElementById('resultBeanInfo').innerText = currentBean;
+                    showSection('dashboardSection');
+                    loadTeamData(currentCode, 'teamResultsContainer', 'summaryContainer');
+                    autoRefreshInterval = setInterval(() => loadTeamData(currentCode, 'teamResultsContainer', 'summaryContainer'), 5000);
+                }
+            } else { 
+                // DB에만 있는 과거 코드일 수도 있으므로 결과 보기 허용
+                if(type === 'result') {
+                    currentCode = input; currentBean = "과거 기록 (코드: " + input + ")";
+                    document.getElementById('resultBeanInfo').innerText = currentBean;
+                    showSection('dashboardSection');
+                    loadTeamData(currentCode, 'teamResultsContainer', 'summaryContainer');
+                } else {
+                    alert("평가를 위한 올바른 입장 코드가 아닙니다.");
+                }
+            }
         }
 
-        async function viewResultsDirectly() {
-            const input = document.getElementById('resultCodeInput').value.trim();
-            if (!input) { alert("입장 코드를 입력해주세요."); return; }
-            if (ACCESS_CODES[input.toUpperCase()] || ACCESS_CODES[input]) {
-                currentCode = input.toUpperCase() || input;
-                currentBean = ACCESS_CODES[currentCode];
-                document.getElementById('resultBeanInfo').innerText = currentBean;
-                document.getElementById('codeSection').style.display = 'none';
-                document.getElementById('dashboardSection').style.display = 'block';
-                window.scrollTo(0, 0);
-
-                await loadTeamData();
-                setInterval(loadTeamData, 5000);
-            } else { alert("올바르지 않은 입장 코드입니다."); }
-        }
-
+        // --- 색상/태그 클릭 ---
         function toggleColor(element) { element.classList.toggle('selected'); }
         function toggleTag(element) { element.classList.toggle('selected'); }
 
+        // --- 커핑 제출 ---
         async function submitNote() {
             const name = document.getElementById('cupperName').value.trim();
             const oneLiner = document.getElementById('oneLiner').value.trim();
@@ -313,84 +238,150 @@
 
             const selectedColorHexes = Array.from(document.querySelectorAll('.color-chip.selected')).map(chip => chip.getAttribute('data-bg'));
             const selectedTagsArray = Array.from(document.querySelectorAll('.tag.selected')).map(tag => tag.innerText);
-            const customTagsArray = Array.from(document.querySelectorAll('.custom-tag-input'))
-                                         .map(input => input.value.trim())
-                                         .filter(val => val !== "");
+            const customTagsArray = Array.from(document.querySelectorAll('.custom-tag-input')).map(inp => inp.value.trim()).filter(v => v !== "");
             
             const allTags = [...selectedTagsArray, ...customTagsArray].join(', ');
             const colorsHexText = selectedColorHexes.join(',');
             const combinedTags = colorsHexText ? `[색채:${colorsHexText}] ${allTags}` : allTags;
 
             const btn = document.getElementById('submitBtn');
-            btn.innerText = "결과 취합 중...";
-            btn.disabled = true;
+            btn.innerText = "제출 중..."; btn.disabled = true;
 
-            const payload = {
-                accessCode: currentCode, beanInfo: currentBean,
-                name: name, oneLiner: oneLiner, tags: combinedTags
-            };
+            const payload = { accessCode: currentCode, beanInfo: currentBean, name: name, oneLiner: oneLiner, tags: combinedTags };
 
             try {
-                fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST', mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                setTimeout(async () => {
+                fetch(GOOGLE_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                setTimeout(() => {
                     document.getElementById('resultBeanInfo').innerText = currentBean;
-                    document.getElementById('formSection').style.display = 'none';
-                    document.getElementById('dashboardSection').style.display = 'block';
-                    window.scrollTo(0, 0);
-                    
-                    await loadTeamData();
-                    setInterval(loadTeamData, 5000);
+                    showSection('dashboardSection');
+                    loadTeamData(currentCode, 'teamResultsContainer', 'summaryContainer');
+                    autoRefreshInterval = setInterval(() => loadTeamData(currentCode, 'teamResultsContainer', 'summaryContainer'), 5000);
                 }, 1200);
-
-            } catch(e) {
-                alert("오류가 발생했습니다.");
-                btn.innerText = "의견 제출 및 팀 결과 보기";
-                btn.disabled = false;
-            }
+            } catch(e) { alert("오류가 발생했습니다."); btn.innerText = "제출 및 대시보드 보기"; btn.disabled = false; }
         }
 
-        async function loadTeamData() {
-            const container = document.getElementById('teamResultsContainer');
+        // --- 📊 데이터 렌더링 및 요약(Summary) 바 자동 생성 ---
+        async function loadTeamData(code, containerId, summaryId) {
+            const container = document.getElementById(containerId);
+            const summaryContainer = document.getElementById(summaryId);
             try {
-                const response = await fetch(GOOGLE_SCRIPT_URL + "?accessCode=" + currentCode);
+                const response = await fetch(GOOGLE_SCRIPT_URL + "?accessCode=" + code);
                 const teamData = await response.json();
 
                 if(teamData.length === 0) {
-                    container.innerHTML = "<p style='text-align:center; color: #7a6e65;'>아직 제출된 팀원의 평가가 없습니다.</p>";
-                } else {
-                    let html = "";
-                    teamData.forEach(item => {
-                        let colorsHtml = "";
-                        let tagsText = item.tags || '선택 없음';
-                        
-                        const colorMatch = tagsText.match(/\[색채:\s*(.*?)\]/);
-                        if (colorMatch && colorMatch[1]) {
-                            const hexCodes = colorMatch[1].split(',');
-                            hexCodes.forEach(hex => {
-                                colorsHtml += `<div class="result-circle" style="background-color: ${hex.trim()};"></div>`;
-                            });
-                            tagsText = tagsText.replace(colorMatch[0], '').trim();
-                        }
-
-                        html += `
-                            <div class="card">
-                                <h3>👤 ${item.name}</h3>
-                                ${colorsHtml ? `<div class="result-circles-container">${colorsHtml}</div>` : ''}
-                                ${tagsText ? `<p style="margin: 10px 0 5px 0; font-size: 0.9em; color: #666;"><strong>상세 노트:</strong> <span style="color: var(--primary-color);">${tagsText}</span></p>` : ''}
-                                <p style="margin: 8px 0; color: #444; font-size: 0.95em; line-height: 1.4;"><strong>의견:</strong> ${item.oneLiner || '작성된 의견 없음'}</p>
-                            </div>
-                        `;
-                    });
-                    container.innerHTML = html;
+                    container.innerHTML = "<p style='text-align:center;'>데이터가 없습니다.</p>";
+                    summaryContainer.innerHTML = "";
+                    return;
                 }
-            } catch (error) {
-                container.innerHTML = "<p style='text-align:center; color: #c0392b;'>결과를 불러오는 중 오류가 발생했습니다.</p>";
-            }
+
+                let html = "";
+                let colorFreq = {}; let tagFreq = {};
+
+                teamData.forEach(item => {
+                    let colorsHtml = "";
+                    let tagsText = item.tags || '';
+                    
+                    const colorMatch = tagsText.match(/\[색채:\s*(.*?)\]/);
+                    if (colorMatch && colorMatch[1]) {
+                        const hexCodes = colorMatch[1].split(',');
+                        hexCodes.forEach(hex => {
+                            let h = hex.trim();
+                            colorsHtml += `<div class="result-circle" style="background-color: ${h};"></div>`;
+                            colorFreq[h] = (colorFreq[h] || 0) + 1; // 요약을 위한 카운팅
+                        });
+                        tagsText = tagsText.replace(colorMatch[0], '').trim();
+                    }
+
+                    if(tagsText) {
+                        tagsText.split(',').forEach(t => {
+                            let tag = t.trim();
+                            if(tag) tagFreq[tag] = (tagFreq[tag] || 0) + 1; // 태그 카운팅
+                        });
+                    }
+
+                    html += `
+                        <div class="card">
+                            <h3>👤 ${item.name}</h3>
+                            ${colorsHtml ? `<div class="result-circles-container">${colorsHtml}</div>` : ''}
+                            ${tagsText ? `<p style="margin: 10px 0 5px 0; font-size: 0.85em; color: #666;"><strong>상세 노트:</strong> <span style="color: var(--primary-color);">${tagsText}</span></p>` : ''}
+                            <p style="margin: 8px 0; font-size: 0.9em; line-height: 1.4;">${item.oneLiner || '-'}</p>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+
+                // 💡 [요약 바 생성] 가장 많이 나온 색채 3개 & 태그 3개 추출
+                let topColors = Object.keys(colorFreq).sort((a,b) => colorFreq[b] - colorFreq[a]).slice(0,4);
+                let topTags = Object.keys(tagFreq).sort((a,b) => tagFreq[b] - tagFreq[a]).slice(0,3);
+
+                if(topColors.length > 0 || topTags.length > 0) {
+                    let sumHtml = `<div class="summary-box">`;
+                    if(topColors.length > 0) {
+                        sumHtml += `<div><h3>🎨 팀 대표 색상</h3><div class="result-circles-container">`;
+                        topColors.forEach(c => sumHtml += `<div class="result-circle" style="background-color:${c}; width:35px; height:35px;"></div>`);
+                        sumHtml += `</div></div>`;
+                    }
+                    if(topTags.length > 0) {
+                        sumHtml += `<div><h3>🏆 주요 테이스팅 노트</h3><div class="summary-row">`;
+                        topTags.forEach(t => sumHtml += `<div class="top-tag">${t}</div>`);
+                        sumHtml += `</div></div>`;
+                    }
+                    sumHtml += `</div>`;
+                    summaryContainer.innerHTML = sumHtml;
+                } else { summaryContainer.innerHTML = ""; }
+
+            } catch (error) { container.innerHTML = "<p style='text-align:center; color: red;'>오류가 발생했습니다.</p>"; }
+        }
+
+        // --- 🔬 비교 모드 ---
+        function startCompare() {
+            const c1 = document.getElementById('compCode1').value.trim();
+            const c2 = document.getElementById('compCode2').value.trim();
+            if(!c1 || !c2) { alert("비교할 두 코드를 모두 입력해주세요."); return; }
+            
+            document.getElementById('compBean1').innerText = ACCESS_CODES[c1] || "코드: " + c1;
+            document.getElementById('compBean2').innerText = ACCESS_CODES[c2] || "코드: " + c2;
+            
+            showSection('compareDashboardSection');
+            if(autoRefreshInterval) clearInterval(autoRefreshInterval); // 비교 모드는 자동 갱신 끄기
+            
+            loadTeamData(c1, 'compResults1', 'compSummary1');
+            loadTeamData(c2, 'compResults2', 'compSummary2');
+        }
+
+        // --- 🗂️ 아카이브(히스토리) 모드 ---
+        async function openHistory() {
+            showSection('historySection');
+            const container = document.getElementById('historyListContainer');
+            try {
+                const res = await fetch(GOOGLE_SCRIPT_URL + "?action=history");
+                const historyData = await res.json();
+                
+                if(historyData.length === 0) {
+                    container.innerHTML = "<p style='text-align:center;'>저장된 기록이 없습니다.</p>"; return;
+                }
+                
+                let html = "";
+                historyData.forEach(item => {
+                    const dateObj = new Date(item.lastDate);
+                    const dateStr = `${dateObj.getFullYear()}.${String(dateObj.getMonth()+1).padStart(2,'0')}.${String(dateObj.getDate()).padStart(2,'0')}`;
+                    html += `
+                        <div class="history-item" onclick="openHistoryItem('${item.accessCode}', '${item.beanInfo}')">
+                            <div class="history-date">${dateStr} · 참여 ${item.count}명</div>
+                            <div class="history-bean">${item.beanInfo}</div>
+                            <div class="history-code">코드: ${item.accessCode}</div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            } catch(e) { container.innerHTML = "<p>기록을 불러오지 못했습니다.</p>"; }
+        }
+
+        function openHistoryItem(code, beanName) {
+            currentCode = code; currentBean = beanName;
+            document.getElementById('resultBeanInfo').innerText = currentBean;
+            showSection('dashboardSection');
+            loadTeamData(code, 'teamResultsContainer', 'summaryContainer');
         }
     </script>
 </body>
