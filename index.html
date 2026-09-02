@@ -6,10 +6,13 @@
     <title><No Doubt> Cupping Note</title>
     <style>
         :root { 
-            --primary-color: #1a1a1a; 
-            --accent-color: #d35400; 
-            --bg-color: #f4f7f6; 
-            --card-bg: #ffffff; 
+            --primary-color: #3c322c;   /* 따뜻하고 은은한 딥 브라운 */
+            --accent-color: #b86b35;    /* 부드러운 테라코타 포인트 컬러 */
+            --bg-color: #f7f4ef;        /* 포근하고 은은한 베이지 배경 */
+            --card-bg: #ffffff;        /* 깔끔한 크림 화이트 카드 */
+            --tag-bg: #ede7de;         /* 베이지 톤 태그 배경 */
+            --border-color: #e5ded4;   /* 부드러운 테두리 색상 */
+            --sub-btn-bg: #6e6259;     /* 보조 버튼 색상 */
         }
         body { 
             font-family: 'Pretendard', -apple-system, sans-serif; 
@@ -23,23 +26,29 @@
             text-align: center; 
             font-weight: 900; 
             letter-spacing: -1px; 
+            color: var(--primary-color);
+            margin-top: 10px;
+            margin-bottom: 25px;
         }
         .bean-display { 
             background-color: var(--primary-color); 
-            color: white; 
+            color: #f7f4ef; 
             text-align: center; 
-            padding: 15px; 
-            border-radius: 8px; 
+            padding: 16px; 
+            border-radius: 10px; 
             margin-bottom: 25px; 
             font-size: 1.1em; 
             font-weight: bold; 
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(60, 50, 44, 0.08);
         }
         .form-section, .dashboard-section, .code-section { 
             background: var(--card-bg); 
-            padding: 25px 30px; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+            padding: 28px 30px; 
+            border-radius: 16px; 
+            box-shadow: 0 4px 12px rgba(60, 50, 44, 0.04); 
             margin-bottom: 20px; 
+            border: 1px solid var(--border-color);
         }
         
         /* 초기 화면 제어 */
@@ -47,34 +56,48 @@
         
         .divider {
             border: 0;
-            border-top: 1px dashed #ccc;
+            border-top: 1px dashed var(--border-color);
             margin: 25px 0;
         }
 
         .input-group { margin-bottom: 15px; }
-        .input-group label { display: block; margin-bottom: 8px; font-weight: bold; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 0.95em; }
         .input-group input[type="text"], .input-group textarea { 
             width: 100%; 
-            padding: 12px; 
-            border: 1px solid #ccc; 
-            border-radius: 6px; 
+            padding: 12px 14px; 
+            border: 1px solid var(--border-color); 
+            background-color: #faf8f5;
+            border-radius: 8px; 
             box-sizing: border-box; 
             font-size: 1em; 
             font-family: inherit; 
+            color: var(--primary-color);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .input-group input[type="text"]:focus, .input-group textarea:focus {
+            border-color: var(--accent-color);
+            background-color: #ffffff;
         }
         
-        .category-title { font-size: 0.9em; color: #666; margin: 15px 0 8px 0; font-weight: bold; }
+        .category-title { font-size: 0.88em; color: #7a6e65; margin: 18px 0 8px 0; font-weight: bold; }
         .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 15px; }
         .tag { 
-            padding: 6px 12px; 
-            background: #e9ecef; 
-            border-radius: 16px; 
+            padding: 7px 13px; 
+            background: var(--tag-bg); 
+            color: var(--primary-color);
+            border-radius: 18px; 
             font-size: 0.85em; 
             cursor: pointer; 
             transition: all 0.2s; 
             user-select: none; 
         }
-        .tag.selected { background: var(--accent-color); color: white; font-weight: bold; }
+        .tag.selected { 
+            background: var(--accent-color); 
+            color: white; 
+            font-weight: bold; 
+            box-shadow: 0 2px 6px rgba(184, 107, 53, 0.3);
+        }
         
         button.submit-btn { 
             width: 100%; 
@@ -82,21 +105,43 @@
             background-color: var(--accent-color); 
             color: white; 
             border: none; 
-            border-radius: 8px; 
-            font-size: 1.1em; 
+            border-radius: 10px; 
+            font-size: 1.05em; 
             font-weight: bold; 
             cursor: pointer; 
             margin-top: 10px;
+            transition: background-color 0.2s;
+            box-shadow: 0 2px 8px rgba(184, 107, 53, 0.25);
+        }
+        button.submit-btn:hover {
+            background-color: #a05a2b;
         }
         button.submit-btn.secondary {
-            background-color: #2c3e50;
+            background-color: var(--sub-btn-bg);
+            box-shadow: 0 2px 8px rgba(110, 98, 89, 0.2);
         }
-        button.submit-btn:disabled { background-color: #ccc; cursor: not-allowed; }
+        button.submit-btn.secondary:hover {
+            background-color: #584e46;
+        }
+        button.submit-btn:disabled { background-color: #ccc; cursor: not-allowed; box-shadow: none; }
         
         /* 결과 카드 디자인 */
-        .card { border: 1px solid #eee; padding: 15px; border-radius: 8px; margin-bottom: 15px; background: #fafafa; }
-        .card h3 { margin-top: 0; color: var(--primary-color); border-bottom: 2px solid var(--accent-color); padding-bottom: 8px; display: inline-block; font-size: 1.1em;}
-        .loading-text { text-align: center; color: #888; font-weight: bold; margin: 20px 0; }
+        .card { 
+            border: 1px solid var(--border-color); 
+            padding: 16px 18px; 
+            border-radius: 10px; 
+            margin-bottom: 15px; 
+            background: #faf8f5; 
+        }
+        .card h3 { 
+            margin-top: 0; 
+            color: var(--primary-color); 
+            border-bottom: 2px solid var(--accent-color); 
+            padding-bottom: 6px; 
+            display: inline-block; 
+            font-size: 1.05em;
+        }
+        .loading-text { text-align: center; color: #8c7f75; font-weight: bold; margin: 25px 0; }
     </style>
 </head>
 <body>
@@ -104,8 +149,8 @@
     <h1>☕ &lt;No Doubt&gt; Cupping Note</h1>
 
     <div class="code-section" id="codeSection">
-        <h2 style="margin-top: 0; font-size: 1.2em; color: var(--accent-color);">📝 커핑 평가 참여하기</h2>
-        <p style="color: #666; font-size: 0.85em; margin-bottom: 15px;">전달받으신 샘플 입장 코드를 입력하여 커핑 평가를 시작합니다.</p>
+        <h2 style="margin-top: 0; font-size: 1.15em; color: var(--accent-color);">📝 커핑 평가 참여하기</h2>
+        <p style="color: #7a6e65; font-size: 0.88em; margin-bottom: 15px;">전달받으신 샘플 입장 코드를 입력하여 커핑 평가를 시작합니다.</p>
         <div class="input-group">
             <input type="text" id="evalCodeInput" placeholder="입장 코드 (예: 101)" style="text-align: center; font-size: 1.1em; letter-spacing: 2px;">
         </div>
@@ -113,8 +158,8 @@
 
         <hr class="divider">
 
-        <h2 style="margin-top: 0; font-size: 1.2em; color: #2c3e50;">📊 팀 결과만 바로 확인하기</h2>
-        <p style="color: #666; font-size: 0.85em; margin-bottom: 15px;">평가 없이 팀원들이 작성한 커핑 결과만 실시간으로 확인합니다.</p>
+        <h2 style="margin-top: 0; font-size: 1.15em; color: var(--sub-btn-bg);">📊 팀 결과만 바로 확인하기</h2>
+        <p style="color: #7a6e65; font-size: 0.88em; margin-bottom: 15px;">평가 없이 팀원들이 작성한 커핑 결과만 실시간으로 확인합니다.</p>
         <div class="input-group">
             <input type="text" id="resultCodeInput" placeholder="입장 코드 (예: 101)" style="text-align: center; font-size: 1.1em; letter-spacing: 2px;">
         </div>
@@ -129,7 +174,7 @@
             <input type="text" id="cupperName" placeholder="이름을 입력하세요">
         </div>
 
-        <h3 style="margin-top: 30px; margin-bottom: 5px;">Tasting Notes (다중 선택)</h3>
+        <h3 style="margin-top: 25px; margin-bottom: 5px; font-size: 1.1em;">Tasting Notes (다중 선택)</h3>
         
         <div class="category-title">🌸 Floral & Tea</div>
         <div class="tags">
@@ -181,15 +226,15 @@
     </div>
 
     <div class="dashboard-section" id="dashboardSection">
-        <div class="bean-display" id="resultBeanInfo" style="background-color: #2c3e50;"></div>
-        <h2 style="margin-top: 0; color: var(--accent-color);">📊 팀 캘리브레이션 결과</h2>
-        <p style="color: #666; font-size: 0.85em; margin-bottom: 20px;">5초마다 자동으로 최신 데이터가 업데이트됩니다 🔄</p>
+        <div class="bean-display" id="resultBeanInfo" style="background-color: var(--sub-btn-bg);"></div>
+        <h2 style="margin-top: 0; color: var(--accent-color); font-size: 1.2em;">📊 팀 캘리브레이션 결과</h2>
+        <p style="color: #7a6e65; font-size: 0.85em; margin-bottom: 20px;">5초마다 자동으로 최신 데이터가 업데이트됩니다 🔄</p>
         
         <div id="teamResultsContainer">
             <div class="loading-text">팀원들의 데이터를 불러오는 중입니다 ⏳</div>
         </div>
         
-        <button class="submit-btn secondary" style="margin-top: 30px;" onclick="location.reload()">첫 화면으로 돌아가기</button>
+        <button class="submit-btn secondary" style="margin-top: 25px;" onclick="location.reload()">첫 화면으로 돌아가기</button>
     </div>
 
     <script>
@@ -197,7 +242,7 @@
         // 💡 1. 입장 코드 (새로운 원두 추가/수정 시 여기에 추가하세요)
         // =========================================================================
         const ACCESS_CODES = {
-            "101": "Sample A : 에티오피아 예가체프 워시드",
+            "RUME": "Sample A : 콜롬비아 라스 마가리타스 수단루메 하이브리드 워시드 ",
             "102": "Sample B : 콜롬비아 게이샤 무산소",
             "103": "Sample C : 과테말라 안티구아",
             "ND01": "<No Doubt> 하우스 블렌드 테스트"
@@ -308,22 +353,22 @@
                 const teamData = await response.json();
 
                 if(teamData.length === 0) {
-                    container.innerHTML = "<p style='text-align:center;'>아직 제출된 팀원의 평가가 없습니다.</p>";
+                    container.innerHTML = "<p style='text-align:center; color: #7a6e65;'>아직 제출된 팀원의 평가가 없습니다.</p>";
                 } else {
                     let html = "";
                     teamData.forEach(item => {
                         html += `
                             <div class="card">
                                 <h3>👤 ${item.name}</h3>
-                                <p><strong>선택 노트:</strong> <span style="color: #d35400;">${item.tags || '선택 없음'}</span></p>
-                                <p><strong>의견:</strong> ${item.oneLiner || '작성된 의견 없음'}</p>
+                                <p style="margin: 8px 0;"><strong>선택 노트:</strong> <span style="color: var(--accent-color); font-weight: 600;">${item.tags || '선택 없음'}</span></p>
+                                <p style="margin: 8px 0; color: #554a42;"><strong>의견:</strong> ${item.oneLiner || '작성된 의견 없음'}</p>
                             </div>
                         `;
                     });
                     container.innerHTML = html;
                 }
             } catch (error) {
-                container.innerHTML = "<p style='text-align:center; color: red;'>결과를 불러오는 중 오류가 발생했습니다.</p>";
+                container.innerHTML = "<p style='text-align:center; color: #c0392b;'>결과를 불러오는 중 오류가 발생했습니다.</p>";
             }
         }
     </script>
