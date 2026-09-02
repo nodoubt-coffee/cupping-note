@@ -8,7 +8,7 @@
         :root { 
             --primary-color: #3c322c;   
             --accent-color: #b86b35;    
-            --bg-color: #f4f1ea;        /* 카드 용지와 비슷한 웜 베이지 톤 */
+            --bg-color: #f4f1ea;        
             --card-bg: #ffffff;        
             --tag-bg: #ede7de;         
             --border-color: #e5ded4;   
@@ -22,37 +22,42 @@
             margin: 0 auto; 
             padding: 20px; 
         }
-        h1 { 
+        
+        /* 👑 로고 스타일 완벽 구현 */
+        .brand-logo { 
             text-align: center; 
-            font-weight: 900; 
-            letter-spacing: -1px; 
-            color: var(--primary-color);
-            margin-top: 10px;
-            margin-bottom: 25px;
-            font-family: 'Times New Roman', serif; /* 카드 타이틀 느낌 */
+            margin-top: 15px;
+            margin-bottom: 35px;
+            font-family: 'Georgia', 'Times New Roman', serif; 
+            color: #5a2a22; /* 로고의 다크 붉은 브라운 톤 */
+            font-size: 2.2em;
+            font-weight: bold;
+            letter-spacing: 1px;
         }
+        .brand-logo span {
+            display: block;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 0.35em;
+            font-weight: 400;
+            letter-spacing: 6px; /* 널찍한 자간 적용 */
+            color: #7a6e65;
+            margin-top: 8px;
+            margin-left: 6px; /* 자간 때문에 틀어지는 시각적 중앙 정렬 보정 */
+        }
+
         .bean-display { 
             background-color: var(--primary-color); 
-            color: #f7f4ef; 
-            text-align: center; 
-            padding: 16px; 
-            border-radius: 10px; 
-            margin-bottom: 25px; 
-            font-size: 1.1em; 
-            font-weight: bold; 
-            letter-spacing: 0.5px;
+            color: #f7f4ef; text-align: center; padding: 16px; 
+            border-radius: 10px; margin-bottom: 25px; 
+            font-size: 1.1em; font-weight: bold; letter-spacing: 0.5px;
         }
         .form-section, .dashboard-section, .code-section { 
-            background: var(--card-bg); 
-            padding: 28px 25px; 
-            border-radius: 16px; 
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03); 
-            margin-bottom: 20px; 
-            border: 1px solid var(--border-color);
+            background: var(--card-bg); padding: 28px 25px; 
+            border-radius: 16px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03); 
+            margin-bottom: 20px; border: 1px solid var(--border-color);
         }
         
         .form-section, .dashboard-section { display: none; }
-        
         .divider { border: 0; border-top: 1px dashed var(--border-color); margin: 25px 0; }
 
         .input-group { margin-bottom: 15px; }
@@ -66,37 +71,29 @@
             border-color: var(--accent-color); background-color: #ffffff;
         }
 
-        /* 🎨 시그니처 동글동글 원형 컬러 팔레트 */
+        /* 🎨 글씨 없는 24색 다채로운 원형 컬러 팔레트 */
         .color-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 한 줄에 4개씩 꽉 차게 */
+            grid-template-columns: repeat(6, 1fr); /* 한 줄에 6개씩 배치 */
             gap: 12px;
             margin-bottom: 25px;
             justify-items: center;
         }
         .color-chip {
             width: 100%;
-            max-width: 75px;
-            aspect-ratio: 1 / 1; /* 완벽한 원형 유지 */
+            max-width: 45px;
+            aspect-ratio: 1 / 1; 
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            font-size: 0.85em;
-            font-weight: 800;
-            line-height: 1.25;
             cursor: pointer;
-            border: 3px solid transparent;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05), 0 2px 5px rgba(0,0,0,0.06);
             transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            user-select: none;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.06);
-            word-break: keep-all;
+            /* 선택되었을 때 나타날 테두리를 위한 여백 */
+            border: 3px solid transparent; 
         }
         .color-chip.selected {
-            transform: scale(1.08); /* 선택 시 살짝 커짐 */
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-            border-color: rgba(60, 50, 44, 0.8); /* 테두리로 선택 표시 */
+            transform: scale(1.15); 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            border-color: #3c322c; /* 선택된 칩에 진한 테두리 표시 */
         }
 
         .category-title { font-size: 0.88em; color: #7a6e65; margin: 18px 0 8px 0; font-weight: bold; }
@@ -123,27 +120,27 @@
             border-radius: 12px; margin-bottom: 15px; background: #faf8f5; 
         }
         .card h3 { 
-            margin-top: 0; margin-bottom: 15px; color: var(--primary-color); 
+            margin-top: 0; margin-bottom: 12px; color: var(--primary-color); 
             border-bottom: 2px solid var(--border-color); padding-bottom: 8px; font-size: 1.1em;
         }
-        /* 대시보드에 나타날 결과 원형 칩 */
+        /* 대시보드에 나타날 결과 원형 칩 (글씨 없음) */
         .result-circles-container {
-            display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;
+            display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px;
         }
         .result-circle {
-            display: flex; align-items: center; justify-content: center;
-            width: 60px; height: 60px; border-radius: 50%;
-            font-size: 0.75em; font-weight: 800; text-align: center; line-height: 1.2;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.08); word-break: keep-all;
+            width: 28px; height: 28px; border-radius: 50%;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.1);
         }
         .loading-text { text-align: center; color: #8c7f75; font-weight: bold; margin: 25px 0; }
     </style>
 </head>
 <body>
 
-    <h1>No Doubt<br><span style="font-size: 0.4em; font-family: 'Pretendard', sans-serif; letter-spacing: 2px; color: #888;">COFFEE ROASTERS</span></h1>
+    <div class="brand-logo">
+        No Doubt
+        <span>COFFEE ROASTERS</span>
+    </div>
 
-    <!-- 🔑 1. 메인 입장 선택 화면 -->
     <div class="code-section" id="codeSection">
         <h2 style="margin-top: 0; font-size: 1.15em; color: var(--accent-color);">📝 커핑 평가 참여하기</h2>
         <p style="color: #7a6e65; font-size: 0.88em; margin-bottom: 15px;">샘플 입장 코드를 입력하여 컵노트를 작성합니다.</p>
@@ -159,10 +156,9 @@
         <div class="input-group">
             <input type="text" id="resultCodeInput" placeholder="입장 코드 (예: TEST)" style="text-align: center; font-size: 1.1em; letter-spacing: 2px;">
         </div>
-        <button class="submit-btn secondary" onclick="viewResultsDirectly()">결과 대시보드 열기</button>
+        <button class="submit-btn secondary" onclick="viewResultsDirectly()">결과 대시보 열기</button>
     </div>
 
-    <!-- 📝 2. 커핑 평가 폼 화면 -->
     <div class="form-section" id="formSection">
         <div class="bean-display" id="currentBeanInfo"></div>
 
@@ -171,31 +167,39 @@
             <input type="text" id="cupperName" placeholder="이름을 입력하세요 (예: Mason)">
         </div>
 
-        <!-- 🎨 STEP 1. 원형 컬러 칩 선택 (사진 속 실제 컬러 적용!) -->
-        <h3 style="margin-top: 30px; margin-bottom: 6px; font-size: 1.05em;">🎨 1. 첫인상 색채 (Color Vibe)</h3>
-        <p style="color: #7a6e65; font-size: 0.82em; margin-top: 0; margin-bottom: 15px;">이 커피에서 가장 먼저 느껴지는 색채 뉘앙스를 직관적으로 골라주세요.</p>
+        <h3 style="margin-top: 30px; margin-bottom: 6px; font-size: 1.05em;">🎨 1. 시각적 연상 (Color Vibe)</h3>
+        <p style="color: #7a6e65; font-size: 0.82em; margin-top: 0; margin-bottom: 15px;">커피를 머금었을 때 떠오르는 색감을 선입견 없이 골라주세요.</p>
         
         <div class="color-grid">
-            <!-- 핑크/레드 톤 (에티오피아 아리차 베이스) -->
-            <div class="color-chip" style="background-color: #e892ae; color: #5a2a3b;" data-color-name="솜사탕" onclick="toggleColor(this)">솜사탕</div>
-            <div class="color-chip" style="background-color: #cd4b43; color: #ffffff;" data-color-name="복숭아" onclick="toggleColor(this)">복숭아</div>
-            <div class="color-chip" style="background-color: #b51a3a; color: #ffffff;" data-color-name="라즈베리" onclick="toggleColor(this)">라즈<br>베리</div>
-            <div class="color-chip" style="background-color: #7b111f; color: #ffffff;" data-color-name="레드체리" onclick="toggleColor(this)">레드<br>체리</div>
+            <div class="color-chip" style="background-color: #FFD1DC;" data-bg="#FFD1DC" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #FFA6B5;" data-bg="#FFA6B5" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #FF4D6D;" data-bg="#FF4D6D" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #D00000;" data-bg="#D00000" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #7B111F;" data-bg="#7B111F" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #4A0E17;" data-bg="#4A0E17" onclick="toggleColor(this)"></div>
 
-            <!-- 그린 톤 (콜롬비아 수단루메 베이스) -->
-            <div class="color-chip" style="background-color: #b1c15f; color: #3b4516;" data-color-name="청포도" onclick="toggleColor(this)">청포도</div>
-            <div class="color-chip" style="background-color: #556b3e; color: #ffffff;" data-color-name="청귤" onclick="toggleColor(this)">청귤</div>
-            <div class="color-chip" style="background-color: #477d62; color: #ffffff;" data-color-name="애플민트" onclick="toggleColor(this)">애플<br>민트</div>
-            <div class="color-chip" style="background-color: #3b6052; color: #ffffff;" data-color-name="유칼립투스" onclick="toggleColor(this)">유칼립<br>투스</div>
+            <div class="color-chip" style="background-color: #FFE699;" data-bg="#FFE699" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #FFD60A;" data-bg="#FFD60A" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #FFB703;" data-bg="#FFB703" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #FB8500;" data-bg="#FB8500" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #E76F51;" data-bg="#E76F51" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #A04000;" data-bg="#A04000" onclick="toggleColor(this)"></div>
 
-            <!-- 옐로우/오렌지/브라운 베이스 -->
-            <div class="color-chip" style="background-color: #ffcc00; color: #5a3d00;" data-color-name="레몬" onclick="toggleColor(this)">레몬</div>
-            <div class="color-chip" style="background-color: #ff8c00; color: #ffffff;" data-color-name="오렌지" onclick="toggleColor(this)">오렌지</div>
-            <div class="color-chip" style="background-color: #c98860; color: #ffffff;" data-color-name="카라멜" onclick="toggleColor(this)">카라멜</div>
-            <div class="color-chip" style="background-color: #5c4033; color: #ffffff;" data-color-name="다크초코" onclick="toggleColor(this)">다크<br>초코</div>
+            <div class="color-chip" style="background-color: #E2F0CB;" data-bg="#E2F0CB" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #B1C15F;" data-bg="#B1C15F" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #8CB369;" data-bg="#8CB369" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #40916C;" data-bg="#40916C" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #2A9D8F;" data-bg="#2A9D8F" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #1B4332;" data-bg="#1B4332" onclick="toggleColor(this)"></div>
+
+            <div class="color-chip" style="background-color: #A2D2FF;" data-bg="#A2D2FF" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #CDB4DB;" data-bg="#CDB4DB" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #7209B7;" data-bg="#7209B7" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #DDB892;" data-bg="#DDB892" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #C98860;" data-bg="#C98860" onclick="toggleColor(this)"></div>
+            <div class="color-chip" style="background-color: #5C4033;" data-bg="#5C4033" onclick="toggleColor(this)"></div>
         </div>
 
-        <!-- 🏷️ STEP 2. 테이스팅 노트 선택 -->
         <h3 style="margin-top: 35px; margin-bottom: 5px; font-size: 1.05em;">🏷️ 2. 상세 노트 (다중 선택)</h3>
         
         <div class="category-title">🌸 Floral & Tea</div>
@@ -207,22 +211,23 @@
 
         <div class="category-title">🍋 Fruity (Citrus & Stone Fruit)</div>
         <div class="tags">
-            <div class="tag" onclick="toggleTag(this)">라임</div><div class="tag" onclick="toggleTag(this)">자몽</div>
-            <div class="tag" onclick="toggleTag(this)">자두</div><div class="tag" onclick="toggleTag(this)">살구</div>
+            <div class="tag" onclick="toggleTag(this)">레몬</div><div class="tag" onclick="toggleTag(this)">라임</div>
+            <div class="tag" onclick="toggleTag(this)">오렌지</div>
+            <div class="tag" onclick="toggleTag(this)">자두</div><div class="tag" onclick="toggleTag(this)">살구</div><div class="tag" onclick="toggleTag(this)">복숭아</div>
         </div>
 
         <div class="category-title">🍓 Fruity (Berry & Tropical)</div>
         <div class="tags">
             <div class="tag" onclick="toggleTag(this)">딸기</div><div class="tag" onclick="toggleTag(this)">블루베리</div>
-            <div class="tag" onclick="toggleTag(this)">패션후르츠</div><div class="tag" onclick="toggleTag(this)">망고</div>
-            <div class="tag" onclick="toggleTag(this)">리치</div>
+            <div class="tag" onclick="toggleTag(this)">라즈베리</div><div class="tag" onclick="toggleTag(this)">패션후르츠</div>
+            <div class="tag" onclick="toggleTag(this)">망고</div><div class="tag" onclick="toggleTag(this)">리치</div>
         </div>
 
         <div class="category-title">🍷 Process & Sweet</div>
         <div class="tags">
             <div class="tag" onclick="toggleTag(this)">와이니(Winey)</div><div class="tag" onclick="toggleTag(this)">럼/위스키</div>
             <div class="tag" onclick="toggleTag(this)">요거트</div><div class="tag" onclick="toggleTag(this)">펑키(Funky)</div>
-            <div class="tag" onclick="toggleTag(this)">브라운슈가</div><div class="tag" onclick="toggleTag(this)">꿀</div>
+            <div class="tag" onclick="toggleTag(this)">브라운슈가</div><div class="tag" onclick="toggleTag(this)">카라멜</div>
         </div>
 
         <div class="input-group" style="margin-top: 25px;">
@@ -233,7 +238,6 @@
         <button class="submit-btn" id="submitBtn" onclick="submitNote()">의견 제출 및 팀 결과 보기</button>
     </div>
 
-    <!-- ✅ 3. 팀 결과 모아보기 화면 -->
     <div class="dashboard-section" id="dashboardSection">
         <div class="bean-display" id="resultBeanInfo" style="background-color: var(--sub-btn-bg);"></div>
         <h2 style="margin-top: 0; color: var(--accent-color); font-size: 1.2em;">📊 팀 캘리브레이션</h2>
@@ -258,22 +262,6 @@
 
         // 🔗 2. 구글 스크립트 웹 앱 URL
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwpTu3I_mt-UeNUQ-QwTmFf4uJLbyqhaeMqCUxXsbXGZPDV9xmY5WG9FzHwNBAmxNAQ-g/exec";
-
-        // 🎨 3. 대시보드 렌더링용 컬러 매칭 데이터 (사진 속 실제 헥스코드)
-        const COLOR_DATA = {
-            "솜사탕": { bg: "#e892ae", fg: "#5a2a3b" },
-            "복숭아": { bg: "#cd4b43", fg: "#ffffff" },
-            "라즈베리": { bg: "#b51a3a", fg: "#ffffff" },
-            "레드체리": { bg: "#7b111f", fg: "#ffffff" },
-            "청포도": { bg: "#b1c15f", fg: "#3b4516" },
-            "청귤": { bg: "#556b3e", fg: "#ffffff" },
-            "애플민트": { bg: "#477d62", fg: "#ffffff" },
-            "유칼립투스": { bg: "#3b6052", fg: "#ffffff" },
-            "레몬": { bg: "#ffcc00", fg: "#5a3d00" },
-            "오렌지": { bg: "#ff8c00", fg: "#ffffff" },
-            "카라멜": { bg: "#c98860", fg: "#ffffff" },
-            "다크초코": { bg: "#5c4033", fg: "#ffffff" }
-        };
 
         let currentCode = "";
         let currentBean = "";
@@ -315,12 +303,13 @@
             const oneLiner = document.getElementById('oneLiner').value.trim();
             if(!name) { alert("평가자 이름을 입력해주세요!"); return; }
 
-            const selectedColors = Array.from(document.querySelectorAll('.color-chip.selected')).map(chip => chip.getAttribute('data-color-name'));
+            // 💡 선택된 색채의 HEX 코드(배경색)만 수집합니다.
+            const selectedColorHexes = Array.from(document.querySelectorAll('.color-chip.selected')).map(chip => chip.getAttribute('data-bg'));
             const selectedTags = Array.from(document.querySelectorAll('.tag.selected')).map(tag => tag.innerText).join(', ');
             
             // 시트에 저장할 때 나중에 복원할 수 있도록 특수 기호로 묶어둠
-            const colorNamesText = selectedColors.join(',');
-            const combinedTags = colorNamesText ? `[색채:${colorNamesText}] ${selectedTags}` : selectedTags;
+            const colorsHexText = selectedColorHexes.join(',');
+            const combinedTags = colorsHexText ? `[색채:${colorsHexText}] ${selectedTags}` : selectedTags;
 
             const btn = document.getElementById('submitBtn');
             btn.innerText = "결과 취합 중...";
@@ -369,19 +358,14 @@
                         let colorsHtml = "";
                         let tagsText = item.tags || '선택 없음';
                         
-                        // 구글 시트에 저장된 텍스트에서 [색채:...] 부분을 찾아내어 예쁜 원형 칩으로 변환!
+                        // 구글 시트에 저장된 텍스트에서 [색채:#HEX,#HEX] 부분을 찾아내어 예쁜 원형 칩으로 변환!
                         const colorMatch = tagsText.match(/\[색채:\s*(.*?)\]/);
                         if (colorMatch && colorMatch[1]) {
-                            const colorNames = colorMatch[1].split(',');
-                            colorNames.forEach(cName => {
-                                const cData = COLOR_DATA[cName.trim()];
-                                if (cData) {
-                                    // 띄어쓰기를 줄바꿈으로 바꿔서 칩 안에 예쁘게 들어가게 만듦
-                                    const displayName = cName.trim().replace(' ', '<br>');
-                                    colorsHtml += `<div class="result-circle" style="background-color: ${cData.bg}; color: ${cData.fg};">${displayName}</div>`;
-                                }
+                            const hexCodes = colorMatch[1].split(',');
+                            hexCodes.forEach(hex => {
+                                // 대시보드에 표시될 깔끔한 무지 원형 컬러칩
+                                colorsHtml += `<div class="result-circle" style="background-color: ${hex.trim()};"></div>`;
                             });
-                            // 남은 문자열은 일반 텍스트 태그로 처리
                             tagsText = tagsText.replace(colorMatch[0], '').trim();
                         }
 
