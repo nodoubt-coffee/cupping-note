@@ -152,7 +152,7 @@
         <h2 style="margin-top: 0; font-size: 1.15em; color: var(--accent-color);">📝 커핑 평가 참여하기</h2>
         <p style="color: #7a6e65; font-size: 0.88em; margin-bottom: 15px;">전달받으신 샘플 입장 코드를 입력하여 커핑 평가를 시작합니다.</p>
         <div class="input-group">
-            <input type="text" id="evalCodeInput" placeholder="입장 코드 (예: 101)" style="text-align: center; font-size: 1.1em; letter-spacing: 2px;">
+            <input type="text" id="evalCodeInput" placeholder="입장 코드 (예: TEST)" style="text-align: center; font-size: 1.1em; letter-spacing: 2px;">
         </div>
         <button class="submit-btn" onclick="startEvaluation()">평가 작성하러 가기</button>
 
@@ -161,7 +161,7 @@
         <h2 style="margin-top: 0; font-size: 1.15em; color: var(--sub-btn-bg);">📊 팀 결과만 바로 확인하기</h2>
         <p style="color: #7a6e65; font-size: 0.88em; margin-bottom: 15px;">평가 없이 팀원들이 작성한 커핑 결과만 실시간으로 확인합니다.</p>
         <div class="input-group">
-            <input type="text" id="resultCodeInput" placeholder="입장 코드 (예: 101)" style="text-align: center; font-size: 1.1em; letter-spacing: 2px;">
+            <input type="text" id="resultCodeInput" placeholder="입장 코드 (예: TEST)" style="text-align: center; font-size: 1.1em; letter-spacing: 2px;">
         </div>
         <button class="submit-btn secondary" onclick="viewResultsDirectly()">결과 대시보드 열기</button>
     </div>
@@ -239,13 +239,14 @@
 
     <script>
         // =========================================================================
-        // 💡 1. 입장 코드 (새로운 원두 추가/수정 시 여기에 추가하세요)
+        // 💡 1. 입장 코드 (원두 종류 추가/수정 위치)
         // =========================================================================
         const ACCESS_CODES = {
-            "RUME": "Sample A : 콜롬비아 라스 마가리타스 수단루메 하이브리드 워시드 ",
+            "101": "Sample A : 에티오피아 예가체프 워시드",
             "102": "Sample B : 콜롬비아 게이샤 무산소",
             "103": "Sample C : 과테말라 안티구아",
-            "ND01": "<No Doubt> 하우스 블렌드 테스트"
+            "ND01": "<No Doubt> 하우스 블렌드 테스트",
+            "TEST": "콜롬비아 라스 마가리타스 수단루메 하이브리드 워시드"
         };
 
         // =========================================================================
