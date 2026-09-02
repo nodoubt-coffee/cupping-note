@@ -6,13 +6,13 @@
     <title><No Doubt> Cupping Note</title>
     <style>
         :root { 
-            --primary-color: #3c322c;   /* 따뜻하고 은은한 딥 브라운 */
-            --accent-color: #b86b35;    /* 부드러운 테라코타 포인트 컬러 */
-            --bg-color: #f7f4ef;        /* 포근하고 은은한 베이지 배경 */
-            --card-bg: #ffffff;        /* 깔끔한 크림 화이트 카드 */
-            --tag-bg: #ede7de;         /* 베이지 톤 태그 배경 */
-            --border-color: #e5ded4;   /* 부드러운 테두리 색상 */
-            --sub-btn-bg: #6e6259;     /* 보조 버튼 색상 */
+            --primary-color: #3c322c;   /* 따뜻한 딥 브라운 */
+            --accent-color: #b86b35;    /* 부드러운 테라코타 포인트 */
+            --bg-color: #f7f4ef;        /* 포근한 베이지 배경 */
+            --card-bg: #ffffff;        /* 크림 화이트 카드 */
+            --tag-bg: #ede7de;         /* 베이지 톤 태그 */
+            --border-color: #e5ded4;   /* 은은한 테두리 */
+            --sub-btn-bg: #6e6259;     /* 보조 버튼 */
         }
         body { 
             font-family: 'Pretendard', -apple-system, sans-serif; 
@@ -51,7 +51,6 @@
             border: 1px solid var(--border-color);
         }
         
-        /* 초기 화면 제어 */
         .form-section, .dashboard-section { display: none; }
         
         .divider {
@@ -79,7 +78,32 @@
             border-color: var(--accent-color);
             background-color: #ffffff;
         }
-        
+
+        /* 🎨 색채 팔레트 스타일 */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .color-chip {
+            padding: 10px 8px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 0.82em;
+            font-weight: bold;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+            user-select: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        }
+        .color-chip.selected {
+            transform: translateY(-2px);
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
         .category-title { font-size: 0.88em; color: #7a6e65; margin: 18px 0 8px 0; font-weight: bold; }
         .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 15px; }
         .tag { 
@@ -113,23 +137,19 @@
             transition: background-color 0.2s;
             box-shadow: 0 2px 8px rgba(184, 107, 53, 0.25);
         }
-        button.submit-btn:hover {
-            background-color: #a05a2b;
-        }
+        button.submit-btn:hover { background-color: #a05a2b; }
         button.submit-btn.secondary {
             background-color: var(--sub-btn-bg);
             box-shadow: 0 2px 8px rgba(110, 98, 89, 0.2);
         }
-        button.submit-btn.secondary:hover {
-            background-color: #584e46;
-        }
+        button.submit-btn.secondary:hover { background-color: #584e46; }
         button.submit-btn:disabled { background-color: #ccc; cursor: not-allowed; box-shadow: none; }
         
         /* 결과 카드 디자인 */
         .card { 
             border: 1px solid var(--border-color); 
             padding: 16px 18px; 
-            border-radius: 10px; 
+            border-radius: 12px; 
             margin-bottom: 15px; 
             background: #faf8f5; 
         }
@@ -140,6 +160,16 @@
             padding-bottom: 6px; 
             display: inline-block; 
             font-size: 1.05em;
+        }
+        .result-color-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         .loading-text { text-align: center; color: #8c7f75; font-weight: bold; margin: 25px 0; }
     </style>
@@ -174,7 +204,25 @@
             <input type="text" id="cupperName" placeholder="이름을 입력하세요">
         </div>
 
-        <h3 style="margin-top: 25px; margin-bottom: 5px; font-size: 1.1em;">Tasting Notes (다중 선택)</h3>
+        <h3 style="margin-top: 25px; margin-bottom: 6px; font-size: 1.05em;">🎨 1. 연상되는 색채 (Color Palette)</h3>
+        <p style="color: #7a6e65; font-size: 0.82em; margin-top: 0; margin-bottom: 12px;">커피를 머금었을 때 느껴지는 첫인상의 톤앤매너를 고르고 노트를 연상해 보세요.</p>
+        
+        <div class="color-grid">
+            <div class="color-chip" style="background-color: #ffd1dc; color: #8a2b43;" data-color-name="연한 핑크" data-bg="#ffd1dc" data-fg="#8a2b43" onclick="toggleColor(this)">🌸 연한 핑크</div>
+            <div class="color-chip" style="background-color: #ff4d6d; color: #ffffff;" data-color-name="쨍한 레드" data-bg="#ff4d6d" data-fg="#ffffff" onclick="toggleColor(this)">🍒 쨍한 레드</div>
+            <div class="color-chip" style="background-color: #800020; color: #ffffff;" data-color-name="딥 버건디" data-bg="#800020" data-fg="#ffffff" onclick="toggleColor(this)">🍷 딥 버건디</div>
+            <div class="color-chip" style="background-color: #ffe699; color: #6b5200;" data-color-name="밝은 옐로우" data-bg="#ffe699" data-fg="#6b5200" onclick="toggleColor(this)">🍋 밝은 옐로우</div>
+            <div class="color-chip" style="background-color: #ff9f1c; color: #ffffff;" data-color-name="쥬시 오렌지" data-bg="#ff9f1c" data-fg="#ffffff" onclick="toggleColor(this)">🍊 쥬시 오렌지</div>
+            <div class="color-chip" style="background-color: #fca311; color: #3d2200;" data-color-name="열대 골드" data-bg="#fca311" data-fg="#3d2200" onclick="toggleColor(this)">🥭 열대 골드</div>
+            <div class="color-chip" style="background-color: #c7f9cc; color: #1b4332;" data-color-name="라이트 그린" data-bg="#c7f9cc" data-fg="#1b4332" onclick="toggleColor(this)">🌿 라이트 그린</div>
+            <div class="color-chip" style="background-color: #52b788; color: #ffffff;" data-color-name="딥 티 그린" data-bg="#52b788" data-fg="#ffffff" onclick="toggleColor(this)">🍃 딥 티 그린</div>
+            <div class="color-chip" style="background-color: #b5e2fa; color: #003049;" data-color-name="블루 퍼플" data-bg="#b5e2fa" data-fg="#003049" onclick="toggleColor(this)">🫐 블루 퍼플</div>
+            <div class="color-chip" style="background-color: #e0aaff; color: #3c096c;" data-color-name="소프트 바이올렛" data-bg="#e0aaff" data-fg="#3c096c" onclick="toggleColor(this)">🔮 바이올렛</div>
+            <div class="color-chip" style="background-color: #ddb892; color: #4a2c11;" data-color-name="넛티 베이지" data-bg="#ddb892" data-fg="#4a2c11" onclick="toggleColor(this)">🥜 넛티 베이지</div>
+            <div class="color-chip" style="background-color: #6b705c; color: #ffffff;" data-color-name="다크 브라운" data-bg="#6b705c" data-fg="#ffffff" onclick="toggleColor(this)">🍫 다크 브라운</div>
+        </div>
+
+        <h3 style="margin-top: 25px; margin-bottom: 5px; font-size: 1.05em;">🏷️ 2. Tasting Notes (다중 선택)</h3>
         
         <div class="category-title">🌸 Floral & Tea</div>
         <div class="tags">
@@ -238,9 +286,6 @@
     </div>
 
     <script>
-        // =========================================================================
-        // 💡 1. 입장 코드 (원두 종류 추가/수정 위치)
-        // =========================================================================
         const ACCESS_CODES = {
             "101": "Sample A : 에티오피아 예가체프 워시드",
             "102": "Sample B : 콜롬비아 게이샤 무산소",
@@ -249,16 +294,11 @@
             "TEST": "콜롬비아 라스 마가리타스 수단루메 하이브리드 워시드"
         };
 
-        // =========================================================================
-        // 🔗 2. 연동된 구글 앱스 스크립트 웹 앱 URL
-        // =========================================================================
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwpTu3I_mt-UeNUQ-QwTmFf4uJLbyqhaeMqCUxXsbXGZPDV9xmY5WG9FzHwNBAmxNAQ-g/exec";
-        // =========================================================================
 
         let currentCode = "";
         let currentBean = "";
 
-        // ① 커핑 평가 작성하러 가기
         function startEvaluation() {
             const input = document.getElementById('evalCodeInput').value.trim();
             if (!input) { alert("입장 코드를 입력해주세요."); return; }
@@ -274,7 +314,6 @@
             }
         }
 
-        // ② 팀 결과만 바로보기
         async function viewResultsDirectly() {
             const input = document.getElementById('resultCodeInput').value.trim();
             if (!input) { alert("입장 코드를 입력해주세요."); return; }
@@ -286,12 +325,15 @@
                 document.getElementById('dashboardSection').style.display = 'block';
                 window.scrollTo(0, 0);
 
-                // 결과 즉시 로드 + 5초마다 자동 갱신 시작
                 await loadTeamData();
                 setInterval(loadTeamData, 5000);
             } else {
                 alert("올바르지 않은 입장 코드입니다.");
             }
+        }
+
+        function toggleColor(element) {
+            element.classList.toggle('selected');
         }
 
         function toggleTag(element) { 
@@ -304,9 +346,22 @@
             
             if(!name) { alert("평가자 이름을 입력해주세요!"); return; }
 
+            // 선택된 색채 수집 (JSON 객체 형태의 문자열로 변환하여 구글 시트 저장 및 복원 용이)
+            const selectedColors = Array.from(document.querySelectorAll('.color-chip.selected')).map(chip => {
+                return {
+                    name: chip.getAttribute('data-color-name'),
+                    bg: chip.getAttribute('data-bg'),
+                    fg: chip.getAttribute('data-fg')
+                };
+            });
+
             const selectedTags = Array.from(document.querySelectorAll('.tag.selected'))
                                       .map(tag => tag.innerText).join(', ');
             
+            // 색채 이름들과 태그를 깔끔하게 조합
+            const colorNamesText = selectedColors.map(c => c.name).join(', ');
+            const combinedTags = colorNamesText ? `[색채: ${colorNamesText}] ${selectedTags}` : selectedTags;
+
             const btn = document.getElementById('submitBtn');
             btn.innerText = "결과 취합 중...";
             btn.disabled = true;
@@ -316,11 +371,10 @@
                 beanInfo: currentBean,
                 name: name,
                 oneLiner: oneLiner,
-                tags: selectedTags
+                tags: combinedTags
             };
 
             try {
-                // 구글 시트로 데이터 전송
                 fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors',
@@ -334,7 +388,6 @@
                     document.getElementById('dashboardSection').style.display = 'block';
                     window.scrollTo(0, 0);
                     
-                    // 결과 로드 및 5초 주기 자동 업데이트 시작
                     await loadTeamData();
                     setInterval(loadTeamData, 5000);
                 }, 1200);
@@ -346,7 +399,6 @@
             }
         }
 
-        // 구글 시트에서 최신 데이터 불러오기
         async function loadTeamData() {
             const container = document.getElementById('teamResultsContainer');
             try {
@@ -361,7 +413,7 @@
                         html += `
                             <div class="card">
                                 <h3>👤 ${item.name}</h3>
-                                <p style="margin: 8px 0;"><strong>선택 노트:</strong> <span style="color: var(--accent-color); font-weight: 600;">${item.tags || '선택 없음'}</span></p>
+                                <p style="margin: 8px 0;"><strong>선택 노트 및 색채:</strong> <span style="color: var(--accent-color); font-weight: 600;">${item.tags || '선택 없음'}</span></p>
                                 <p style="margin: 8px 0; color: #554a42;"><strong>의견:</strong> ${item.oneLiner || '작성된 의견 없음'}</p>
                             </div>
                         `;
