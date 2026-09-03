@@ -53,11 +53,12 @@
         .result-circle { width: 28px; height: 28px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.1); }
         .loading-text { text-align: center; color: #8c7f75; font-weight: bold; margin: 25px 0; }
         
-        /* 🔥 요약 바(Summary Bar) 스타일 */
-        .summary-box { background: #fff5eb; border: 1px solid #fbdcbb; padding: 15px; border-radius: 12px; margin-bottom: 25px; display: flex; flex-direction: column; gap: 10px; }
-        .summary-box h3 { margin: 0 0 5px 0; font-size: 0.95em; color: var(--accent-color); }
-        .summary-row { display: flex; align-items: center; gap: 10px; }
-        .top-tag { font-size: 0.85em; font-weight: bold; background: white; padding: 4px 10px; border-radius: 12px; border: 1px solid #fbdcbb; color: var(--accent-color); }
+        /* 🔥 다듬어진 요약 바(Summary Bar) 스타일 */
+        .summary-box { background: #fff5eb; border: 1px solid #fbdcbb; padding: 18px; border-radius: 14px; margin-bottom: 25px; display: flex; flex-direction: column; gap: 14px; }
+        .summary-box h3 { margin: 0 0 8px 0; font-size: 0.95em; color: var(--accent-color); }
+        .summary-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+        .top-tag { font-size: 0.88em; font-weight: bold; background: white; padding: 6px 12px; border-radius: 16px; border: 1px solid #fbdcbb; color: var(--primary-color); box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
+        .top-tag span { color: var(--accent-color); margin-left: 2px; }
 
         /* 🗂️ 비교 모드(Grid) 및 히스토리 리스트 */
         .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
@@ -76,7 +77,6 @@
         <span>COFFEE ROASTERS</span>
     </div>
 
-    <!-- 🔑 1. 메인 입장 선택 화면 -->
     <div class="app-section active" id="menuSection">
         <h2 style="margin-top: 0; font-size: 1.15em; color: var(--accent-color);">📝 커핑 평가 / 팀 결과 보기</h2>
         <p style="color: #7a6e65; font-size: 0.88em; margin-bottom: 15px;">코드를 입력하고 평가에 참여하거나 결과를 확인합니다.</p>
@@ -101,7 +101,6 @@
         <button class="submit-btn outline" onclick="openHistory()">과거 기록 찾기</button>
     </div>
 
-    <!-- 📝 2. 커핑 평가 폼 화면 -->
     <div class="app-section" id="formSection">
         <div class="bean-display" id="currentBeanInfo"></div>
         <div class="input-group"><label>평가자 이름</label><input type="text" id="cupperName" placeholder="이름을 입력하세요 (예: 민수)"></div>
@@ -129,16 +128,14 @@
         <button class="submit-btn outline" onclick="location.reload()">메인으로 취소</button>
     </div>
 
-    <!-- ✅ 3. 팀 결과 (단일 대시보드) 화면 -->
     <div class="app-section" id="dashboardSection">
         <div class="bean-display" id="resultBeanInfo" style="background-color: var(--sub-btn-bg);"></div>
         <h2 style="margin-top: 0; color: var(--accent-color); font-size: 1.2em;">📊 팀 캘리브레이션</h2>
-        <div id="summaryContainer"></div> <!-- 💡 요약 바(Summary Bar)가 들어갈 자리 -->
+        <div id="summaryContainer"></div>
         <div id="teamResultsContainer"><div class="loading-text">데이터 동기화 중... ⏳</div></div>
-        <button class="submit-btn secondary" style="margin-top: 25px;" onclick="location.reload()">메인 화면으로 돌아가기</button>
+        <button class="submit-btn secondary" style="margin-top: 25px;" onclick="location.reload()">첫 화면으로 돌아가기</button>
     </div>
 
-    <!-- 🔬 4. 배치 비교 모드 설정 화면 -->
     <div class="app-section" id="compareSetupSection">
         <h2 style="margin-top: 0; color: #4a6fa5;">비교할 두 샘플의 코드를 입력하세요</h2>
         <div class="input-group"><label>첫 번째 샘플 코드 (A)</label><input type="text" id="compCode1" placeholder="예: 101"></div>
@@ -147,7 +144,6 @@
         <button class="submit-btn outline" onclick="location.reload()">뒤로 가기</button>
     </div>
 
-    <!-- 🔬 4-1. 배치 비교 모드 대시보드 -->
     <div class="app-section" id="compareDashboardSection" style="max-width: 100%; padding: 20px;">
         <h2 style="margin-top: 0; color: #4a6fa5; text-align: center;">🔬 배치 비교 분석</h2>
         <div class="compare-grid">
@@ -165,7 +161,6 @@
         <button class="submit-btn outline" style="margin-top: 30px;" onclick="location.reload()">메인 화면으로 돌아가기</button>
     </div>
 
-    <!-- 🗂️ 5. 과거 아카이브 목록 화면 -->
     <div class="app-section" id="historySection">
         <h2 style="margin-top: 0; color: var(--primary-color);">🗂️ 과거 커핑 기록</h2>
         <p style="color: #7a6e65; font-size: 0.85em; margin-bottom: 20px;">항목을 클릭하면 해당 데이터 대시보드로 이동합니다.</p>
@@ -174,7 +169,6 @@
     </div>
 
     <script>
-        // 💡 1. 입장 코드 세팅
         const ACCESS_CODES = {
             "101": "Sample A : 에티오피아 예가체프 워시드",
             "102": "Sample B : 콜롬비아 게이샤 무산소",
@@ -184,7 +178,6 @@
             "777": "에콰도르 루그마파타 시드라 워시드"
         };
 
-        // 🔗 2. 구글 스크립트 웹 앱 URL
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwpTu3I_mt-UeNUQ-QwTmFf4uJLbyqhaeMqCUxXsbXGZPDV9xmY5WG9FzHwNBAmxNAQ-g/exec";
 
         let currentCode = "";
@@ -197,7 +190,6 @@
             window.scrollTo(0, 0);
         }
 
-        // --- 메인 시작 함수 ---
         function startAction(type) {
             const input = document.getElementById('mainCodeInput').value.trim();
             if (!input) { alert("입장 코드를 입력해주세요."); return; }
@@ -214,23 +206,20 @@
                     autoRefreshInterval = setInterval(() => loadTeamData(currentCode, 'teamResultsContainer', 'summaryContainer'), 5000);
                 }
             } else { 
-                // DB에만 있는 과거 코드일 수도 있으므로 결과 보기 허용
                 if(type === 'result') {
                     currentCode = input; currentBean = "과거 기록 (코드: " + input + ")";
                     document.getElementById('resultBeanInfo').innerText = currentBean;
                     showSection('dashboardSection');
                     loadTeamData(currentCode, 'teamResultsContainer', 'summaryContainer');
                 } else {
-                    alert("평가를 위한 올바른 입장 코드가 아닙니다.");
+                    alert("평가를 위한 올바르지 않은 입장 코드가 아닙니다.");
                 }
             }
         }
 
-        // --- 색상/태그 클릭 ---
         function toggleColor(element) { element.classList.toggle('selected'); }
         function toggleTag(element) { element.classList.toggle('selected'); }
 
-        // --- 커핑 제출 ---
         async function submitNote() {
             const name = document.getElementById('cupperName').value.trim();
             const oneLiner = document.getElementById('oneLiner').value.trim();
@@ -260,7 +249,7 @@
             } catch(e) { alert("오류가 발생했습니다."); btn.innerText = "제출 및 대시보드 보기"; btn.disabled = false; }
         }
 
-        // --- 📊 데이터 렌더링 및 요약(Summary) 바 자동 생성 ---
+        // --- 📊 다듬어진 요약(Summary Bar) 로직 ---
         async function loadTeamData(code, containerId, summaryId) {
             const container = document.getElementById(containerId);
             const summaryContainer = document.getElementById(summaryId);
@@ -287,7 +276,7 @@
                         hexCodes.forEach(hex => {
                             let h = hex.trim();
                             colorsHtml += `<div class="result-circle" style="background-color: ${h};"></div>`;
-                            colorFreq[h] = (colorFreq[h] || 0) + 1; // 요약을 위한 카운팅
+                            colorFreq[h] = (colorFreq[h] || 0) + 1;
                         });
                         tagsText = tagsText.replace(colorMatch[0], '').trim();
                     }
@@ -295,7 +284,7 @@
                     if(tagsText) {
                         tagsText.split(',').forEach(t => {
                             let tag = t.trim();
-                            if(tag) tagFreq[tag] = (tagFreq[tag] || 0) + 1; // 태그 카운팅
+                            if(tag) tagFreq[tag] = (tagFreq[tag] || 0) + 1;
                         });
                     }
 
@@ -310,22 +299,29 @@
                 });
                 container.innerHTML = html;
 
-                // 💡 [요약 바 생성] 가장 많이 나온 색채 3개 & 태그 3개 추출
-                let topColors = Object.keys(colorFreq).sort((a,b) => colorFreq[b] - colorFreq[a]).slice(0,4);
-                let topTags = Object.keys(tagFreq).sort((a,b) => tagFreq[b] - tagFreq[a]).slice(0,3);
+                // 💡 [요약 로직]
+                // 1. 많이 고른 대표 색상 상위 4개 추출
+                let topColors = Object.keys(colorFreq).sort((a,b) => colorFreq[b] - colorFreq[a]).slice(0, 4);
+                // 2. 노트 득표수 내림차순 정렬 (표수 포함)
+                let topTags = Object.keys(tagFreq).sort((a,b) => tagFreq[b] - tagFreq[a]);
 
                 if(topColors.length > 0 || topTags.length > 0) {
                     let sumHtml = `<div class="summary-box">`;
+                    
+                    // 대표 색상 (3~4개)
                     if(topColors.length > 0) {
-                        sumHtml += `<div><h3>🎨 팀 대표 색상</h3><div class="result-circles-container">`;
-                        topColors.forEach(c => sumHtml += `<div class="result-circle" style="background-color:${c}; width:35px; height:35px;"></div>`);
+                        sumHtml += `<div><h3>🎨 팀 대표 색채</h3><div class="result-circles-container">`;
+                        topColors.forEach(c => sumHtml += `<div class="result-circle" style="background-color:${c}; width:32px; height:32px;"></div>`);
                         sumHtml += `</div></div>`;
                     }
+                    
+                    // 노트 투표수 (아이디어 2: 노트명 + 표수)
                     if(topTags.length > 0) {
-                        sumHtml += `<div><h3>🏆 주요 테이스팅 노트</h3><div class="summary-row">`;
-                        topTags.forEach(t => sumHtml += `<div class="top-tag">${t}</div>`);
+                        sumHtml += `<div><h3>🏷️ 테이스팅 노트 집계</h3><div class="summary-row">`;
+                        topTags.forEach(t => sumHtml += `<div class="top-tag">${t} <span>(${tagFreq[t]})</span></div>`);
                         sumHtml += `</div></div>`;
                     }
+                    
                     sumHtml += `</div>`;
                     summaryContainer.innerHTML = sumHtml;
                 } else { summaryContainer.innerHTML = ""; }
@@ -333,7 +329,6 @@
             } catch (error) { container.innerHTML = "<p style='text-align:center; color: red;'>오류가 발생했습니다.</p>"; }
         }
 
-        // --- 🔬 비교 모드 ---
         function startCompare() {
             const c1 = document.getElementById('compCode1').value.trim();
             const c2 = document.getElementById('compCode2').value.trim();
@@ -343,13 +338,12 @@
             document.getElementById('compBean2').innerText = ACCESS_CODES[c2] || "코드: " + c2;
             
             showSection('compareDashboardSection');
-            if(autoRefreshInterval) clearInterval(autoRefreshInterval); // 비교 모드는 자동 갱신 끄기
+            if(autoRefreshInterval) clearInterval(autoRefreshInterval);
             
             loadTeamData(c1, 'compResults1', 'compSummary1');
             loadTeamData(c2, 'compResults2', 'compSummary2');
         }
 
-        // --- 🗂️ 아카이브(히스토리) 모드 ---
         async function openHistory() {
             showSection('historySection');
             const container = document.getElementById('historyListContainer');
