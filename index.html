@@ -262,7 +262,7 @@
         let currentBean = "";
         let autoRefreshInterval = null;
         let customTagsList = []; 
-        let activeSessionsMap = {};
+        let sessionDetailsMap = {}; // 세션 상세 정보 (상태 포함) 저장
 
         window.addEventListener('DOMContentLoaded', () => {
             loadLiveSessions();
@@ -280,9 +280,9 @@
                 }
 
                 let html = "";
-                activeSessionsMap = {};
+                sessionDetailsMap = {};
                 sessions.forEach(s => {
-                    activeSessionsMap[s.accessCode] = s.beanInfo;
+                    sessionDetailsMap[s.accessCode] = { beanInfo: s.beanInfo, status: s.status };
                     const isClosed = s.status === "마감";
                     
                     html += `
@@ -340,7 +340,17 @@
             if (!input) { alert("입장 코드를 입력해주세요."); return; }
             
             currentCode = input.toUpperCase();
-            currentBean = activeSessionsMap[currentCode] || ("커핑 샘플 (코드: " + currentCode + ")");
+            const session = sessionDetailsMap[currentCode];
+
+            if (session) {
+                currentBean = session.beanInfo;
+                if (type === 'eval' && session.status === "마감") {
+                    alert("이미 종료된 커핑입니다.");
+                    return; // 평가 진입 차단
+                }
+            } else {
+                currentBean = "커핑 샘플 (코드: " + currentCode + ")";
+            }
 
             if(type === 'eval') {
                 document.getElementById('currentBeanInfo').innerText = currentBean;
