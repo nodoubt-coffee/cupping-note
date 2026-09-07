@@ -10,9 +10,8 @@
             --bg-color: #f4f1ea; --card-bg: #ffffff; 
             --tag-bg: #ede7de; --border-color: #e5ded4; --sub-btn-bg: #6e6259;     
         }
-        body { font-family: 'Pretendard', -apple-system, sans-serif; background-color: var(--bg-color); color: var(--primary-color); max-width: 800px; margin: 0 auto; padding: 20px; }
+        body { font-family: 'Pretendard', -apple-system, sans-serif; background-color: var(--bg-color); color: var(--primary-color); max-width: 800px; margin: 0 auto; padding: 20px; padding-bottom: 50px; }
         
-        /* 👑 로고 스타일 */
         .brand-logo { text-align: center; margin-top: 15px; margin-bottom: 35px; font-family: 'Georgia', serif; color: #5a2a22; font-size: 2.2em; font-weight: bold; letter-spacing: 1px; }
         .brand-logo span { display: block; font-family: sans-serif; font-size: 0.35em; font-weight: 400; letter-spacing: 6px; color: #7a6e65; margin-top: 8px; margin-left: 6px; }
 
@@ -26,23 +25,30 @@
         .input-group input[type="text"], .input-group textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--border-color); background-color: #faf8f5; border-radius: 8px; box-sizing: border-box; font-size: 1em; font-family: inherit; outline: none; }
         .input-group input:focus, .input-group textarea:focus { border-color: var(--accent-color); background-color: #ffffff; }
 
+        /* 🔥 홈 화면 진행 중인 커핑 리스트 카드 스타일 */
+        .live-sessions-container { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+        .live-card { background: #fffaf5; border: 1px solid #fbdcbb; padding: 15px 18px; border-radius: 12px; cursor: pointer; transition: all 0.2s; display: flex; justify-content: space-between; align-items: center; }
+        .live-card:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(184,107,53,0.1); border-color: var(--accent-color); }
+        .live-card-info .bean-title { font-weight: bold; font-size: 1.05em; color: var(--primary-color); margin-bottom: 4px; }
+        .live-card-info .bean-code { font-size: 0.8em; color: var(--accent-color); background: #fbeedc; padding: 2px 8px; border-radius: 6px; display: inline-block; font-weight: bold; }
+        .live-card-action { font-size: 0.9em; font-weight: bold; color: var(--accent-color); background: white; padding: 8px 12px; border-radius: 8px; border: 1px solid #fbdcbb; }
+
         /* 🎨 색채 팔레트 */
         .color-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 25px; justify-items: center; }
         .color-chip { width: 100%; max-width: 45px; aspect-ratio: 1 / 1; border-radius: 50%; cursor: pointer; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05), 0 2px 5px rgba(0,0,0,0.06); transition: all 0.2s; border: 3px solid transparent; }
         .color-chip.selected { transform: scale(1.15); box-shadow: 0 4px 10px rgba(0,0,0,0.15); border-color: #3c322c; }
 
-        /* 🏷️ 내가 고른 노트 보관함 (Selected Pool) */
+        /* 🏷️ 내가 고른 노트 보관함 */
         .selected-pool-container { border: 2px dashed var(--border-color); border-radius: 12px; padding: 15px; margin-bottom: 20px; background: #fdfbf7; min-height: 40px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
         .empty-pool-text { color: #a9a096; font-size: 0.9em; width: 100%; text-align: center; }
         .pool-tag { background: var(--accent-color); color: white; padding: 6px 12px; border-radius: 16px; font-size: 0.88em; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 5px rgba(184,107,53,0.2); }
         .pool-tag::after { content: '×'; font-size: 1.1em; font-weight: normal; opacity: 0.8; }
         
-        /* 직접 입력 칸 */
         .custom-add-row { display: flex; gap: 8px; margin-top: 10px; margin-bottom: 25px; }
         .custom-add-row input { flex: 1; margin: 0; padding: 10px 14px; }
         .custom-add-row button { background: var(--sub-btn-bg); color: white; border: none; border-radius: 8px; padding: 0 16px; font-weight: bold; cursor: pointer; }
 
-        /* 📂 아코디언 (카테고리 접기/펼치기) */
+        /* 📂 아코디언 */
         .accordion-item { border: 1px solid var(--border-color); border-radius: 10px; margin-bottom: 10px; overflow: hidden; background: #faf8f5; transition: all 0.2s; }
         .accordion-header { padding: 16px; font-weight: bold; font-size: 0.95em; color: var(--primary-color); cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
         .accordion-header::after { content: '▼'; font-size: 0.8em; color: #a9a096; transition: transform 0.3s; }
@@ -64,21 +70,18 @@
         button.submit-btn.outline { background-color: transparent; border: 2px solid var(--sub-btn-bg); color: var(--sub-btn-bg); }
         button.submit-btn:disabled { background-color: #ccc; border:none; cursor: not-allowed; }
         
-        /* 📊 카드 및 요약(Summary) 박스 */
         .card { border: 1px solid var(--border-color); padding: 18px; border-radius: 12px; margin-bottom: 15px; background: #faf8f5; }
         .card h3 { margin-top: 0; margin-bottom: 12px; color: var(--primary-color); border-bottom: 2px solid var(--border-color); padding-bottom: 8px; font-size: 1.1em; }
         .result-circles-container { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
         .result-circle { width: 28px; height: 28px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.1); }
         .loading-text { text-align: center; color: #8c7f75; font-weight: bold; margin: 25px 0; }
         
-        /* 🔥 요약 바(Summary Bar) */
         .summary-box { background: #fff5eb; border: 1px solid #fbdcbb; padding: 18px; border-radius: 14px; margin-bottom: 25px; display: flex; flex-direction: column; gap: 14px; }
         .summary-box h3 { margin: 0 0 8px 0; font-size: 0.95em; color: var(--accent-color); }
         .summary-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
         .top-tag { font-size: 0.88em; font-weight: bold; background: white; padding: 6px 12px; border-radius: 16px; border: 1px solid #fbdcbb; color: var(--primary-color); box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
         .top-tag span { color: var(--accent-color); margin-left: 2px; }
 
-        /* 🗂️ 비교 모드(Grid) 및 히스토리 리스트 */
         .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         @media (max-width: 600px) { .compare-grid { grid-template-columns: 1fr; } }
         .history-item { padding: 15px; border-bottom: 1px solid var(--border-color); cursor: pointer; transition: background 0.2s; border-radius: 8px; }
@@ -86,6 +89,12 @@
         .history-date { font-size: 0.8em; color: #999; margin-bottom: 4px; }
         .history-bean { font-weight: bold; color: var(--primary-color); font-size: 1.05em; }
         .history-code { display: inline-block; background: var(--tag-bg); padding: 2px 8px; border-radius: 10px; font-size: 0.75em; margin-top: 5px; }
+
+        /* 🔒 관리자 링크 및 패널 스타일 */
+        .admin-link-area { text-align: center; margin-top: 40px; }
+        .admin-trigger { background: none; border: none; color: #b5a99f; font-size: 0.85em; cursor: pointer; text-decoration: underline; }
+        .admin-panel { background: #2b2420; color: #f4f1ea; padding: 25px; border-radius: 16px; margin-top: 15px; display: none; }
+        .admin-session-row { background: #3c322c; padding: 12px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 0.9em; }
     </style>
 </head>
 <body>
@@ -95,10 +104,16 @@
         <span>COFFEE ROASTERS</span>
     </div>
 
-    <!-- 🔑 1. 메인 입장 선택 화면 -->
+    <!-- 🔑 1. 메인 홈 화면 (진행 중인 커핑 리스트 대기) -->
     <div class="app-section active" id="menuSection">
-        <h2 style="margin-top: 0; font-size: 1.15em; color: var(--accent-color);">📝 커핑 평가 / 팀 결과 보기</h2>
-        <p style="color: #7a6e65; font-size: 0.88em; margin-bottom: 15px;">코드를 입력하고 평가에 참여하거나 결과를 확인합니다.</p>
+        <h2 style="margin-top: 0; font-size: 1.15em; color: var(--accent-color);">☕ 실시간 진행 중인 커핑</h2>
+        <div class="live-sessions-container" id="liveSessionsContainer">
+            <div class="loading-text" style="font-size: 0.9em; margin: 10px 0;">열려있는 커핑 세션을 불러오는 중... ⏳</div>
+        </div>
+
+        <hr class="divider">
+
+        <h2 style="margin-top: 0; font-size: 1.15em; color: var(--sub-btn-bg);">🔑 코드로 직접 입장하기</h2>
         <div class="input-group">
             <input type="text" id="mainCodeInput" placeholder="코드를 입력하세요 (예: 777)" style="text-align: center; font-size: 1.1em; letter-spacing: 2px;">
         </div>
@@ -110,14 +125,33 @@
         <hr class="divider">
 
         <h2 style="margin-top: 0; font-size: 1.15em; color: #4a6fa5;">🔬 로스팅 배치 비교 모드</h2>
-        <p style="color: #7a6e65; font-size: 0.88em; margin-bottom: 15px;">두 개의 다른 샘플/배치를 나란히 놓고 시각적으로 비교합니다.</p>
         <button class="submit-btn outline" onclick="showSection('compareSetupSection')">비교 모드 열기</button>
 
         <hr class="divider">
 
         <h2 style="margin-top: 0; font-size: 1.15em; color: #3c322c;">🗂️ 지난 커핑 아카이브</h2>
-        <p style="color: #7a6e65; font-size: 0.88em; margin-bottom: 15px;">과거에 진행했던 커핑 데이터 기록을 모아봅니다.</p>
         <button class="submit-btn outline" onclick="openHistory()">과거 기록 찾기</button>
+
+        <!-- 🔒 관리자 진입 버튼 -->
+        <div class="admin-link-area">
+            <button class="admin-trigger" onclick="tryOpenAdmin()">🔒 관리자 모드</button>
+        </div>
+
+        <!-- 🔒 비밀번호 4538 입력 후 열리는 관리자 패널 -->
+        <div class="admin-panel" id="adminPanel">
+            <h3 style="margin-top:0; color: #fbdcbb; font-size: 1.1em;">🛠️ 마스터 관리자 패널</h3>
+            <p style="font-size: 0.85em; color: #ccc; margin-bottom: 15px;">새로운 커핑을 오픈하거나 진행 중인 세션을 마감하세요.</p>
+            
+            <div class="input-group" style="margin-bottom:10px;"><label style="color:#ddd;">입장 코드</label><input type="text" id="newCodeInput" placeholder="예: 888" style="background:#1a1a1a; color:white; border:1px solid #555;"></div>
+            <div class="input-group" style="margin-bottom:15px;"><label style="color:#ddd;">원두 정보</label><input type="text" id="newBeanInput" placeholder="예: 에티오피아 무산소" style="background:#1a1a1a; color:white; border:1px solid #555;"></div>
+            <button class="submit-btn" onclick="addNewSession()">새 커핑 오픈하기</button>
+
+            <hr style="border:0; border-top:1px solid #444; margin:20px 0;">
+            
+            <h4 style="margin:0 0 10px 0; font-size:0.95em; color:#fbdcbb;">📌 전체 세션 마감/관리</h4>
+            <div id="adminSessionList"><div style="font-size:0.85em; color:#aaa;">목록 불러오는 중...</div></div>
+            <button class="submit-btn outline" style="border-color:#777; color:#ccc; margin-top:15px;" onclick="document.getElementById('adminPanel').style.display='none'">관리자 닫기</button>
+        </div>
     </div>
 
     <!-- 📝 2. 커핑 평가 폼 화면 -->
@@ -125,7 +159,6 @@
         <div class="bean-display" id="currentBeanInfo"></div>
         <div class="input-group"><label>평가자 이름</label><input type="text" id="cupperName" placeholder="이름을 입력하세요 (예: 민수)"></div>
 
-        <!-- 🎨 STEP 1. 직관적 색채 팔레트 -->
         <h3 style="margin-top: 30px; font-size: 1.05em;">🎨 1. 시각적 연상 (Color Vibe)</h3>
         <p style="color: #7a6e65; font-size: 0.82em; margin-top: 0; margin-bottom: 15px;">커피를 머금었을 때 떠오르는 뉘앙스를 색상으로 골라주세요.</p>
         <div class="color-grid">
@@ -135,140 +168,29 @@
             <div class="color-chip" style="background-color: #A2D2FF;" data-bg="#A2D2FF" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #CDB4DB;" data-bg="#CDB4DB" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #7209B7;" data-bg="#7209B7" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #DDB892;" data-bg="#DDB892" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #C98860;" data-bg="#C98860" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #5C4033;" data-bg="#5C4033" onclick="toggleColor(this)"></div>
         </div>
 
-        <!-- 🏷️ STEP 2. 향미 노트 선택 (아코디언 UI) -->
         <h3 style="margin-top: 35px; font-size: 1.05em; margin-bottom: 10px;">🏷️ 2. 향미 노트 (Flavor Notes)</h3>
-        
-        <!-- 내가 고른 노트 보관함 -->
         <div class="selected-pool-container" id="selectedPool">
             <div class="empty-pool-text" id="emptyPoolText">아래에서 노트를 선택하거나 직접 입력해 주세요.</div>
         </div>
-        
-        <!-- 커스텀 노트 입력칸 -->
         <div class="custom-add-row">
             <input type="text" id="customNoteInput" placeholder="찾는 노트가 없다면 직접 입력 ➔" onkeypress="if(event.keyCode==13) addCustomNote()">
             <button type="button" onclick="addCustomNote()">추가</button>
         </div>
 
         <!-- 아코디언 메뉴들 -->
-        <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)">🍓 1. 과일 (Fruity)</div>
-            <div class="accordion-content">
-                <div class="sub-category">감귤류 (Citrus)</div>
-                <div class="tags">
-                    <div class="tag" onclick="toggleSelectTag(this)">레몬</div><div class="tag" onclick="toggleSelectTag(this)">라임</div><div class="tag" onclick="toggleSelectTag(this)">자몽</div><div class="tag" onclick="toggleSelectTag(this)">오렌지</div><div class="tag" onclick="toggleSelectTag(this)">귤</div><div class="tag" onclick="toggleSelectTag(this)">청귤</div>
-                </div>
-                
-                <div class="sub-category">사과 / 배 (Apple/Pear)</div>
-                <div class="tags">
-                    <div class="tag" onclick="toggleSelectTag(this)">청사과</div><div class="tag" onclick="toggleSelectTag(this)">적사과</div><div class="tag" onclick="toggleSelectTag(this)">배</div>
-                </div>
-                
-                <div class="sub-category">멜론 (Melon)</div>
-                <div class="tags">
-                    <div class="tag" onclick="toggleSelectTag(this)">참외</div><div class="tag" onclick="toggleSelectTag(this)">수박</div><div class="tag" onclick="toggleSelectTag(this)">멜론</div>
-                </div>
+        <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🍓 1. 과일 (Fruity)</div><div class="accordion-content"><div class="sub-category">감귤류 (Citrus)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">레몬</div><div class="tag" onclick="toggleSelectTag(this)">라임</div><div class="tag" onclick="toggleSelectTag(this)">자몽</div><div class="tag" onclick="toggleSelectTag(this)">오렌지</div><div class="tag" onclick="toggleSelectTag(this)">귤</div><div class="tag" onclick="toggleSelectTag(this)">청귤</div></div><div class="sub-category">사과 / 배 (Apple/Pear)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">청사과</div><div class="tag" onclick="toggleSelectTag(this)">적사과</div><div class="tag" onclick="toggleSelectTag(this)">배</div></div><div class="sub-category">멜론 (Melon)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">참외</div><div class="tag" onclick="toggleSelectTag(this)">수박</div><div class="tag" onclick="toggleSelectTag(this)">멜론</div></div><div class="sub-category">포도 / 와인뉘앙스 (Grape & Wine)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">청포도</div><div class="tag" onclick="toggleSelectTag(this)">적포도</div><div class="tag" onclick="toggleSelectTag(this)">캠벨포도</div><div class="tag" onclick="toggleSelectTag(this)">백포도주</div></div><div class="sub-category">열대과일 (Tropical)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">리치</div><div class="tag" onclick="toggleSelectTag(this)">패션후르츠</div><div class="tag" onclick="toggleSelectTag(this)">파인애플</div><div class="tag" onclick="toggleSelectTag(this)">망고</div><div class="tag" onclick="toggleSelectTag(this)">파파야</div><div class="tag" onclick="toggleSelectTag(this)">키위</div><div class="tag" onclick="toggleSelectTag(this)">바나나</div></div><div class="sub-category">핵과류 (Stone Fruit)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">백도</div><div class="tag" onclick="toggleSelectTag(this)">황도</div><div class="tag" onclick="toggleSelectTag(this)">천도복숭아</div><div class="tag" onclick="toggleSelectTag(this)">살구</div><div class="tag" onclick="toggleSelectTag(this)">자두</div><div class="tag" onclick="toggleSelectTag(this)">체리</div></div><div class="sub-category">베리류 (Berry)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">크랜베리</div><div class="tag" onclick="toggleSelectTag(this)">라즈베리</div><div class="tag" onclick="toggleSelectTag(this)">딸기</div><div class="tag" onclick="toggleSelectTag(this)">블루베리</div><div class="tag" onclick="toggleSelectTag(this)">블루베리 잼</div><div class="tag" onclick="toggleSelectTag(this)">블랙베리</div><div class="tag" onclick="toggleSelectTag(this)">블랙커런트</div></div><div class="sub-category">건과일 (Dried Fruit)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">건포도</div><div class="tag" onclick="toggleSelectTag(this)">대추야자</div><div class="tag" onclick="toggleSelectTag(this)">건자두(푸룬)</div><div class="tag" onclick="toggleSelectTag(this)">말린 무화과</div></div></div></div>
 
-                <div class="sub-category">포도 / 와인뉘앙스 (Grape & Wine)</div>
-                <div class="tags">
-                    <div class="tag" onclick="toggleSelectTag(this)">청포도</div><div class="tag" onclick="toggleSelectTag(this)">적포도</div><div class="tag" onclick="toggleSelectTag(this)">캠벨포도</div><div class="tag" onclick="toggleSelectTag(this)">백포도주</div>
-                </div>
+        <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🌸 2. 꽃 / 차 (Floral & Tea)</div><div class="accordion-content"><div class="sub-category">꽃 (Floral)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">아카시아</div><div class="tag" onclick="toggleSelectTag(this)">자스민</div><div class="tag" onclick="toggleSelectTag(this)">장미</div><div class="tag" onclick="toggleSelectTag(this)">히비스커스</div><div class="tag" onclick="toggleSelectTag(this)">라벤더</div><div class="tag" onclick="toggleSelectTag(this)">오렌지 블라썸</div><div class="tag" onclick="toggleSelectTag(this)">캐모마일</div><div class="tag" onclick="toggleSelectTag(this)">목련</div></div><div class="sub-category">차 / 허브티 (Tea)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">베르가못</div><div class="tag" onclick="toggleSelectTag(this)">레몬버베나</div><div class="tag" onclick="toggleSelectTag(this)">녹차</div><div class="tag" onclick="toggleSelectTag(this)">홍차</div><div class="tag" onclick="toggleSelectTag(this)">얼그레이</div><div class="tag" onclick="toggleSelectTag(this)">우롱차</div></div></div></div>
 
-                <div class="sub-category">열대과일 (Tropical)</div>
-                <div class="tags">
-                    <div class="tag" onclick="toggleSelectTag(this)">리치</div><div class="tag" onclick="toggleSelectTag(this)">패션후르츠</div><div class="tag" onclick="toggleSelectTag(this)">파인애플</div><div class="tag" onclick="toggleSelectTag(this)">망고</div><div class="tag" onclick="toggleSelectTag(this)">파파야</div><div class="tag" onclick="toggleSelectTag(this)">키위</div><div class="tag" onclick="toggleSelectTag(this)">바나나</div>
-                </div>
+        <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🍫 3. 단맛 (Sweet & Sugary)</div><div class="accordion-content"><div class="sub-category">달콤한 (Sweet)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">바닐라</div><div class="tag" onclick="toggleSelectTag(this)">꿀</div><div class="tag" onclick="toggleSelectTag(this)">버터</div><div class="tag" onclick="toggleSelectTag(this)">카라멜</div><div class="tag" onclick="toggleSelectTag(this)">메이플 시럽</div><div class="tag" onclick="toggleSelectTag(this)">브라운 슈가</div><div class="tag" onclick="toggleSelectTag(this)">마시멜로</div><div class="tag" onclick="toggleSelectTag(this)">솜사탕</div></div></div></div>
 
-                <div class="sub-category">핵과류 (Stone Fruit)</div>
-                <div class="tags">
-                    <div class="tag" onclick="toggleSelectTag(this)">백도</div><div class="tag" onclick="toggleSelectTag(this)">황도</div><div class="tag" onclick="toggleSelectTag(this)">천도복숭아</div><div class="tag" onclick="toggleSelectTag(this)">살구</div><div class="tag" onclick="toggleSelectTag(this)">자두</div><div class="tag" onclick="toggleSelectTag(this)">체리</div>
-                </div>
+        <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🥜 4. 견과 / 초콜릿 (Nut & Cocoa)</div><div class="accordion-content"><div class="sub-category">견과류 (Nutty)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">땅콩</div><div class="tag" onclick="toggleSelectTag(this)">호두</div><div class="tag" onclick="toggleSelectTag(this)">피칸</div><div class="tag" onclick="toggleSelectTag(this)">아몬드</div><div class="tag" onclick="toggleSelectTag(this)">헤이즐넛</div></div><div class="sub-category">초콜릿 (Cocoa)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">밀크 초콜릿</div><div class="tag" onclick="toggleSelectTag(this)">다크 초콜릿</div><div class="tag" onclick="toggleSelectTag(this)">카카오 닙스</div></div></div></div>
 
-                <div class="sub-category">베리류 (Berry)</div>
-                <div class="tags">
-                    <div class="tag" onclick="toggleSelectTag(this)">크랜베리</div><div class="tag" onclick="toggleSelectTag(this)">라즈베리</div><div class="tag" onclick="toggleSelectTag(this)">딸기</div><div class="tag" onclick="toggleSelectTag(this)">블루베리</div><div class="tag" onclick="toggleSelectTag(this)">블루베리 잼</div><div class="tag" onclick="toggleSelectTag(this)">블랙베리</div><div class="tag" onclick="toggleSelectTag(this)">블랙커런트</div>
-                </div>
+        <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🌾 5. 곡물 (Roasted)</div><div class="accordion-content"><div class="sub-category">곡류 (Cereal/Grain)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">그래놀라</div><div class="tag" onclick="toggleSelectTag(this)">토스트</div><div class="tag" onclick="toggleSelectTag(this)">오트밀</div></div></div></div>
 
-                <div class="sub-category">건과일 (Dried Fruit)</div>
-                <div class="tags">
-                    <div class="tag" onclick="toggleSelectTag(this)">건포도</div><div class="tag" onclick="toggleSelectTag(this)">대추야자</div><div class="tag" onclick="toggleSelectTag(this)">건자두(푸룬)</div><div class="tag" onclick="toggleSelectTag(this)">말린 무화과</div>
-                </div>
-            </div>
-        </div>
+        <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🌿 6. 향신료 / 허브 (Spice & Herb)</div><div class="accordion-content"><div class="sub-category">단 향신료 (Brown Spice)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">계피</div><div class="tag" onclick="toggleSelectTag(this)">넛맥</div></div><div class="sub-category">허브 (Herb)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">세이지</div><div class="tag" onclick="toggleSelectTag(this)">딜</div><div class="tag" onclick="toggleSelectTag(this)">애플민트</div><div class="tag" onclick="toggleSelectTag(this)">바질</div><div class="tag" onclick="toggleSelectTag(this)">오레가노</div><div class="tag" onclick="toggleSelectTag(this)">유칼립투스</div></div></div></div>
 
-        <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)">🌸 2. 꽃 / 차 (Floral & Tea)</div>
-            <div class="accordion-content">
-                <div class="sub-category">꽃 (Floral)</div>
-                <div class="tags">
-                    <div class="tag" onclick="toggleSelectTag(this)">아카시아</div><div class="tag" onclick="toggleSelectTag(this)">자스민</div><div class="tag" onclick="toggleSelectTag(this)">장미</div><div class="tag" onclick="toggleSelectTag(this)">히비스커스</div><div class="tag" onclick="toggleSelectTag(this)">라벤더</div><div class="tag" onclick="toggleSelectTag(this)">오렌지 블라썸</div><div class="tag" onclick="toggleSelectTag(this)">캐모마일</div><div class="tag" onclick="toggleSelectTag(this)">목련</div>
-                </div>
-                
-                <div class="sub-category">차 / 허브티 (Tea)</div>
-                <div class="tags">
-                    <div class="tag" onclick="toggleSelectTag(this)">베르가못</div><div class="tag" onclick="toggleSelectTag(this)">레몬버베나</div><div class="tag" onclick="toggleSelectTag(this)">녹차</div><div class="tag" onclick="toggleSelectTag(this)">홍차</div><div class="tag" onclick="toggleSelectTag(this)">얼그레이</div><div class="tag" onclick="toggleSelectTag(this)">우롱차</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)">🍫 3. 단맛 (Sweet & Sugary)</div>
-            <div class="accordion-content">
-                <div class="sub-category">달콤한 (Sweet)</div>
-                <div class="tags">
-                    <div class="tag" onclick="toggleSelectTag(this)">바닐라</div><div class="tag" onclick="toggleSelectTag(this)">꿀</div><div class="tag" onclick="toggleSelectTag(this)">버터</div><div class="tag" onclick="toggleSelectTag(this)">카라멜</div><div class="tag" onclick="toggleSelectTag(this)">메이플 시럽</div><div class="tag" onclick="toggleSelectTag(this)">브라운 슈가</div><div class="tag" onclick="toggleSelectTag(this)">마시멜로</div><div class="tag" onclick="toggleSelectTag(this)">솜사탕</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)">🥜 4. 견과 / 초콜릿 (Nut & Cocoa)</div>
-            <div class="accordion-content">
-                <div class="sub-category">견과류 (Nutty)</div>
-                <div class="tags">
-                    <div class="tag" onclick="toggleSelectTag(this)">땅콩</div><div class="tag" onclick="toggleSelectTag(this)">호두</div><div class="tag" onclick="toggleSelectTag(this)">피칸</div><div class="tag" onclick="toggleSelectTag(this)">아몬드</div><div class="tag" onclick="toggleSelectTag(this)">헤이즐넛</div>
-                </div>
-                
-                <div class="sub-category">초콜릿 (Cocoa)</div>
-                <div class="tags">
-                    <div class="tag" onclick="toggleSelectTag(this)">밀크 초콜릿</div><div class="tag" onclick="toggleSelectTag(this)">다크 초콜릿</div><div class="tag" onclick="toggleSelectTag(this)">카카오 닙스</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)">🌾 5. 곡물 (Roasted)</div>
-            <div class="accordion-content">
-                <div class="sub-category">곡류 (Cereal/Grain)</div>
-                <div class="tags">
-                    <div class="tag" onclick="toggleSelectTag(this)">그래놀라</div><div class="tag" onclick="toggleSelectTag(this)">토스트</div><div class="tag" onclick="toggleSelectTag(this)">오트밀</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)">🌿 6. 향신료 / 허브 (Spice & Herb)</div>
-            <div class="accordion-content">
-                <div class="sub-category">단 향신료 (Brown Spice)</div>
-                <div class="tags">
-                    <div class="tag" onclick="toggleSelectTag(this)">계피</div><div class="tag" onclick="toggleSelectTag(this)">넛맥</div>
-                </div>
-                
-                <div class="sub-category">허브 (Herb)</div>
-                <div class="tags">
-                    <div class="tag" onclick="toggleSelectTag(this)">세이지</div><div class="tag" onclick="toggleSelectTag(this)">딜</div><div class="tag" onclick="toggleSelectTag(this)">애플민트</div><div class="tag" onclick="toggleSelectTag(this)">바질</div><div class="tag" onclick="toggleSelectTag(this)">오레가노</div><div class="tag" onclick="toggleSelectTag(this)">유칼립투스</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="accordion-item">
-            <div class="accordion-header" onclick="toggleAccordion(this)">🍷 7. 발효 / 펑키 (Process & Funky)</div>
-            <div class="accordion-content">
-                <div class="sub-category">발효 (Process)</div>
-                <div class="tags">
-                    <div class="tag" onclick="toggleSelectTag(this)">와이니(Winey)</div><div class="tag" onclick="toggleSelectTag(this)">럼/위스키</div><div class="tag" onclick="toggleSelectTag(this)">요거트</div><div class="tag" onclick="toggleSelectTag(this)">콤부차</div><div class="tag" onclick="toggleSelectTag(this)">펑키(Funky)</div>
-                </div>
-            </div>
-        </div>
+        <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🍷 7. 발효 / 펑키 (Process & Funky)</div><div class="accordion-content"><div class="sub-category">발효 (Process)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">와이니(Winey)</div><div class="tag" onclick="toggleSelectTag(this)">럼/위스키</div><div class="tag" onclick="toggleSelectTag(this)">요거트</div><div class="tag" onclick="toggleSelectTag(this)">콤부차</div><div class="tag" onclick="toggleSelectTag(this)">펑키(Funky)</div></div></div></div>
 
         <div class="input-group" style="margin-top: 25px;"><label>한줄평 / 종합 의견</label><textarea id="oneLiner" rows="3" placeholder="예: 첫 모금에 화사한 플로럴이 퍼집니다."></textarea></div>
         <button class="submit-btn" id="submitBtn" onclick="submitNote()">제출 및 대시보드 보기</button>
@@ -320,21 +242,56 @@
     </div>
 
     <script>
-        const ACCESS_CODES = {
-            "101": "Sample A : 에티오피아 예가체프 워시드",
-            "102": "Sample B : 콜롬비아 게이샤 무산소",
-            "103": "Sample C : 과테말라 안티구아",
-            "ND01": "<No Doubt> 하우스 블렌드 테스트",
-            "TEST": "콜롬비아 라스 마가리타스 수단루메 하이브리드 워시드",
-            "777": "에콰도르 루그마파타 시드라 워시드"
-        };
-
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwpTu3I_mt-UeNUQ-QwTmFf4uJLbyqhaeMqCUxXsbXGZPDV9xmY5WG9FzHwNBAmxNAQ-g/exec";
 
         let currentCode = "";
         let currentBean = "";
         let autoRefreshInterval = null;
         let customTagsList = []; 
+        let activeSessionsMap = {}; // 실시간 세션 정보 매핑
+
+        // 페이지 로드 시 진행 중인 커핑 세션 목록 불러오기
+        window.addEventListener('DOMContentLoaded', () => {
+            loadLiveSessions();
+        });
+
+        async function loadLiveSessions() {
+            const container = document.getElementById('liveSessionsContainer');
+            try {
+                const res = await fetch(GOOGLE_SCRIPT_URL + "?action=sessions");
+                const sessions = await res.json();
+                
+                if(sessions.length === 0) {
+                    container.innerHTML = "<p style='font-size:0.88em; color:#888; text-align:center; margin:5px 0;'>현재 진행 중인 커핑이 없습니다. 코드를 직접 입력해 주세요.</p>";
+                    return;
+                }
+
+                let html = "";
+                activeSessionsMap = {};
+                sessions.forEach(s => {
+                    activeSessionsMap[s.accessCode] = s.beanInfo;
+                    html += `
+                        <div class="live-card" onclick="selectLiveSession('${s.accessCode}', '${s.beanInfo}')">
+                            <div class="live-card-info">
+                                <div class="bean-title">☕ ${s.beanInfo}</div>
+                                <div class="bean-code">입장 코드: ${s.accessCode}</div>
+                            </div>
+                            <div class="live-card-action">평가하기 ➔</div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            } catch(e) {
+                container.innerHTML = "<p style='font-size:0.85em; color:red; text-align:center;'>세션 목록을 불러오지 못했습니다.</p>";
+            }
+        }
+
+        function selectLiveSession(code, beanName) {
+            currentCode = code;
+            currentBean = beanName;
+            document.getElementById('currentBeanInfo').innerText = currentBean;
+            showSection('formSection');
+        }
 
         function showSection(sectionId) {
             document.querySelectorAll('.app-section').forEach(sec => sec.classList.remove('active'));
@@ -345,41 +302,102 @@
         function startAction(type) {
             const input = document.getElementById('mainCodeInput').value.trim();
             if (!input) { alert("입장 코드를 입력해주세요."); return; }
-            if (ACCESS_CODES[input.toUpperCase()] || ACCESS_CODES[input]) {
-                currentCode = input.toUpperCase() || input;
-                currentBean = ACCESS_CODES[currentCode];
-                if(type === 'eval') {
-                    document.getElementById('currentBeanInfo').innerText = currentBean;
-                    showSection('formSection');
-                } else {
-                    document.getElementById('resultBeanInfo').innerText = currentBean;
-                    showSection('dashboardSection');
-                    loadTeamData(currentCode, 'teamResultsContainer', 'summaryContainer');
-                    autoRefreshInterval = setInterval(() => loadTeamData(currentCode, 'teamResultsContainer', 'summaryContainer'), 5000);
-                }
-            } else { 
-                if(type === 'result') {
-                    currentCode = input; currentBean = "과거 기록 (코드: " + input + ")";
-                    document.getElementById('resultBeanInfo').innerText = currentBean;
-                    showSection('dashboardSection');
-                    loadTeamData(currentCode, 'teamResultsContainer', 'summaryContainer');
-                } else {
-                    alert("평가를 위한 올바르지 않은 입장 코드입니다.");
-                }
+            
+            // 실시간 세션맵에 있으면 그 이름 사용, 없으면 코드로 대체
+            currentCode = input.toUpperCase();
+            currentBean = activeSessionsMap[currentCode] || ("커핑 샘플 (코드: " + currentCode + ")");
+
+            if(type === 'eval') {
+                document.getElementById('currentBeanInfo').innerText = currentBean;
+                showSection('formSection');
+            } else {
+                document.getElementById('resultBeanInfo').innerText = currentBean;
+                showSection('dashboardSection');
+                loadTeamData(currentCode, 'teamResultsContainer', 'summaryContainer');
+                autoRefreshInterval = setInterval(() => loadTeamData(currentCode, 'teamResultsContainer', 'summaryContainer'), 5000);
             }
         }
 
-        function toggleAccordion(element) {
-            const parent = element.parentElement;
-            parent.classList.toggle('open');
+        // --- 🔒 관리자 기능 구현 ---
+        function tryOpenAdmin() {
+            const pw = prompt("관리자 비밀번호를 입력하세요:");
+            if (pw === "4538") {
+                document.getElementById('adminPanel').style.display = 'block';
+                loadAdminSessions();
+            } else if (pw !== null) {
+                alert("비밀번호가 틀렸습니다.");
+            }
         }
 
-        function toggleColor(element) { element.classList.toggle('selected'); }
-        
-        function toggleSelectTag(element) { 
-            element.classList.toggle('selected'); 
-            renderSelectedPool();
+        async function loadAdminSessions() {
+            const listEl = document.getElementById('adminSessionList');
+            listEl.innerHTML = "<div style='font-size:0.85em; color:#aaa;'>불러오는 중...</div>";
+            try {
+                const res = await fetch(GOOGLE_SCRIPT_URL + "?action=admin_all_sessions");
+                const all = await res.json();
+                
+                if(all.length === 0) {
+                    listEl.innerHTML = "<div style='font-size:0.85em; color:#aaa;'>등록된 세션이 없습니다.</div>";
+                    return;
+                }
+
+                let html = "";
+                all.forEach(s => {
+                    const isLive = s.status === "진행중";
+                    const btnText = isLive ? "마감하기" : "재오픈";
+                    const nextStatus = isLive ? "마감" : "진행중";
+                    const statusColor = isLive ? "#52b788" : "#e76f51";
+
+                    html += `
+                        <div class="admin-session-row">
+                            <div>
+                                <strong>[${s.accessCode}]</strong> ${s.beanInfo} 
+                                <span style="font-size:0.75em; color:${statusColor}; font-weight:bold; margin-left:6px;">(${s.status})</span>
+                            </div>
+                            <div style="display:flex; gap:6px;">
+                                <button onclick="updateSessionStatus(${s.rowIdx}, '${nextStatus}')" style="background:${isLive?'#c0392b':'#27ae60'}; color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer; font-size:0.8em;">${btnText}</button>
+                                <button onclick="updateSessionStatus(${s.rowIdx}, '삭제')" style="background:#555; color:white; border:none; padding:4px 6px; border-radius:4px; cursor:pointer; font-size:0.8em;">삭제</button>
+                            </div>
+                        </div>
+                    `;
+                });
+                listEl.innerHTML = html;
+            } catch(e) {
+                listEl.innerHTML = "<div style='font-size:0.85em; color:red;'>목록 로드 실패</div>";
+            }
         }
+
+        async function addNewSession() {
+            const code = document.getElementById('newCodeInput').value.trim();
+            const bean = document.getElementById('newBeanInput').value.trim();
+            if(!code || !bean) { alert("코드와 원두 정보를 모두 입력해주세요."); return; }
+
+            try {
+                await fetch(`${GOOGLE_SCRIPT_URL}?action=admin_update_session&code=${encodeURIComponent(code)}&bean=${encodeURIComponent(bean)}&status=진행중`);
+                alert("새로운 커핑이 성공적으로 오픈되었습니다!");
+                document.getElementById('newCodeInput').value = "";
+                document.getElementById('newBeanInput').value = "";
+                loadAdminSessions();
+                loadLiveSessions();
+            } catch(e) {
+                alert("오류가 발생했습니다.");
+            }
+        }
+
+        async function updateSessionStatus(rowIdx, newStatus) {
+            if(newStatus === '삭제' && !confirm("정말 이 세션을 삭제하시겠습니까?")) return;
+            try {
+                await fetch(`${GOOGLE_SCRIPT_URL}?action=admin_update_session&rowIdx=${rowIdx}&status=${encodeURIComponent(newStatus)}`);
+                loadAdminSessions();
+                loadLiveSessions();
+            } catch(e) {
+                alert("상태 변경 중 오류가 발생했습니다.");
+            }
+        }
+
+        function toggleAccordion(element) { element.parentElement.classList.toggle('open'); }
+        function toggleColor(element) { element.classList.toggle('selected'); }
+        function toggleSelectTag(element) { element.classList.toggle('selected'); renderSelectedPool(); }
 
         function addCustomNote() {
             const inputEl = document.getElementById('customNoteInput');
@@ -395,8 +413,6 @@
 
         function renderSelectedPool() {
             const poolContainer = document.getElementById('selectedPool');
-            const emptyText = document.getElementById('emptyPoolText');
-            
             const selectedPredefined = Array.from(document.querySelectorAll('.accordion-content .tag.selected')).map(el => el.innerText);
             const allSelected = [...selectedPredefined, ...customTagsList];
 
@@ -410,14 +426,12 @@
                 const tagDiv = document.createElement('div');
                 tagDiv.className = 'pool-tag';
                 tagDiv.innerText = tagText;
-                
                 tagDiv.onclick = function() {
                     const cIndex = customTagsList.indexOf(tagText);
                     if(cIndex > -1) {
                         customTagsList.splice(cIndex, 1);
                     } else {
-                        const pTags = document.querySelectorAll('.accordion-content .tag.selected');
-                        pTags.forEach(pTag => {
+                        document.querySelectorAll('.accordion-content .tag.selected').forEach(pTag => {
                             if(pTag.innerText === tagText) pTag.classList.remove('selected');
                         });
                     }
@@ -433,7 +447,6 @@
             if(!name) { alert("평가자 이름을 입력해주세요!"); return; }
 
             const selectedColorHexes = Array.from(document.querySelectorAll('.color-chip.selected')).map(chip => chip.getAttribute('data-bg'));
-            
             const selectedPredefined = Array.from(document.querySelectorAll('.accordion-content .tag.selected')).map(el => el.innerText);
             const allTags = [...selectedPredefined, ...customTagsList].join(', ');
             
@@ -532,8 +545,8 @@
             const c2 = document.getElementById('compCode2').value.trim();
             if(!c1 || !c2) { alert("비교할 두 코드를 모두 입력해주세요."); return; }
             
-            document.getElementById('compBean1').innerText = ACCESS_CODES[c1] || "코드: " + c1;
-            document.getElementById('compBean2').innerText = ACCESS_CODES[c2] || "코드: " + c2;
+            document.getElementById('compBean1').innerText = "코드: " + c1;
+            document.getElementById('compBean2').innerText = "코드: " + c2;
             
             showSection('compareDashboardSection');
             if(autoRefreshInterval) clearInterval(autoRefreshInterval);
