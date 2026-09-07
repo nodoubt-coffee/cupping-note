@@ -25,12 +25,17 @@
         .input-group input[type="text"], .input-group textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--border-color); background-color: #faf8f5; border-radius: 8px; box-sizing: border-box; font-size: 1em; font-family: inherit; outline: none; }
         .input-group input:focus, .input-group textarea:focus { border-color: var(--accent-color); background-color: #ffffff; }
 
-        /* 🔥 홈 화면 실시간 세션 카드 스타일 */
+        /* 🔥 홈 화면 세션 카드 스타일 */
         .live-sessions-container { display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; }
         .live-card { background: #fffaf5; border: 1px solid #fbdcbb; padding: 18px; border-radius: 14px; box-shadow: 0 2px 8px rgba(184,107,53,0.05); }
+        .live-card.closed { background: #fbf9f6; border-color: #e5ded4; opacity: 0.9; }
         .live-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
         .bean-title { font-weight: bold; font-size: 1.1em; color: var(--primary-color); line-height: 1.3; }
         .bean-code { font-size: 0.78em; color: var(--accent-color); background: #fbeedc; padding: 3px 8px; border-radius: 6px; font-weight: bold; letter-spacing: 1px; white-space: nowrap; }
+        
+        .badge-live { font-size: 0.75em; background: #e2f0cb; color: #2d6a4f; padding: 3px 8px; border-radius: 6px; font-weight: bold; }
+        .badge-closed { font-size: 0.75em; background: #eee; color: #777; padding: 3px 8px; border-radius: 6px; font-weight: bold; }
+
         .live-card-btns { display: flex; gap: 8px; }
         .live-card-btns button { flex: 1; padding: 10px; border-radius: 8px; font-size: 0.9em; font-weight: bold; cursor: pointer; border: none; transition: 0.2s; }
         .btn-eval { background: var(--accent-color); color: white; }
@@ -38,7 +43,6 @@
         .btn-result { background: var(--tag-bg); color: var(--primary-color); }
         .btn-result:hover { background: #e2d9cd; }
 
-        /* 숨김 코드 입력창 토글 영역 */
         .fallback-toggle-area { text-align: center; margin-top: 15px; }
         .fallback-toggle-btn { background: none; border: none; color: #8c7f75; font-size: 0.88em; cursor: pointer; text-decoration: underline; }
         .fallback-box { background: #faf8f5; padding: 15px; border-radius: 12px; border: 1px solid var(--border-color); margin-top: 10px; display: none; }
@@ -101,7 +105,9 @@
         .admin-link-area { text-align: center; margin-top: 40px; }
         .admin-trigger { background: none; border: none; color: #b5a99f; font-size: 0.85em; cursor: pointer; text-decoration: underline; }
         .admin-panel { background: #2b2420; color: #f4f1ea; padding: 25px; border-radius: 16px; margin-top: 15px; display: none; }
-        .admin-session-row { background: #3c322c; padding: 12px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 0.9em; }
+        .admin-session-row { background: #3c322c; padding: 12px; border-radius: 8px; margin-bottom: 10px; font-size: 0.88em; }
+        .admin-session-info { margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .admin-session-btns { display: flex; gap: 5px; flex-wrap: wrap; }
     </style>
 </head>
 <body>
@@ -111,14 +117,13 @@
         <span>COFFEE ROASTERS</span>
     </div>
 
-    <!-- 🔑 1. 메인 홈 화면 (실시간 진행 중인 커핑 중심) -->
+    <!-- 🔑 1. 메인 홈 화면 -->
     <div class="app-section active" id="menuSection">
-        <h2 style="margin-top: 0; font-size: 1.15em; color: var(--accent-color);">☕ 현재 진행 중인 커핑</h2>
+        <h2 style="margin-top: 0; font-size: 1.15em; color: var(--accent-color);">☕ 커핑 세션 목록</h2>
         <div class="live-sessions-container" id="liveSessionsContainer">
             <div class="loading-text" style="font-size: 0.9em; margin: 15px 0;">세션을 불러오는 중... ⏳</div>
         </div>
 
-        <!-- 숨겨진 직접 입장 (비상용) -->
         <div class="fallback-toggle-area">
             <button class="fallback-toggle-btn" onclick="toggleFallbackBox()">비상 코드로 직접 입장하기 ▾</button>
             <div class="fallback-box" id="fallbackBox">
@@ -157,7 +162,7 @@
 
             <hr style="border:0; border-top:1px solid #444; margin:20px 0;">
             
-            <h4 style="margin:0 0 10px 0; font-size:0.95em; color:#fbdcbb;">📌 전체 세션 마감/관리</h4>
+            <h4 style="margin:0 0 10px 0; font-size:0.95em; color:#fbdcbb;">📌 전체 세션 관리 (마감 / 홈 노출 설정)</h4>
             <div id="adminSessionList"><div style="font-size:0.85em; color:#aaa;">목록 불러오는 중...</div></div>
             <button class="submit-btn outline" style="border-color:#777; color:#ccc; margin-top:15px;" onclick="document.getElementById('adminPanel').style.display='none'">관리자 닫기</button>
         </div>
@@ -270,7 +275,7 @@
                 const sessions = await res.json();
                 
                 if(sessions.length === 0) {
-                    container.innerHTML = "<p style='font-size:0.88em; color:#888; text-align:center; margin:10px 0;'>현재 진행 중인 커핑이 없습니다. 관리자 모드에서 새 커핑을 오픈해주세요.</p>";
+                    container.innerHTML = "<p style='font-size:0.88em; color:#888; text-align:center; margin:10px 0;'>현재 표시된 세션이 없습니다. 관리자 모드에서 확인해주세요.</p>";
                     return;
                 }
 
@@ -278,15 +283,23 @@
                 activeSessionsMap = {};
                 sessions.forEach(s => {
                     activeSessionsMap[s.accessCode] = s.beanInfo;
+                    const isClosed = s.status === "마감";
+                    
                     html += `
-                        <div class="live-card">
+                        <div class="live-card ${isClosed ? 'closed' : ''}">
                             <div class="live-card-top">
                                 <div class="bean-title">☕ ${s.beanInfo}</div>
-                                <div class="bean-code">${s.accessCode}</div>
+                                <div style="display:flex; align-items:center; gap:6px;">
+                                    ${isClosed ? '<span class="badge-closed">종료됨</span>' : '<span class="badge-live">진행 중</span>'}
+                                    <span class="bean-code">${s.accessCode}</span>
+                                </div>
                             </div>
                             <div class="live-card-btns">
-                                <button class="btn-eval" onclick="openSessionAction('${s.accessCode}', '${s.beanInfo}', 'eval')">평가하기</button>
-                                <button class="btn-result" onclick="openSessionAction('${s.accessCode}', '${s.beanInfo}', 'result')">결과 보기</button>
+                                ${isClosed 
+                                    ? `<button class="btn-result" style="width:100%; background:#f2ede4;" onclick="openSessionAction('${s.accessCode}', '${s.beanInfo}', 'result')">📊 결과 분석 보기</button>`
+                                    : `<button class="btn-eval" onclick="openSessionAction('${s.accessCode}', '${s.beanInfo}', 'eval')">평가하기</button>
+                                       <button class="btn-result" onclick="openSessionAction('${s.accessCode}', '${s.beanInfo}', 'result')">결과 보기</button>`
+                                }
                             </div>
                         </div>
                     `;
@@ -366,19 +379,28 @@
                 let html = "";
                 all.forEach(s => {
                     const isLive = s.status === "진행중";
-                    const btnText = isLive ? "마감하기" : "재오픈";
+                    const isHidden = s.display === "숨김";
+                    
+                    const statusBtnText = isLive ? "마감하기" : "재오픈";
                     const nextStatus = isLive ? "마감" : "진행중";
                     const statusColor = isLive ? "#52b788" : "#e76f51";
 
+                    const displayBtnText = isHidden ? "홈표시" : "홈숨김";
+                    const nextDisplay = isHidden ? "표시" : "숨김";
+
                     html += `
                         <div class="admin-session-row">
-                            <div>
-                                <strong>[${s.accessCode}]</strong> ${s.beanInfo} 
-                                <span style="font-size:0.75em; color:${statusColor}; font-weight:bold; margin-left:6px;">(${s.status})</span>
+                            <div class="admin-session-info">
+                                <div><strong>[${s.accessCode}]</strong> ${s.beanInfo}</div>
+                                <div>
+                                    <span style="font-size:0.75em; color:${statusColor}; font-weight:bold;">${s.status}</span>
+                                    <span style="font-size:0.75em; color:${isHidden?'#999':'#40916C'}; font-weight:bold; margin-left:4px;">(${s.display})</span>
+                                </div>
                             </div>
-                            <div style="display:flex; gap:6px;">
-                                <button onclick="updateSessionStatus(${s.rowIdx}, '${nextStatus}')" style="background:${isLive?'#c0392b':'#27ae60'}; color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer; font-size:0.8em;">${btnText}</button>
-                                <button onclick="updateSessionStatus(${s.rowIdx}, '삭제')" style="background:#555; color:white; border:none; padding:4px 6px; border-radius:4px; cursor:pointer; font-size:0.8em;">삭제</button>
+                            <div class="admin-session-btns">
+                                <button onclick="updateSession(${s.rowIdx}, '${nextStatus}', null)" style="background:${isLive?'#c0392b':'#27ae60'}; color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer; font-size:0.8em;">${statusBtnText}</button>
+                                <button onclick="updateSession(${s.rowIdx}, null, '${nextDisplay}')" style="background:#4a6fa5; color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer; font-size:0.8em;">${displayBtnText}</button>
+                                <button onclick="updateSession(${s.rowIdx}, '삭제', null)" style="background:#555; color:white; border:none; padding:4px 6px; border-radius:4px; cursor:pointer; font-size:0.8em;">삭제</button>
                             </div>
                         </div>
                     `;
@@ -394,7 +416,7 @@
             if(!bean) { alert("원두 정보를 입력해주세요."); return; }
 
             try {
-                await fetch(`${GOOGLE_SCRIPT_URL}?action=admin_update_session&bean=${encodeURIComponent(bean)}&status=진행중`);
+                await fetch(`${GOOGLE_SCRIPT_URL}?action=admin_update_session&bean=${encodeURIComponent(bean)}&status=진행중&display=표시`);
                 alert("새로운 커핑이 오픈되었습니다! (랜덤 코드 자동 발급됨)");
                 document.getElementById('newBeanInput').value = "";
                 loadAdminSessions();
@@ -404,14 +426,19 @@
             }
         }
 
-        async function updateSessionStatus(rowIdx, newStatus) {
+        async function updateSession(rowIdx, newStatus, newDisplay) {
             if(newStatus === '삭제' && !confirm("정말 이 세션을 삭제하시겠습니까?")) return;
+            
+            let url = `${GOOGLE_SCRIPT_URL}?action=admin_update_session&rowIdx=${rowIdx}`;
+            if(newStatus) url += `&status=${encodeURIComponent(newStatus)}`;
+            if(newDisplay) url += `&display=${encodeURIComponent(newDisplay)}`;
+
             try {
-                await fetch(`${GOOGLE_SCRIPT_URL}?action=admin_update_session&rowIdx=${rowIdx}&status=${encodeURIComponent(newStatus)}`);
+                await fetch(url);
                 loadAdminSessions();
                 loadLiveSessions();
             } catch(e) {
-                alert("상태 변경 중 오류가 발생했습니다.");
+                alert("설정 변경 중 오류가 발생했습니다.");
             }
         }
 
@@ -586,7 +613,7 @@
                     container.innerHTML = "<p style='text-align:center;'>저장된 기록이 없습니다.</p>"; return;
                 }
                 
-                let html = "";
+                let html = "`;
                 historyData.forEach(item => {
                     const dateObj = new Date(item.lastDate);
                     const dateStr = `${dateObj.getFullYear()}.${String(dateObj.getMonth()+1).padStart(2,'0')}.${String(dateObj.getDate()).padStart(2,'0')}`;
