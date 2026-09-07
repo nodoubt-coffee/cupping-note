@@ -613,7 +613,7 @@
                     container.innerHTML = "<p style='text-align:center;'>저장된 기록이 없습니다.</p>"; return;
                 }
                 
-                let html = "`;
+                let html = "";
                 historyData.forEach(item => {
                     const dateObj = new Date(item.lastDate);
                     const dateStr = `${dateObj.getFullYear()}.${String(dateObj.getMonth()+1).padStart(2,'0')}.${String(dateObj.getDate()).padStart(2,'0')}`;
