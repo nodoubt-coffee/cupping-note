@@ -132,7 +132,7 @@
             <h3 style="margin-top:0; color:#fbdcbb;">🛠️ 새 커핑 오픈하기</h3>
             <div class="admin-tab">
                 <button id="tabRegular" class="active" onclick="setAdminTab('regular')">☕ 정규 (1컵)</button>
-                <button id="tabRanking" onclick="setAdminTab('ranking')">🏆 블라인드 랭킹</button>
+                <button id="tabRanking" onclick="setAdminTab('ranking')">🏆 다중 컵 랭킹</button>
             </div>
             
             <div id="adminRegularSetup">
@@ -140,12 +140,12 @@
             </div>
             
             <div id="adminRankingSetup" style="display:none;">
-                <div class="input-group"><label style="color:#ddd;">세션명</label><input type="text" id="newBeanRanking" placeholder="예: 게이샤 멸망전 5종" style="background:#1a1a1a; color:white; border:1px solid #555;"></div>
+                <div class="input-group"><label style="color:#ddd;">세션명</label><input type="text" id="newBeanRanking" placeholder="예: 게이샤 멸망전 또는 3종 비교" style="background:#1a1a1a; color:white; border:1px solid #555;"></div>
                 <div style="display:flex; gap:10px;">
-                    <div class="input-group" style="flex:1;"><label style="color:#ddd;">총 샘플 수</label><input type="number" id="rankSamples" value="5" min="2" max="20" style="background:#1a1a1a; color:white; border:1px solid #555;"></div>
+                    <div class="input-group" style="flex:2;"><label style="color:#ddd;">샘플 목록 (쉼표로 구분)</label><input type="text" id="rankSamples" placeholder="예: 1, 2, 3 또는 콜롬비아, 에티오피아" style="background:#1a1a1a; color:white; border:1px solid #555; font-size:0.9em;"></div>
                     <div class="input-group" style="flex:1;"><label style="color:#ddd;">픽(Pick) 개수</label>
                         <select id="rankPicks" style="background:#1a1a1a; color:white; border:1px solid #555;">
-                            <option value="1">Top 1만 선택</option><option value="2">Top 2까지 선택</option><option value="3" selected>Top 3까지 선택</option>
+                            <option value="1">Top 1만</option><option value="2">Top 2까지</option><option value="3" selected>Top 3까지</option>
                         </select>
                     </div>
                 </div>
@@ -267,7 +267,7 @@
         }
 
         function openSession(code, actionType) {
-            currentSession = sessionMap[code] || { accessCode: code, beanInfo: "세션 ("+code+")", type: "regular", samples:0, picks:0 };
+            currentSession = sessionMap[code] || { accessCode: code, beanInfo: "세션 ("+code+")", type: "regular", samples:"", picks:0 };
             if(actionType === 'eval') {
                 if(currentSession.type === 'ranking') buildRankingForm();
                 else { document.getElementById('currentBeanInfo').innerText = currentSession.beanInfo; showSection('formSection'); }
@@ -284,9 +284,12 @@
             document.getElementById('rankingBeanInfo').innerText = "🏆 " + currentSession.beanInfo;
             const container = document.getElementById('rankingPickContainer'); container.innerHTML = "";
             let pickLabels = ["🥇 1위", "🥈 2위", "🥉 3위", "4위", "5위"];
+            
+            let sampleList = String(currentSession.samples).split(',').map(s=>s.trim()).filter(Boolean);
+            
             for(let i=1; i<=currentSession.picks; i++) {
-                let options = `<option value="">샘플 번호 선택</option>`;
-                for(let s=1; s<=currentSession.samples; s++) options += `<option value="${s}">${s}번 샘플</option>`;
+                let options = `<option value="">샘플 선택</option>`;
+                sampleList.forEach(s => options += `<option value="${s}">${s}</option>`);
                 container.innerHTML += `
                     <div class="rank-box"><h4>${pickLabels[i-1]} 픽</h4>
                         <div class="input-group"><select id="rankPick${i}">${options}</select></div>
@@ -320,7 +323,7 @@
             let bean = "", url = `${GOOGLE_SCRIPT_URL}?action=admin_update_session`;
             if(isRank) {
                 bean = document.getElementById('newBeanRanking').value.trim();
-                url += `&bean=${encodeURIComponent(bean)}&type=ranking&samples=${document.getElementById('rankSamples').value}&picks=${document.getElementById('rankPicks').value}`;
+                url += `&bean=${encodeURIComponent(bean)}&type=ranking&samples=${encodeURIComponent(document.getElementById('rankSamples').value.trim())}&picks=${document.getElementById('rankPicks').value}`;
             } else {
                 bean = document.getElementById('newBeanRegular').value.trim();
                 url += `&bean=${encodeURIComponent(bean)}&type=regular`;
@@ -371,7 +374,6 @@
                 if(data.length === 0) { area.innerHTML = "<p style='text-align:center;'>제출된 데이터가 없습니다.</p>"; return; }
                 
                 if (currentSession.type === "ranking") {
-                    // 점수 없이, 각 샘플별로 누가 몇위로 뽑았는지 집계
                     let sampleMap = {}; let detailsHtml = "<h3 style='margin-top:20px; border-bottom:2px solid #e5ded4; padding-bottom:8px;'>개인별 상세 픽 & 총평</h3>";
                     data.forEach(d => {
                         let ranks = [ {r: 1, s: d.top1}, {r: 2, s: d.top2}, {r: 3, s: d.top3} ];
@@ -381,16 +383,18 @@
                             if(obj.s) {
                                 if(!sampleMap[obj.s]) sampleMap[obj.s] = [];
                                 sampleMap[obj.s].push(`${pLabel[idx]} ${d.name}(${obj.r}위)`);
-                                pText += `<div style="font-size:0.85em; margin-bottom:6px;"><strong>${pLabel[idx]} ${obj.r}위 (${obj.s}번):</strong> ${d[`reason${obj.r}`] || '-'}</div>`;
+                                pText += `<div style="font-size:0.85em; margin-bottom:6px;"><strong>${pLabel[idx]} ${obj.r}위 (${obj.s}):</strong> ${d[`reason${obj.r}`] || '-'}</div>`;
                             }
                         });
                         detailsHtml += `<div class="card" style="border-left:4px solid #c98860;"><h4 style="margin:0 0 10px 0;">👤 ${d.name}</h4>${pText}<div style="font-size:0.85em; margin-top:8px; padding-top:8px; border-top:1px dashed #e5ded4;"><strong>총평:</strong> ${d.overall || '-'}</div></div>`;
                     });
                     
                     let sumHtml = `<h3 style="color:#b86b35;">📊 샘플별 선택 현황</h3>`;
-                    let sortedSamples = Object.keys(sampleMap).sort((a,b)=> Number(a) - Number(b));
+                    let originalOrder = String(currentSession.samples).split(',').map(s=>s.trim());
+                    let sortedSamples = Object.keys(sampleMap).sort((a,b) => originalOrder.indexOf(a) - originalOrder.indexOf(b));
+                    
                     sortedSamples.forEach(s => {
-                        sumHtml += `<div class="rank-summary-card"><div class="rank-summary-header"><span>${s}번 샘플</span></div><div class="rank-summary-body">${sampleMap[s].join(', ')}</div></div>`;
+                        sumHtml += `<div class="rank-summary-card"><div class="rank-summary-header"><span>${s}</span></div><div class="rank-summary-body">${sampleMap[s].join(', ')}</div></div>`;
                     });
                     area.innerHTML = sumHtml + detailsHtml;
                 } else {
