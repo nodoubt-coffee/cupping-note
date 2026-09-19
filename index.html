@@ -25,43 +25,28 @@
         .input-group input[type="text"], .input-group textarea, .input-group select { width: 100%; padding: 12px 14px; border: 1px solid var(--border-color); background-color: #faf8f5; border-radius: 8px; box-sizing: border-box; font-size: 1em; font-family: inherit; outline: none; }
         .input-group input:focus, .input-group textarea:focus, .input-group select:focus { border-color: var(--accent-color); background-color: #ffffff; }
 
-        /* 🔥 홈 화면 세션 카드 스타일 */
         .live-sessions-container { display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; }
         .live-card { background: #fffaf5; border: 1px solid #fbdcbb; padding: 18px; border-radius: 14px; box-shadow: 0 2px 8px rgba(184,107,53,0.05); }
         .live-card.closed { background: #fbf9f6; border-color: #e5ded4; opacity: 0.9; }
+        .live-card.ranking-mode { background: #fdfdfa; border-color: #c98860; box-shadow: 0 2px 8px rgba(201,136,96,0.1); }
         .live-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
         .bean-title { font-weight: bold; font-size: 1.1em; color: var(--primary-color); line-height: 1.3; }
         .bean-code { font-size: 0.78em; color: var(--accent-color); background: #fbeedc; padding: 3px 8px; border-radius: 6px; font-weight: bold; letter-spacing: 1px; white-space: nowrap; }
         
         .badge-live { font-size: 0.75em; background: #e2f0cb; color: #2d6a4f; padding: 3px 8px; border-radius: 6px; font-weight: bold; }
         .badge-closed { font-size: 0.75em; background: #eee; color: #777; padding: 3px 8px; border-radius: 6px; font-weight: bold; }
+        .badge-type { font-size: 0.75em; background: #1a1a1a; color: #ffd700; padding: 3px 8px; border-radius: 6px; font-weight: bold; margin-right: 6px; }
 
         .live-card-btns { display: flex; gap: 8px; }
         .live-card-btns button { flex: 1; padding: 10px; border-radius: 8px; font-size: 0.9em; font-weight: bold; cursor: pointer; border: none; transition: 0.2s; }
         .btn-eval { background: var(--accent-color); color: white; }
         .btn-eval:hover { background: #a05a2b; }
         .btn-result { background: var(--tag-bg); color: var(--primary-color); }
-        .btn-result:hover { background: #e2d9cd; }
 
-        /* 🏆 게이샤 멸망전 전용 테마 */
-        .geisha-banner { background: linear-gradient(135deg, #1a1a1a, #3c322c); color: #fbdcbb; padding: 20px; border-radius: 14px; text-align: center; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 1px solid #c98860; }
-        .geisha-banner h2 { margin: 0 0 10px 0; font-size: 1.3em; letter-spacing: 1px; color: #ffd700; }
-        .geisha-banner p { margin: 0; font-size: 0.85em; color: #eee; }
-        .geisha-btns { display: flex; gap: 8px; margin-top: 15px; }
-        .geisha-btns button { flex: 1; padding: 12px; font-weight: bold; border-radius: 8px; border: none; cursor: pointer; }
-        .btn-geisha-eval { background: #ffd700; color: #1a1a1a; }
-        .btn-geisha-result { background: #333; color: #ffd700; border: 1px solid #ffd700; }
-        
-        .geisha-rank-card { background: #fdfbf7; border: 2px solid var(--border-color); padding: 15px; border-radius: 12px; margin-bottom: 15px; }
-        .geisha-rank-card h4 { margin: 0 0 10px 0; font-size: 1.1em; color: var(--primary-color); display: flex; align-items: center; gap: 5px; }
-        .rank-gold h4 { color: #d4af37; } .rank-gold { border-color: #fbeedc; background: #fffcf5; }
-        .rank-silver h4 { color: #8a8d91; } .rank-silver { border-color: #eeeeee; }
-        .rank-bronze h4 { color: #b08d57; } .rank-bronze { border-color: #f5eedc; }
-
-        /* 🎨 기존 UI 스타일들... */
         .fallback-toggle-area { text-align: center; margin-top: 15px; }
         .fallback-toggle-btn { background: none; border: none; color: #8c7f75; font-size: 0.88em; cursor: pointer; text-decoration: underline; }
         .fallback-box { background: #faf8f5; padding: 15px; border-radius: 12px; border: 1px solid var(--border-color); margin-top: 10px; display: none; }
+
         .color-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 25px; justify-items: center; }
         .color-chip { width: 100%; max-width: 45px; aspect-ratio: 1 / 1; border-radius: 50%; cursor: pointer; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05), 0 2px 5px rgba(0,0,0,0.06); transition: all 0.2s; border: 3px solid transparent; }
         .color-chip.selected { transform: scale(1.15); box-shadow: 0 4px 10px rgba(0,0,0,0.15); border-color: #3c322c; }
@@ -82,7 +67,7 @@
         .sub-category:first-child { margin-top: 5px; }
         .tags { display: flex; gap: 6px; flex-wrap: wrap; }
         .tag { padding: 7px 13px; background: var(--tag-bg); color: var(--primary-color); border-radius: 18px; font-size: 0.85em; cursor: pointer; transition: all 0.2s; user-select: none; }
-        .tag.selected { background: var(--accent-color); color: white; font-weight: bold; box-shadow: 0 2px 4px rgba(184,107,53,0.3); }
+        .tag.selected { background: var(--accent-color); color: white; font-weight: bold; }
 
         button.submit-btn { width: 100%; padding: 15px; background-color: var(--accent-color); color: white; border: none; border-radius: 10px; font-size: 1.05em; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.2s; }
         button.submit-btn:hover { background-color: #a05a2b; }
@@ -92,31 +77,25 @@
         
         .card { border: 1px solid var(--border-color); padding: 18px; border-radius: 12px; margin-bottom: 15px; background: #faf8f5; }
         .card h3 { margin-top: 0; margin-bottom: 12px; color: var(--primary-color); border-bottom: 2px solid var(--border-color); padding-bottom: 8px; font-size: 1.1em; }
-        .result-circles-container { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
-        .result-circle { width: 28px; height: 28px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.1); }
-        .loading-text { text-align: center; color: #8c7f75; font-weight: bold; margin: 25px 0; }
+        .result-circle { width: 28px; height: 28px; border-radius: 50%; display:inline-block; margin-right:4px; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05); }
         
-        .summary-box { background: #fff5eb; border: 1px solid #fbdcbb; padding: 18px; border-radius: 14px; margin-bottom: 25px; display: flex; flex-direction: column; gap: 14px; }
-        .summary-box h3 { margin: 0 0 8px 0; font-size: 0.95em; color: var(--accent-color); }
-        .summary-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-        .top-tag { font-size: 0.88em; font-weight: bold; background: white; padding: 6px 12px; border-radius: 16px; border: 1px solid #fbdcbb; color: var(--primary-color); box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
-        .top-tag span { color: var(--accent-color); margin-left: 2px; }
-
-        .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        @media (max-width: 600px) { .compare-grid { grid-template-columns: 1fr; } }
         .history-item { padding: 15px; border-bottom: 1px solid var(--border-color); cursor: pointer; transition: background 0.2s; border-radius: 8px; }
         .history-item:hover { background: #fdfaf5; }
         .history-date { font-size: 0.8em; color: #999; margin-bottom: 4px; }
         .history-bean { font-weight: bold; color: var(--primary-color); font-size: 1.05em; }
-        .history-code { display: inline-block; background: var(--tag-bg); padding: 2px 8px; border-radius: 10px; font-size: 0.75em; margin-top: 5px; }
 
-        /* 🔒 관리자 스타일 */
-        .admin-link-area { text-align: center; margin-top: 40px; }
-        .admin-trigger { background: none; border: none; color: #b5a99f; font-size: 0.85em; cursor: pointer; text-decoration: underline; }
+        /* 관리자 스타일 */
         .admin-panel { background: #2b2420; color: #f4f1ea; padding: 25px; border-radius: 16px; margin-top: 15px; display: none; }
-        .admin-session-row { background: #3c322c; padding: 12px; border-radius: 8px; margin-bottom: 10px; font-size: 0.88em; }
-        .admin-session-info { margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
-        .admin-session-btns { display: flex; gap: 5px; flex-wrap: wrap; }
+        .admin-tab { display:flex; gap:10px; margin-bottom:20px; }
+        .admin-tab button { flex:1; padding:10px; background:#443b35; color:#aaa; border:none; border-radius:8px; font-weight:bold; cursor:pointer; }
+        .admin-tab button.active { background:var(--accent-color); color:white; }
+        
+        /* 랭킹 폼 스타일 */
+        .rank-box { background: white; border: 1px solid var(--border-color); padding: 15px; border-radius: 10px; margin-bottom: 15px; }
+        .rank-box h4 { margin:0 0 10px 0; font-size:1.05em; color:var(--primary-color); }
+        .rank-summary-card { background: white; border: 1px solid #e5ded4; border-radius: 10px; margin-bottom: 15px; overflow: hidden; }
+        .rank-summary-header { background: #fbf9f6; padding: 12px 15px; font-weight: bold; font-size: 1.1em; border-bottom: 1px solid #e5ded4; display:flex; justify-content:space-between; }
+        .rank-summary-body { padding: 15px; font-size: 0.9em; line-height: 1.5; }
     </style>
 </head>
 <body>
@@ -128,21 +107,8 @@
 
     <!-- 🔑 1. 메인 홈 화면 -->
     <div class="app-section active" id="menuSection">
-        
-        <!-- 🏆 게이샤 멸망전 특별 배너 -->
-        <div class="geisha-banner">
-            <h2>🏆 게이샤 멸망전 블라인드</h2>
-            <p>1번~10번 샘플 중 최고의 Top 3를 골라주세요.</p>
-            <div class="geisha-btns">
-                <button class="btn-geisha-eval" onclick="showSection('geishaFormSection')">투표하기</button>
-                <button class="btn-geisha-result" onclick="openGeishaDashboard()">랭킹 보기</button>
-            </div>
-        </div>
-
-        <h2 style="margin-top: 0; font-size: 1.15em; color: var(--accent-color);">☕ 정규 커핑 세션</h2>
-        <div class="live-sessions-container" id="liveSessionsContainer">
-            <div class="loading-text" style="font-size: 0.9em; margin: 15px 0;">세션을 불러오는 중... ⏳</div>
-        </div>
+        <h2 style="margin-top: 0; font-size: 1.15em; color: var(--accent-color);">☕ 커핑 세션 목록</h2>
+        <div class="live-sessions-container" id="liveSessionsContainer"><div style="text-align:center; color:#888; margin:20px 0;">세션을 불러오는 중... ⏳</div></div>
 
         <div class="fallback-toggle-area">
             <button class="fallback-toggle-btn" onclick="toggleFallbackBox()">비상 코드로 직접 입장하기 ▾</button>
@@ -152,386 +118,331 @@
             </div>
         </div>
 
-        <hr class="divider"><h2 style="margin-top: 0; font-size: 1.15em; color: #4a6fa5;">🔬 로스팅 배치 비교 모드</h2>
+        <hr class="divider">
+        <h2 style="margin-top: 0; font-size: 1.15em; color: #4a6fa5;">🔬 로스팅 배치 비교 모드 (정규 폼 전용)</h2>
         <button class="submit-btn outline" onclick="showSection('compareSetupSection')">비교 모드 열기</button>
-        <hr class="divider"><h2 style="margin-top: 0; font-size: 1.15em; color: #3c322c;">🗂️ 지난 커핑 아카이브</h2>
+        <hr class="divider">
+        <h2 style="margin-top: 0; font-size: 1.15em; color: #3c322c;">🗂️ 지난 커핑 아카이브</h2>
         <button class="submit-btn outline" onclick="openHistory()">과거 기록 찾기</button>
 
-        <div class="admin-link-area"><button class="admin-trigger" onclick="tryOpenAdmin()">🔒 관리자 모드</button></div>
-        <div class="admin-panel" id="adminPanel">
-            <h3 style="margin-top:0; color: #fbdcbb; font-size: 1.1em;">🛠️ 마스터 관리자 패널</h3>
-            <div class="input-group" style="margin-bottom:15px;"><label style="color:#ddd;">새 정규 원두 정보</label><input type="text" id="newBeanInput" placeholder="예: 에티오피아 무산소 워시드" style="background:#1a1a1a; color:white; border:1px solid #555;"></div>
-            <button class="submit-btn" onclick="addNewSession()">새 커핑 오픈하기 (자동 코드 발급)</button>
-            <hr style="border:0; border-top:1px solid #444; margin:20px 0;">
-            <h4 style="margin:0 0 10px 0; font-size:0.95em; color:#fbdcbb;">📌 전체 세션 관리</h4>
-            <div id="adminSessionList"><div style="font-size:0.85em; color:#aaa;">목록 불러오는 중...</div></div>
-            <button class="submit-btn outline" style="border-color:#777; color:#ccc; margin-top:15px;" onclick="document.getElementById('adminPanel').style.display='none'">관리자 닫기</button>
-        </div>
-    </div>
-
-    <!-- 🏆 [추가] 게이샤 멸망전 투표 폼 -->
-    <div class="app-section" id="geishaFormSection">
-        <div class="bean-display" style="background: #1a1a1a; color: #ffd700;">🏆 게이샤 멸망전 블라인드 투표</div>
-        <div class="input-group"><label>평가자 이름</label><input type="text" id="geishaName" placeholder="이름을 입력하세요"></div>
-
-        <div class="geisha-rank-card rank-gold">
-            <h4>🥇 Top 1 (최고의 샘플)</h4>
-            <div class="input-group">
-                <select id="geishaTop1">
-                    <option value="">번호를 선택하세요</option>
-                    <option value="1">1번 샘플</option><option value="2">2번 샘플</option><option value="3">3번 샘플</option><option value="4">4번 샘플</option><option value="5">5번 샘플</option>
-                    <option value="6">6번 샘플</option><option value="7">7번 샘플</option><option value="8">8번 샘플</option><option value="9">9번 샘플</option><option value="10">10번 샘플</option>
-                </select>
-            </div>
-            <div class="input-group" style="margin-bottom: 0;"><textarea id="geishaReason1" rows="2" placeholder="선택한 이유 (예: 압도적인 플로럴과 클린컵)"></textarea></div>
-        </div>
-
-        <div class="geisha-rank-card rank-silver">
-            <h4>🥈 Top 2</h4>
-            <div class="input-group">
-                <select id="geishaTop2">
-                    <option value="">번호를 선택하세요</option>
-                    <option value="1">1번 샘플</option><option value="2">2번 샘플</option><option value="3">3번 샘플</option><option value="4">4번 샘플</option><option value="5">5번 샘플</option>
-                    <option value="6">6번 샘플</option><option value="7">7번 샘플</option><option value="8">8번 샘플</option><option value="9">9번 샘플</option><option value="10">10번 샘플</option>
-                </select>
-            </div>
-            <div class="input-group" style="margin-bottom: 0;"><textarea id="geishaReason2" rows="2" placeholder="선택한 이유"></textarea></div>
-        </div>
-
-        <div class="geisha-rank-card rank-bronze">
-            <h4>🥉 Top 3</h4>
-            <div class="input-group">
-                <select id="geishaTop3">
-                    <option value="">번호를 선택하세요</option>
-                    <option value="1">1번 샘플</option><option value="2">2번 샘플</option><option value="3">3번 샘플</option><option value="4">4번 샘플</option><option value="5">5번 샘플</option>
-                    <option value="6">6번 샘플</option><option value="7">7번 샘플</option><option value="8">8번 샘플</option><option value="9">9번 샘플</option><option value="10">10번 샘플</option>
-                </select>
-            </div>
-            <div class="input-group" style="margin-bottom: 0;"><textarea id="geishaReason3" rows="2" placeholder="선택한 이유"></textarea></div>
-        </div>
-
-        <button class="submit-btn" id="submitGeishaBtn" style="background: #1a1a1a; color: #ffd700;" onclick="submitGeisha()">투표 완료 및 리더보드 보기</button>
-        <button class="submit-btn outline" onclick="location.reload()">메인으로 취소</button>
-    </div>
-
-    <!-- 🏆 [추가] 게이샤 멸망전 리더보드 대시보드 -->
-    <div class="app-section" id="geishaDashboardSection">
-        <div class="bean-display" style="background: #1a1a1a; color: #ffd700; margin-bottom: 15px;">🏆 게이샤 멸망전 리더보드</div>
-        <p style="text-align:center; font-size:0.85em; color:#777; margin-bottom: 20px;">Top 1 (3점) / Top 2 (2점) / Top 3 (1점)</p>
+        <div style="text-align: center; margin-top: 40px;"><button style="background:none; border:none; color:#b5a99f; font-size:0.85em; cursor:pointer; text-decoration:underline;" onclick="tryOpenAdmin()">🔒 관리자 모드</button></div>
         
-        <div id="geishaRankContainer"></div>
-        <div id="geishaDetailContainer" style="margin-top: 30px;"></div>
+        <!-- 🔒 관리자 패널 -->
+        <div class="admin-panel" id="adminPanel">
+            <h3 style="margin-top:0; color:#fbdcbb;">🛠️ 새 커핑 오픈하기</h3>
+            <div class="admin-tab">
+                <button id="tabRegular" class="active" onclick="setAdminTab('regular')">☕ 정규 (1컵)</button>
+                <button id="tabRanking" onclick="setAdminTab('ranking')">🏆 블라인드 랭킹</button>
+            </div>
+            
+            <div id="adminRegularSetup">
+                <div class="input-group"><label style="color:#ddd;">원두 정보</label><input type="text" id="newBeanRegular" placeholder="예: 에티오피아 무산소 워시드" style="background:#1a1a1a; color:white; border:1px solid #555;"></div>
+            </div>
+            
+            <div id="adminRankingSetup" style="display:none;">
+                <div class="input-group"><label style="color:#ddd;">세션명</label><input type="text" id="newBeanRanking" placeholder="예: 게이샤 멸망전 5종" style="background:#1a1a1a; color:white; border:1px solid #555;"></div>
+                <div style="display:flex; gap:10px;">
+                    <div class="input-group" style="flex:1;"><label style="color:#ddd;">총 샘플 수</label><input type="number" id="rankSamples" value="5" min="2" max="20" style="background:#1a1a1a; color:white; border:1px solid #555;"></div>
+                    <div class="input-group" style="flex:1;"><label style="color:#ddd;">픽(Pick) 개수</label>
+                        <select id="rankPicks" style="background:#1a1a1a; color:white; border:1px solid #555;">
+                            <option value="1">Top 1만 선택</option><option value="2">Top 2까지 선택</option><option value="3" selected>Top 3까지 선택</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button class="submit-btn" onclick="addNewSession()">오픈하기 (랜덤 코드 자동발급)</button>
 
-        <button class="submit-btn secondary" style="margin-top: 25px;" onclick="location.reload()">첫 화면으로 돌아가기</button>
+            <hr style="border:0; border-top:1px solid #444; margin:20px 0;">
+            <h4 style="margin:0 0 10px 0; font-size:0.95em; color:#fbdcbb;">📌 세션 관리</h4>
+            <div id="adminSessionList"><div style="font-size:0.85em; color:#aaa;">목록 불러오는 중...</div></div>
+            <button class="submit-btn outline" style="border-color:#777; color:#ccc; margin-top:15px;" onclick="document.getElementById('adminPanel').style.display='none'">닫기</button>
+        </div>
     </div>
 
-    <!-- 📝 2. 정규 커핑 평가 폼 화면 -->
+    <!-- 📝 2. 정규 커핑 평가 폼 (1컵) -->
     <div class="app-section" id="formSection">
         <div class="bean-display" id="currentBeanInfo"></div>
         <div class="input-group"><label>평가자 이름</label><input type="text" id="cupperName" placeholder="이름을 입력하세요"></div>
-
-        <h3 style="margin-top: 30px; font-size: 1.05em;">🎨 1. 시각적 연상 (Color Vibe)</h3>
-        <p style="color: #7a6e65; font-size: 0.82em; margin-top: 0; margin-bottom: 15px;">커피를 머금었을 때 떠오르는 뉘앙스를 색상으로 골라주세요.</p>
+        <h3 style="margin-top:30px; font-size:1.05em;">🎨 1. 시각적 연상</h3>
         <div class="color-grid">
             <div class="color-chip" style="background-color: #FFD1DC;" data-bg="#FFD1DC" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #FFA6B5;" data-bg="#FFA6B5" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #FF4D6D;" data-bg="#FF4D6D" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #D00000;" data-bg="#D00000" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #7B111F;" data-bg="#7B111F" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #4A0E17;" data-bg="#4A0E17" onclick="toggleColor(this)"></div>
             <div class="color-chip" style="background-color: #FFE699;" data-bg="#FFE699" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #FFD60A;" data-bg="#FFD60A" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #FFB703;" data-bg="#FFB703" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #FB8500;" data-bg="#FB8500" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #E76F51;" data-bg="#E76F51" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #A04000;" data-bg="#A04000" onclick="toggleColor(this)"></div>
             <div class="color-chip" style="background-color: #E2F0CB;" data-bg="#E2F0CB" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #B1C15F;" data-bg="#B1C15F" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #8CB369;" data-bg="#8CB369" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #40916C;" data-bg="#40916C" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #2A9D8F;" data-bg="#2A9D8F" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #1B4332;" data-bg="#1B4332" onclick="toggleColor(this)"></div>
             <div class="color-chip" style="background-color: #A2D2FF;" data-bg="#A2D2FF" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #CDB4DB;" data-bg="#CDB4DB" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #7209B7;" data-bg="#7209B7" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #DDB892;" data-bg="#DDB892" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #C98860;" data-bg="#C98860" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #5C4033;" data-bg="#5C4033" onclick="toggleColor(this)"></div>
         </div>
-
-        <h3 style="margin-top: 35px; font-size: 1.05em; margin-bottom: 10px;">🏷️ 2. 향미 노트 (Flavor Notes)</h3>
-        <div class="selected-pool-container" id="selectedPool"><div class="empty-pool-text" id="emptyPoolText">아래에서 노트를 선택하거나 직접 입력해 주세요.</div></div>
+        <h3 style="margin-top:35px; font-size:1.05em; margin-bottom:10px;">🏷️ 2. 향미 노트</h3>
+        <div class="selected-pool-container" id="selectedPool"><div class="empty-pool-text" id="emptyPoolText">선택하거나 입력해주세요.</div></div>
         <div class="custom-add-row"><input type="text" id="customNoteInput" placeholder="직접 입력 ➔" onkeypress="if(event.keyCode==13) addCustomNote()"><button type="button" onclick="addCustomNote()">추가</button></div>
-
-        <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🍓 1. 과일 (Fruity)</div><div class="accordion-content"><div class="sub-category">감귤류 (Citrus)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">레몬</div><div class="tag" onclick="toggleSelectTag(this)">라임</div><div class="tag" onclick="toggleSelectTag(this)">자몽</div><div class="tag" onclick="toggleSelectTag(this)">오렌지</div><div class="tag" onclick="toggleSelectTag(this)">귤</div><div class="tag" onclick="toggleSelectTag(this)">청귤</div></div><div class="sub-category">사과 / 배 (Apple/Pear)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">청사과</div><div class="tag" onclick="toggleSelectTag(this)">적사과</div><div class="tag" onclick="toggleSelectTag(this)">배</div></div><div class="sub-category">멜론 (Melon)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">참외</div><div class="tag" onclick="toggleSelectTag(this)">수박</div><div class="tag" onclick="toggleSelectTag(this)">멜론</div></div><div class="sub-category">포도 / 와인뉘앙스 (Grape & Wine)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">청포도</div><div class="tag" onclick="toggleSelectTag(this)">적포도</div><div class="tag" onclick="toggleSelectTag(this)">캠벨포도</div><div class="tag" onclick="toggleSelectTag(this)">백포도주</div></div><div class="sub-category">열대과일 (Tropical)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">리치</div><div class="tag" onclick="toggleSelectTag(this)">패션후르츠</div><div class="tag" onclick="toggleSelectTag(this)">파인애플</div><div class="tag" onclick="toggleSelectTag(this)">망고</div><div class="tag" onclick="toggleSelectTag(this)">파파야</div><div class="tag" onclick="toggleSelectTag(this)">키위</div><div class="tag" onclick="toggleSelectTag(this)">바나나</div></div><div class="sub-category">핵과류 (Stone Fruit)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">백도</div><div class="tag" onclick="toggleSelectTag(this)">황도</div><div class="tag" onclick="toggleSelectTag(this)">천도복숭아</div><div class="tag" onclick="toggleSelectTag(this)">살구</div><div class="tag" onclick="toggleSelectTag(this)">자두</div><div class="tag" onclick="toggleSelectTag(this)">체리</div></div><div class="sub-category">베리류 (Berry)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">크랜베리</div><div class="tag" onclick="toggleSelectTag(this)">라즈베리</div><div class="tag" onclick="toggleSelectTag(this)">딸기</div><div class="tag" onclick="toggleSelectTag(this)">블루베리</div><div class="tag" onclick="toggleSelectTag(this)">블루베리 잼</div><div class="tag" onclick="toggleSelectTag(this)">블랙베리</div><div class="tag" onclick="toggleSelectTag(this)">블랙커런트</div></div><div class="sub-category">건과일 (Dried Fruit)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">건포도</div><div class="tag" onclick="toggleSelectTag(this)">대추야자</div><div class="tag" onclick="toggleSelectTag(this)">건자두(푸룬)</div><div class="tag" onclick="toggleSelectTag(this)">말린 무화과</div></div></div></div>
-        <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🌸 2. 꽃 / 차 (Floral & Tea)</div><div class="accordion-content"><div class="sub-category">꽃 (Floral)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">아카시아</div><div class="tag" onclick="toggleSelectTag(this)">자스민</div><div class="tag" onclick="toggleSelectTag(this)">장미</div><div class="tag" onclick="toggleSelectTag(this)">히비스커스</div><div class="tag" onclick="toggleSelectTag(this)">라벤더</div><div class="tag" onclick="toggleSelectTag(this)">오렌지 블라썸</div><div class="tag" onclick="toggleSelectTag(this)">캐모마일</div><div class="tag" onclick="toggleSelectTag(this)">목련</div></div><div class="sub-category">차 / 허브티 (Tea)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">베르가못</div><div class="tag" onclick="toggleSelectTag(this)">레몬버베나</div><div class="tag" onclick="toggleSelectTag(this)">녹차</div><div class="tag" onclick="toggleSelectTag(this)">홍차</div><div class="tag" onclick="toggleSelectTag(this)">얼그레이</div><div class="tag" onclick="toggleSelectTag(this)">우롱차</div></div></div></div>
-        <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🍫 3. 단맛 (Sweet & Sugary)</div><div class="accordion-content"><div class="sub-category">달콤한 (Sweet)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">바닐라</div><div class="tag" onclick="toggleSelectTag(this)">꿀</div><div class="tag" onclick="toggleSelectTag(this)">버터</div><div class="tag" onclick="toggleSelectTag(this)">카라멜</div><div class="tag" onclick="toggleSelectTag(this)">메이플 시럽</div><div class="tag" onclick="toggleSelectTag(this)">브라운 슈가</div><div class="tag" onclick="toggleSelectTag(this)">마시멜로</div><div class="tag" onclick="toggleSelectTag(this)">솜사탕</div></div></div></div>
-        <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🥜 4. 견과 / 초콜릿 (Nut & Cocoa)</div><div class="accordion-content"><div class="sub-category">견과류 (Nutty)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">땅콩</div><div class="tag" onclick="toggleSelectTag(this)">호두</div><div class="tag" onclick="toggleSelectTag(this)">피칸</div><div class="tag" onclick="toggleSelectTag(this)">아몬드</div><div class="tag" onclick="toggleSelectTag(this)">헤이즐넛</div></div><div class="sub-category">초콜릿 (Cocoa)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">밀크 초콜릿</div><div class="tag" onclick="toggleSelectTag(this)">다크 초콜릿</div><div class="tag" onclick="toggleSelectTag(this)">카카오 닙스</div></div></div></div>
-        <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🌾 5. 곡물 (Roasted)</div><div class="accordion-content"><div class="sub-category">곡류 (Cereal/Grain)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">그래놀라</div><div class="tag" onclick="toggleSelectTag(this)">토스트</div><div class="tag" onclick="toggleSelectTag(this)">오트밀</div></div></div></div>
-        <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🌿 6. 향신료 / 허브 (Spice & Herb)</div><div class="accordion-content"><div class="sub-category">단 향신료 (Brown Spice)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">계피</div><div class="tag" onclick="toggleSelectTag(this)">넛맥</div></div><div class="sub-category">허브 (Herb)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">세이지</div><div class="tag" onclick="toggleSelectTag(this)">딜</div><div class="tag" onclick="toggleSelectTag(this)">애플민트</div><div class="tag" onclick="toggleSelectTag(this)">바질</div><div class="tag" onclick="toggleSelectTag(this)">오레가노</div><div class="tag" onclick="toggleSelectTag(this)">유칼립투스</div></div></div></div>
-        <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🍷 7. 발효 / 펑키 (Process & Funky)</div><div class="accordion-content"><div class="sub-category">발효 (Process)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">와이니(Winey)</div><div class="tag" onclick="toggleSelectTag(this)">럼/위스키</div><div class="tag" onclick="toggleSelectTag(this)">요거트</div><div class="tag" onclick="toggleSelectTag(this)">콤부차</div><div class="tag" onclick="toggleSelectTag(this)">펑키(Funky)</div></div></div></div>
+        <!-- 아코디언 메뉴들 -->
+        <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🍓 1. 과일 (Fruity)</div><div class="accordion-content"><div class="sub-category">감귤류</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">레몬</div><div class="tag" onclick="toggleSelectTag(this)">라임</div><div class="tag" onclick="toggleSelectTag(this)">자몽</div><div class="tag" onclick="toggleSelectTag(this)">오렌지</div><div class="tag" onclick="toggleSelectTag(this)">귤</div><div class="tag" onclick="toggleSelectTag(this)">청귤</div></div><div class="sub-category">사과/배</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">청사과</div><div class="tag" onclick="toggleSelectTag(this)">적사과</div><div class="tag" onclick="toggleSelectTag(this)">배</div></div><div class="sub-category">멜론</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">참외</div><div class="tag" onclick="toggleSelectTag(this)">수박</div><div class="tag" onclick="toggleSelectTag(this)">멜론</div></div><div class="sub-category">포도/와인</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">청포도</div><div class="tag" onclick="toggleSelectTag(this)">적포도</div><div class="tag" onclick="toggleSelectTag(this)">캠벨포도</div><div class="tag" onclick="toggleSelectTag(this)">백포도주</div></div><div class="sub-category">열대과일</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">리치</div><div class="tag" onclick="toggleSelectTag(this)">패션후르츠</div><div class="tag" onclick="toggleSelectTag(this)">파인애플</div><div class="tag" onclick="toggleSelectTag(this)">망고</div><div class="tag" onclick="toggleSelectTag(this)">파파야</div><div class="tag" onclick="toggleSelectTag(this)">키위</div><div class="tag" onclick="toggleSelectTag(this)">바나나</div></div><div class="sub-category">핵과류</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">백도</div><div class="tag" onclick="toggleSelectTag(this)">황도</div><div class="tag" onclick="toggleSelectTag(this)">천도복숭아</div><div class="tag" onclick="toggleSelectTag(this)">살구</div><div class="tag" onclick="toggleSelectTag(this)">자두</div><div class="tag" onclick="toggleSelectTag(this)">체리</div></div><div class="sub-category">베리류</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">크랜베리</div><div class="tag" onclick="toggleSelectTag(this)">라즈베리</div><div class="tag" onclick="toggleSelectTag(this)">딸기</div><div class="tag" onclick="toggleSelectTag(this)">블루베리</div><div class="tag" onclick="toggleSelectTag(this)">블루베리 잼</div><div class="tag" onclick="toggleSelectTag(this)">블랙베리</div><div class="tag" onclick="toggleSelectTag(this)">블랙커런트</div></div><div class="sub-category">건과일</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">건포도</div><div class="tag" onclick="toggleSelectTag(this)">대추야자</div><div class="tag" onclick="toggleSelectTag(this)">건자두(푸룬)</div><div class="tag" onclick="toggleSelectTag(this)">말린 무화과</div></div></div></div>
+        <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🌸 2. 꽃 / 차 (Floral & Tea)</div><div class="accordion-content"><div class="sub-category">꽃 (Floral)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">아카시아</div><div class="tag" onclick="toggleSelectTag(this)">자스민</div><div class="tag" onclick="toggleSelectTag(this)">장미</div><div class="tag" onclick="toggleSelectTag(this)">히비스커스</div><div class="tag" onclick="toggleSelectTag(this)">라벤더</div><div class="tag" onclick="toggleSelectTag(this)">오렌지 블라썸</div><div class="tag" onclick="toggleSelectTag(this)">캐모마일</div><div class="tag" onclick="toggleSelectTag(this)">목련</div></div><div class="sub-category">차 (Tea)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">베르가못</div><div class="tag" onclick="toggleSelectTag(this)">레몬버베나</div><div class="tag" onclick="toggleSelectTag(this)">녹차</div><div class="tag" onclick="toggleSelectTag(this)">홍차</div><div class="tag" onclick="toggleSelectTag(this)">얼그레이</div><div class="tag" onclick="toggleSelectTag(this)">우롱차</div></div></div></div>
+        <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🍫 3. 단맛 (Sweet)</div><div class="accordion-content"><div class="tags" style="margin-top:10px;"><div class="tag" onclick="toggleSelectTag(this)">바닐라</div><div class="tag" onclick="toggleSelectTag(this)">꿀</div><div class="tag" onclick="toggleSelectTag(this)">버터</div><div class="tag" onclick="toggleSelectTag(this)">카라멜</div><div class="tag" onclick="toggleSelectTag(this)">메이플 시럽</div><div class="tag" onclick="toggleSelectTag(this)">브라운 슈가</div><div class="tag" onclick="toggleSelectTag(this)">마시멜로</div><div class="tag" onclick="toggleSelectTag(this)">솜사탕</div></div></div></div>
+        <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🥜 4. 견과 / 초콜릿</div><div class="accordion-content"><div class="sub-category">견과류</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">땅콩</div><div class="tag" onclick="toggleSelectTag(this)">호두</div><div class="tag" onclick="toggleSelectTag(this)">피칸</div><div class="tag" onclick="toggleSelectTag(this)">아몬드</div><div class="tag" onclick="toggleSelectTag(this)">헤이즐넛</div></div><div class="sub-category">초콜릿</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">밀크 초콜릿</div><div class="tag" onclick="toggleSelectTag(this)">다크 초콜릿</div><div class="tag" onclick="toggleSelectTag(this)">카카오 닙스</div></div></div></div>
+        <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🌾 5. 곡물 / 향신료 / 발효</div><div class="accordion-content"><div class="sub-category">곡물</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">그래놀라</div><div class="tag" onclick="toggleSelectTag(this)">토스트</div><div class="tag" onclick="toggleSelectTag(this)">오트밀</div></div><div class="sub-category">향신료/허브</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">계피</div><div class="tag" onclick="toggleSelectTag(this)">넛맥</div><div class="tag" onclick="toggleSelectTag(this)">세이지</div><div class="tag" onclick="toggleSelectTag(this)">딜</div><div class="tag" onclick="toggleSelectTag(this)">애플민트</div><div class="tag" onclick="toggleSelectTag(this)">바질</div><div class="tag" onclick="toggleSelectTag(this)">유칼립투스</div></div><div class="sub-category">발효</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">와이니(Winey)</div><div class="tag" onclick="toggleSelectTag(this)">럼/위스키</div><div class="tag" onclick="toggleSelectTag(this)">요거트</div><div class="tag" onclick="toggleSelectTag(this)">콤부차</div><div class="tag" onclick="toggleSelectTag(this)">펑키(Funky)</div></div></div></div>
 
         <div class="input-group" style="margin-top: 25px;"><label>한줄평 / 종합 의견</label><textarea id="oneLiner" rows="3" placeholder="예: 첫 모금에 화사한 플로럴이 퍼집니다."></textarea></div>
-        <button class="submit-btn" id="submitBtn" onclick="submitNote()">제출 및 대시보드 보기</button>
-        <button class="submit-btn outline" onclick="location.reload()">메인으로 취소</button>
+        <button class="submit-btn" id="submitBtn" onclick="submitRegular()">제출 및 결과 보기</button>
+        <button class="submit-btn outline" onclick="location.reload()">취소</button>
     </div>
 
-    <!-- ✅ 3. 정규 커핑 결과 화면 -->
+    <!-- 🏆 3. 블라인드 랭킹 평가 폼 -->
+    <div class="app-section" id="rankingFormSection">
+        <div class="bean-display" id="rankingBeanInfo" style="background: #1a1a1a; color: #ffd700;"></div>
+        <div class="input-group"><label>평가자 이름</label><input type="text" id="rankingName" placeholder="이름을 입력하세요"></div>
+        <div id="rankingPickContainer"></div>
+        <div class="input-group" style="margin-top:20px;"><label>전체 총평</label><textarea id="rankingOverall" rows="3" placeholder="세션 전체에 대한 느낌을 자유롭게 적어주세요."></textarea></div>
+        <button class="submit-btn" id="submitRankBtn" style="background: #1a1a1a; color: #ffd700;" onclick="submitRanking()">투표 제출하기</button>
+        <button class="submit-btn outline" onclick="location.reload()">취소</button>
+    </div>
+
+    <!-- 📊 4. 대시보드 (정규 / 랭킹 공용 컨테이너) -->
     <div class="app-section" id="dashboardSection">
         <div class="bean-display" id="resultBeanInfo" style="background-color: var(--sub-btn-bg);"></div>
-        <h2 style="margin-top: 0; color: var(--accent-color); font-size: 1.2em;">📊 팀 캘리브레이션</h2>
-        <div id="summaryContainer"></div>
-        <div id="teamResultsContainer"><div class="loading-text">데이터 동기화 중... ⏳</div></div>
-        <button class="submit-btn secondary" style="margin-top: 25px;" onclick="location.reload()">첫 화면으로 돌아가기</button>
+        <div id="resultContentArea"><div style="text-align:center; color:#888;">데이터 불러오는 중...</div></div>
+        <button class="submit-btn secondary" style="margin-top: 25px;" onclick="location.reload()">메인으로 돌아가기</button>
     </div>
 
-    <!-- 🔬 4. 비교 모드 설정 -->
+    <!-- 🔬 5. 비교 모드 -->
     <div class="app-section" id="compareSetupSection">
-        <h2 style="margin-top: 0; color: #4a6fa5;">비교할 두 샘플의 코드를 입력하세요</h2>
-        <div class="input-group"><label>첫 번째 샘플 코드 (A)</label><input type="text" id="compCode1" placeholder="예: 777"></div>
-        <div class="input-group"><label>두 번째 샘플 코드 (B)</label><input type="text" id="compCode2" placeholder="예: K7M2"></div>
-        <button class="submit-btn" style="background-color: #4a6fa5;" onclick="startCompare()">나란히 비교하기</button>
-        <button class="submit-btn outline" onclick="location.reload()">뒤로 가기</button>
+        <h2 style="margin-top: 0; color: #4a6fa5;">비교 모드 (정규 커핑 전용)</h2>
+        <div class="input-group"><label>A 샘플 코드</label><input type="text" id="compCode1"></div>
+        <div class="input-group"><label>B 샘플 코드</label><input type="text" id="compCode2"></div>
+        <button class="submit-btn" style="background-color: #4a6fa5;" onclick="startCompare()">비교하기</button>
+        <button class="submit-btn outline" onclick="location.reload()">취소</button>
     </div>
-
-    <!-- 🔬 4-1. 비교 모드 대시보드 -->
     <div class="app-section" id="compareDashboardSection" style="max-width: 100%; padding: 20px;">
-        <h2 style="margin-top: 0; color: #4a6fa5; text-align: center;">🔬 배치 비교 분석</h2>
-        <div class="compare-grid">
-            <div><div class="bean-display" id="compBean1" style="background-color: #4a6fa5; padding: 10px; font-size: 0.9em;"></div><div id="compSummary1"></div><div id="compResults1"></div></div>
-            <div><div class="bean-display" id="compBean2" style="background-color: #b86b35; padding: 10px; font-size: 0.9em;"></div><div id="compSummary2"></div><div id="compResults2"></div></div>
+        <h2 style="margin-top:0; color:#4a6fa5; text-align:center;">비교 분석</h2>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
+            <div><div class="bean-display" id="compBean1" style="background:#4a6fa5; padding:10px; font-size:0.9em;"></div><div id="compRes1"></div></div>
+            <div><div class="bean-display" id="compBean2" style="background:#b86b35; padding:10px; font-size:0.9em;"></div><div id="compRes2"></div></div>
         </div>
-        <button class="submit-btn outline" style="margin-top: 30px;" onclick="location.reload()">메인 화면으로 돌아가기</button>
+        <button class="submit-btn outline" style="margin-top: 30px;" onclick="location.reload()">돌아가기</button>
     </div>
 
-    <!-- 🗂️ 5. 과거 아카이브 목록 -->
+    <!-- 🗂️ 6. 아카이브 -->
     <div class="app-section" id="historySection">
-        <h2 style="margin-top: 0; color: var(--primary-color);">🗂️ 과거 커핑 기록</h2>
-        <p style="color: #7a6e65; font-size: 0.85em; margin-bottom: 20px;">항목을 클릭하면 해당 데이터 대시보드로 이동합니다.</p>
-        <div id="historyListContainer"><div class="loading-text">기록을 찾고 있습니다 ⏳</div></div>
-        <button class="submit-btn outline" style="margin-top: 25px;" onclick="location.reload()">메인 화면으로 돌아가기</button>
+        <h2 style="margin-top: 0; color: var(--primary-color);">🗂️ 커핑 기록</h2>
+        <div id="historyListContainer"></div>
+        <button class="submit-btn outline" style="margin-top: 25px;" onclick="location.reload()">돌아가기</button>
     </div>
 
     <script>
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwpTu3I_mt-UeNUQ-QwTmFf4uJLbyqhaeMqCUxXsbXGZPDV9xmY5WG9FzHwNBAmxNAQ-g/exec";
 
-        let currentCode = ""; let currentBean = ""; let autoRefreshInterval = null;
-        let customTagsList = []; let sessionDetailsMap = {}; 
+        let currentSession = {}; let autoRefreshInterval = null; let customTagsList = []; let sessionMap = {};
 
-        window.addEventListener('DOMContentLoaded', () => { loadLiveSessions(); });
+        window.addEventListener('DOMContentLoaded', loadLiveSessions);
 
-        /* 🏆 게이샤 멸망전 JS 함수들 */
-        async function submitGeisha() {
-            const name = document.getElementById('geishaName').value.trim();
-            const top1 = document.getElementById('geishaTop1').value;
-            const top2 = document.getElementById('geishaTop2').value;
-            const top3 = document.getElementById('geishaTop3').value;
-            
-            if(!name) { alert("이름을 입력해주세요!"); return; }
-            if(!top1 || !top2 || !top3) { alert("Top 1, 2, 3 샘플 번호를 모두 선택해주세요!"); return; }
-            if(new Set([top1, top2, top3]).size !== 3) { alert("중복된 번호가 있습니다. 순위별로 다른 샘플을 선택해주세요."); return; }
-
-            const btn = document.getElementById('submitGeishaBtn');
-            btn.innerText = "투표 제출 중..."; btn.disabled = true;
-
-            const payload = {
-                type: "geisha", name: name,
-                top1: top1, reason1: document.getElementById('geishaReason1').value.trim(),
-                top2: top2, reason2: document.getElementById('geishaReason2').value.trim(),
-                top3: top3, reason3: document.getElementById('geishaReason3').value.trim()
-            };
-
-            try {
-                fetch(GOOGLE_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-                setTimeout(() => { openGeishaDashboard(); }, 1200);
-            } catch(e) { alert("오류 발생"); btn.innerText = "투표 완료 및 리더보드 보기"; btn.disabled = false; }
+        function setAdminTab(type) {
+            document.getElementById('tabRegular').classList.remove('active');
+            document.getElementById('tabRanking').classList.remove('active');
+            document.getElementById('adminRegularSetup').style.display = 'none';
+            document.getElementById('adminRankingSetup').style.display = 'none';
+            if(type === 'regular') { document.getElementById('tabRegular').classList.add('active'); document.getElementById('adminRegularSetup').style.display = 'block'; }
+            else { document.getElementById('tabRanking').classList.add('active'); document.getElementById('adminRankingSetup').style.display = 'block'; }
         }
 
-        async function openGeishaDashboard() {
-            showSection('geishaDashboardSection');
-            if(autoRefreshInterval) clearInterval(autoRefreshInterval);
-            loadGeishaData();
-            autoRefreshInterval = setInterval(loadGeishaData, 5000); // 실시간 리프레시
-        }
-
-        async function loadGeishaData() {
-            const rankCont = document.getElementById('geishaRankContainer');
-            const detailCont = document.getElementById('geishaDetailContainer');
-            
-            try {
-                const res = await fetch(GOOGLE_SCRIPT_URL + "?action=geisha_results");
-                const data = await res.json();
-
-                if(data.length === 0) {
-                    rankCont.innerHTML = "<p style='text-align:center;'>아직 투표 결과가 없습니다.</p>";
-                    detailCont.innerHTML = ""; return;
-                }
-
-                // 점수 계산 (1위 3점, 2위 2점, 3위 1점)
-                let scores = {};
-                for(let i=1; i<=10; i++) scores[i] = { points: 0, votedBy: [] };
-
-                let detailsHtml = "<h3 style='border-bottom:2px solid #e5ded4; padding-bottom:8px; margin-bottom:15px;'>개인별 상세 의견</h3>";
-
-                data.forEach(item => {
-                    if(scores[item.top1]) { scores[item.top1].points += 3; scores[item.top1].votedBy.push(`${item.name}(1위)`); }
-                    if(scores[item.top2]) { scores[item.top2].points += 2; scores[item.top2].votedBy.push(`${item.name}(2위)`); }
-                    if(scores[item.top3]) { scores[item.top3].points += 1; scores[item.top3].votedBy.push(`${item.name}(3위)`); }
-
-                    detailsHtml += `
-                        <div class="card" style="border-left: 4px solid #c98860;">
-                            <h4 style="margin:0 0 10px 0;">👤 ${item.name}</h4>
-                            <div style="font-size:0.85em; margin-bottom:6px;"><strong>🥇 1위 (${item.top1}번):</strong> ${item.reason1 || '-'}</div>
-                            <div style="font-size:0.85em; margin-bottom:6px;"><strong>🥈 2위 (${item.top2}번):</strong> ${item.reason2 || '-'}</div>
-                            <div style="font-size:0.85em;"><strong>🥉 3위 (${item.top3}번):</strong> ${item.reason3 || '-'}</div>
-                        </div>
-                    `;
-                });
-
-                // 랭킹 정렬
-                let rankArray = Object.keys(scores).map(k => ({ sample: k, points: scores[k].points, voters: scores[k].votedBy })).filter(x => x.points > 0);
-                rankArray.sort((a,b) => b.points - a.points);
-
-                let rankHtml = "";
-                rankArray.forEach((r, idx) => {
-                    let badge = `${idx+1}위`;
-                    let boxStyle = "background: white; border: 1px solid #ddd; padding: 12px; border-radius: 8px; margin-bottom: 8px; display:flex; justify-content:space-between; align-items:center;";
-                    if(idx === 0) { badge = "🥇 1위"; boxStyle = "background: #fffcf5; border: 2px solid #d4af37; padding: 15px; border-radius: 8px; margin-bottom: 12px; display:flex; justify-content:space-between; align-items:center;"; }
-                    if(idx === 1) { badge = "🥈 2위"; boxStyle = "background: #f8f9fa; border: 2px solid #adb5bd; padding: 15px; border-radius: 8px; margin-bottom: 12px; display:flex; justify-content:space-between; align-items:center;"; }
-                    if(idx === 2) { badge = "🥉 3위"; boxStyle = "background: #fffaf5; border: 2px solid #cd7f32; padding: 15px; border-radius: 8px; margin-bottom: 12px; display:flex; justify-content:space-between; align-items:center;"; }
-
-                    rankHtml += `
-                        <div style="${boxStyle}">
-                            <div>
-                                <div style="font-weight:bold; font-size:1.1em; margin-bottom:4px;">${badge} <span style="color:#b86b35; margin-left:6px;">${r.sample}번 샘플</span></div>
-                                <div style="font-size:0.8em; color:#777;">선택: ${r.voters.join(', ')}</div>
-                            </div>
-                            <div style="font-size:1.2em; font-weight:900; color:#1a1a1a;">${r.points}점</div>
-                        </div>
-                    `;
-                });
-
-                rankCont.innerHTML = rankHtml;
-                detailCont.innerHTML = detailsHtml;
-
-            } catch(e) { rankCont.innerHTML = "<p style='color:red;'>데이터 로딩 실패</p>"; }
-        }
-
-        /* 기존 정규 커핑 함수들 유지 */
         async function loadLiveSessions() {
             const container = document.getElementById('liveSessionsContainer');
             try {
-                const res = await fetch(GOOGLE_SCRIPT_URL + "?action=sessions");
-                const sessions = await res.json();
-                if(sessions.length === 0) { container.innerHTML = "<p style='font-size:0.88em; color:#888; text-align:center;'>현재 표시된 세션이 없습니다.</p>"; return; }
-
-                let html = ""; sessionDetailsMap = {};
+                const res = await fetch(GOOGLE_SCRIPT_URL + "?action=sessions"); const sessions = await res.json();
+                if(sessions.length === 0) { container.innerHTML = "<p style='text-align:center; color:#888;'>열려있는 세션이 없습니다.</p>"; return; }
+                let html = ""; sessionMap = {};
                 sessions.forEach(s => {
-                    sessionDetailsMap[s.accessCode] = { beanInfo: s.beanInfo, status: s.status };
-                    const isClosed = s.status === "마감";
+                    sessionMap[s.accessCode] = s; const isClosed = s.status === "마감"; const isRank = s.type === "ranking";
+                    const badge = isRank ? '<span class="badge-type">🏆 랭킹</span>' : '<span class="badge-type" style="background:#52b788; color:white;">☕ 정규</span>';
                     html += `
-                        <div class="live-card ${isClosed ? 'closed' : ''}">
+                        <div class="live-card ${isClosed ? 'closed' : ''} ${isRank ? 'ranking-mode' : ''}">
                             <div class="live-card-top">
-                                <div class="bean-title">☕ ${s.beanInfo}</div>
-                                <div style="display:flex; align-items:center; gap:6px;">${isClosed ? '<span class="badge-closed">종료됨</span>' : '<span class="badge-live">진행 중</span>'}<span class="bean-code">${s.accessCode}</span></div>
+                                <div class="bean-title">${s.beanInfo}</div>
+                                <div style="display:flex; align-items:center;">${badge}${isClosed ? '<span class="badge-closed">종료됨</span>' : '<span class="badge-live">진행 중</span>'}&nbsp;<span class="bean-code">${s.accessCode}</span></div>
                             </div>
                             <div class="live-card-btns">
-                                ${isClosed 
-                                    ? `<button class="btn-result" style="width:100%; background:#f2ede4;" onclick="openSessionAction('${s.accessCode}', '${s.beanInfo}', 'result')">📊 결과 분석 보기</button>`
-                                    : `<button class="btn-eval" onclick="openSessionAction('${s.accessCode}', '${s.beanInfo}', 'eval')">평가하기</button><button class="btn-result" onclick="openSessionAction('${s.accessCode}', '${s.beanInfo}', 'result')">결과 보기</button>`}
+                                ${isClosed ? `<button class="btn-result" style="width:100%;" onclick="openSession('${s.accessCode}', 'result')">결과 보기</button>`
+                                           : `<button class="btn-eval" onclick="openSession('${s.accessCode}', 'eval')">평가하기</button><button class="btn-result" onclick="openSession('${s.accessCode}', 'result')">결과 보기</button>`}
                             </div>
-                        </div>
-                    `;
-                });
-                container.innerHTML = html;
-            } catch(e) { container.innerHTML = "<p style='color:red;'>목록 로딩 실패</p>"; }
+                        </div>`;
+                }); container.innerHTML = html;
+            } catch(e) { container.innerHTML = "<p style='color:red;'>로딩 실패</p>"; }
         }
 
-        function openSessionAction(code, beanName, type) {
-            currentCode = code; currentBean = beanName;
-            if(type === 'eval') { document.getElementById('currentBeanInfo').innerText = currentBean; showSection('formSection'); } 
-            else { document.getElementById('resultBeanInfo').innerText = currentBean; showSection('dashboardSection'); loadTeamData(currentCode, 'teamResultsContainer', 'summaryContainer'); autoRefreshInterval = setInterval(() => loadTeamData(currentCode, 'teamResultsContainer', 'summaryContainer'), 5000); }
+        function openSession(code, actionType) {
+            currentSession = sessionMap[code] || { accessCode: code, beanInfo: "세션 ("+code+")", type: "regular", samples:0, picks:0 };
+            if(actionType === 'eval') {
+                if(currentSession.type === 'ranking') buildRankingForm();
+                else { document.getElementById('currentBeanInfo').innerText = currentSession.beanInfo; showSection('formSection'); }
+            } else {
+                document.getElementById('resultBeanInfo').innerText = currentSession.beanInfo;
+                document.getElementById('resultBeanInfo').style.background = currentSession.type === 'ranking' ? '#1a1a1a' : 'var(--sub-btn-bg)';
+                document.getElementById('resultBeanInfo').style.color = currentSession.type === 'ranking' ? '#ffd700' : '#f7f4ef';
+                showSection('dashboardSection'); loadDashboardData();
+                autoRefreshInterval = setInterval(loadDashboardData, 5000);
+            }
         }
-        function toggleFallbackBox() { const box = document.getElementById('fallbackBox'); box.style.display = box.style.display === 'block' ? 'none' : 'block'; }
-        function showSection(sectionId) { document.querySelectorAll('.app-section').forEach(sec => sec.classList.remove('active')); document.getElementById(sectionId).classList.add('active'); window.scrollTo(0, 0); }
-        
+
+        function buildRankingForm() {
+            document.getElementById('rankingBeanInfo').innerText = "🏆 " + currentSession.beanInfo;
+            const container = document.getElementById('rankingPickContainer'); container.innerHTML = "";
+            let pickLabels = ["🥇 1위", "🥈 2위", "🥉 3위", "4위", "5위"];
+            for(let i=1; i<=currentSession.picks; i++) {
+                let options = `<option value="">샘플 번호 선택</option>`;
+                for(let s=1; s<=currentSession.samples; s++) options += `<option value="${s}">${s}번 샘플</option>`;
+                container.innerHTML += `
+                    <div class="rank-box"><h4>${pickLabels[i-1]} 픽</h4>
+                        <div class="input-group"><select id="rankPick${i}">${options}</select></div>
+                        <div class="input-group" style="margin:0;"><textarea id="rankReason${i}" rows="2" placeholder="선택 이유를 적어주세요"></textarea></div>
+                    </div>`;
+            }
+            showSection('rankingFormSection');
+        }
+
         function startAction(type) {
-            const input = document.getElementById('mainCodeInput').value.trim();
-            if (!input) { alert("입장 코드를 입력해주세요."); return; }
-            currentCode = input.toUpperCase(); const session = sessionDetailsMap[currentCode];
-            if (session) { currentBean = session.beanInfo; if (type === 'eval' && session.status === "마감") { alert("이미 종료된 커핑입니다."); return; } } 
-            else { currentBean = "커핑 샘플 (코드: " + currentCode + ")"; }
-            if(type === 'eval') { document.getElementById('currentBeanInfo').innerText = currentBean; showSection('formSection'); } 
-            else { document.getElementById('resultBeanInfo').innerText = currentBean; showSection('dashboardSection'); loadTeamData(currentCode, 'teamResultsContainer', 'summaryContainer'); autoRefreshInterval = setInterval(() => loadTeamData(currentCode, 'teamResultsContainer', 'summaryContainer'), 5000); }
+            const code = document.getElementById('mainCodeInput').value.trim().toUpperCase(); if(!code) return;
+            openSession(code, type);
         }
 
-        function tryOpenAdmin() { const pw = prompt("관리자 비밀번호를 입력하세요:"); if (pw === "4538") { document.getElementById('adminPanel').style.display = 'block'; loadAdminSessions(); } else if (pw !== null) alert("비밀번호 오류"); }
-        
+        function tryOpenAdmin() { if(prompt("관리자 비밀번호:") === "4538") { document.getElementById('adminPanel').style.display='block'; loadAdminSessions(); } else alert("오류"); }
         async function loadAdminSessions() {
-            const listEl = document.getElementById('adminSessionList'); listEl.innerHTML = "<div style='color:#aaa;'>로딩중...</div>";
+            const listEl = document.getElementById('adminSessionList'); listEl.innerHTML = "로딩중...";
             try {
                 const res = await fetch(GOOGLE_SCRIPT_URL + "?action=admin_all_sessions"); const all = await res.json();
-                if(all.length === 0) { listEl.innerHTML = "<div style='color:#aaa;'>세션 없음</div>"; return; }
                 let html = "";
                 all.forEach(s => {
-                    const isLive = s.status === "진행중"; const isHidden = s.display === "숨김";
-                    html += `<div class="admin-session-row">
-                        <div class="admin-session-info"><div><strong>[${s.accessCode}]</strong> ${s.beanInfo}</div><div><span style="font-size:0.75em; color:${isLive?'#52b788':'#e76f51'};">${s.status}</span><span style="font-size:0.75em; color:${isHidden?'#999':'#40916C'}; margin-left:4px;">(${s.display})</span></div></div>
-                        <div class="admin-session-btns">
-                            <button onclick="updateSession(${s.rowIdx}, '${isLive?'마감':'진행중'}', null)" style="background:${isLive?'#c0392b':'#27ae60'}; color:white; border:none; padding:4px 8px; border-radius:4px;">${isLive?'마감하기':'재오픈'}</button>
-                            <button onclick="updateSession(${s.rowIdx}, null, '${isHidden?'표시':'숨김'}')" style="background:#4a6fa5; color:white; border:none; padding:4px 8px; border-radius:4px;">${isHidden?'홈표시':'홈숨김'}</button>
-                            <button onclick="updateSession(${s.rowIdx}, '삭제', null)" style="background:#555; color:white; border:none; padding:4px 6px; border-radius:4px;">삭제</button>
-                        </div></div>`;
-                }); listEl.innerHTML = html;
-            } catch(e) { listEl.innerHTML = "<div style='color:red;'>목록 로드 실패</div>"; }
+                    const isLive = s.status === "진행중", isHid = s.display === "숨김", typeTag = s.type==="ranking"?"🏆":"☕";
+                    html += `<div style="background:#3c322c; padding:10px; border-radius:8px; margin-bottom:8px; font-size:0.9em;">
+                        <div style="margin-bottom:6px; display:flex; justify-content:space-between;"><div><strong>[${s.accessCode}]</strong> ${typeTag} ${s.beanInfo}</div><div style="color:${isLive?'#52b788':'#e76f51'};">${s.status} ${isHid?'(숨김)':''}</div></div>
+                        <div style="display:flex; gap:5px;"><button onclick="updateSession(${s.rowIdx}, '${isLive?'마감':'진행중'}', null)" style="padding:4px; font-size:0.9em;">상태변경</button><button onclick="updateSession(${s.rowIdx}, null, '${isHid?'표시':'숨김'}')" style="padding:4px; font-size:0.9em;">노출변경</button><button onclick="updateSession(${s.rowIdx}, '삭제', null)" style="padding:4px; font-size:0.9em; background:#555;">삭제</button></div></div>`;
+                }); listEl.innerHTML = html || "세션 없음";
+            } catch(e) { listEl.innerHTML = "실패"; }
         }
-        async function addNewSession() { const bean = document.getElementById('newBeanInput').value.trim(); if(!bean) return; await fetch(`${GOOGLE_SCRIPT_URL}?action=admin_update_session&bean=${encodeURIComponent(bean)}&status=진행중&display=표시`); document.getElementById('newBeanInput').value = ""; loadAdminSessions(); loadLiveSessions(); }
-        async function updateSession(rowIdx, newStatus, newDisplay) { if(newStatus === '삭제' && !confirm("삭제하시겠습니까?")) return; let url = `${GOOGLE_SCRIPT_URL}?action=admin_update_session&rowIdx=${rowIdx}`; if(newStatus) url += `&status=${encodeURIComponent(newStatus)}`; if(newDisplay) url += `&display=${encodeURIComponent(newDisplay)}`; await fetch(url); loadAdminSessions(); loadLiveSessions(); }
-
-        function toggleAccordion(element) { element.parentElement.classList.toggle('open'); }
-        function toggleColor(element) { element.classList.toggle('selected'); }
-        function toggleSelectTag(element) { element.classList.toggle('selected'); renderSelectedPool(); }
-        function addCustomNote() { const inputEl = document.getElementById('customNoteInput'); const val = inputEl.value.trim(); if(val && !customTagsList.includes(val)) { customTagsList.push(val); renderSelectedPool(); } inputEl.value = ""; }
-        function renderSelectedPool() {
-            const pool = document.getElementById('selectedPool'); const all = [...Array.from(document.querySelectorAll('.accordion-content .tag.selected')).map(el => el.innerText), ...customTagsList];
-            if(all.length === 0) { pool.innerHTML = '<div class="empty-pool-text">직접 입력해 주세요.</div>'; return; }
-            pool.innerHTML = ""; all.forEach(tagText => { const div = document.createElement('div'); div.className = 'pool-tag'; div.innerText = tagText; div.onclick = () => { const idx = customTagsList.indexOf(tagText); if(idx > -1) customTagsList.splice(idx, 1); else document.querySelectorAll('.accordion-content .tag.selected').forEach(p => { if(p.innerText === tagText) p.classList.remove('selected'); }); renderSelectedPool(); }; pool.appendChild(div); });
+        async function addNewSession() {
+            const isRank = document.getElementById('tabRanking').classList.contains('active');
+            let bean = "", url = `${GOOGLE_SCRIPT_URL}?action=admin_update_session`;
+            if(isRank) {
+                bean = document.getElementById('newBeanRanking').value.trim();
+                url += `&bean=${encodeURIComponent(bean)}&type=ranking&samples=${document.getElementById('rankSamples').value}&picks=${document.getElementById('rankPicks').value}`;
+            } else {
+                bean = document.getElementById('newBeanRegular').value.trim();
+                url += `&bean=${encodeURIComponent(bean)}&type=regular`;
+            }
+            if(!bean) return; await fetch(url); 
+            document.getElementById('newBeanRanking').value=""; document.getElementById('newBeanRegular').value=""; loadAdminSessions(); loadLiveSessions();
         }
+        async function updateSession(idx, st, dp) { if(st==='삭제' && !confirm("삭제?")) return; let url = `${GOOGLE_SCRIPT_URL}?action=admin_update_session&rowIdx=${idx}`; if(st) url+=`&status=${st}`; if(dp) url+=`&display=${dp}`; await fetch(url); loadAdminSessions(); loadLiveSessions(); }
 
-        async function submitNote() {
-            const name = document.getElementById('cupperName').value.trim(); const oneLiner = document.getElementById('oneLiner').value.trim(); if(!name) return;
-            const colors = Array.from(document.querySelectorAll('.color-chip.selected')).map(c => c.getAttribute('data-bg')).join(',');
-            const tags = [...Array.from(document.querySelectorAll('.accordion-content .tag.selected')).map(el => el.innerText), ...customTagsList].join(', ');
-            const combined = colors ? `[색채:${colors}] ${tags}` : tags;
+        /* 공용 헬퍼 함수들 */
+        function toggleFallbackBox() { const b = document.getElementById('fallbackBox'); b.style.display = b.style.display === 'block' ? 'none' : 'block'; }
+        function showSection(id) { document.querySelectorAll('.app-section').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); window.scrollTo(0, 0); }
+        function toggleAccordion(el) { el.parentElement.classList.toggle('open'); }
+        function toggleColor(el) { el.classList.toggle('selected'); }
+        function toggleSelectTag(el) { el.classList.toggle('selected'); renderSelectedPool(); }
+        function addCustomNote() { const val = document.getElementById('customNoteInput').value.trim(); if(val && !customTagsList.includes(val)) { customTagsList.push(val); renderSelectedPool(); } document.getElementById('customNoteInput').value = ""; }
+        function renderSelectedPool() { const p = document.getElementById('selectedPool'); const all = [...Array.from(document.querySelectorAll('.accordion-content .tag.selected')).map(e=>e.innerText), ...customTagsList]; if(!all.length) { p.innerHTML = '<div class="empty-pool-text">직접 입력해 주세요.</div>'; return; } p.innerHTML = ""; all.forEach(t => { const d = document.createElement('div'); d.className = 'pool-tag'; d.innerText = t; d.onclick = () => { const i = customTagsList.indexOf(t); if(i>-1) customTagsList.splice(i,1); else document.querySelectorAll('.accordion-content .tag.selected').forEach(x => { if(x.innerText === t) x.classList.remove('selected'); }); renderSelectedPool(); }; p.appendChild(d); }); }
+
+        /* 제출 - 정규 폼 */
+        async function submitRegular() {
+            const name = document.getElementById('cupperName').value.trim(), one = document.getElementById('oneLiner').value.trim(); if(!name) return;
+            const cols = Array.from(document.querySelectorAll('.color-chip.selected')).map(c => c.getAttribute('data-bg')).join(',');
+            const tags = [...Array.from(document.querySelectorAll('.accordion-content .tag.selected')).map(e=>e.innerText), ...customTagsList].join(', ');
             const btn = document.getElementById('submitBtn'); btn.innerText = "제출 중..."; btn.disabled = true;
-            try {
-                fetch(GOOGLE_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ accessCode: currentCode, beanInfo: currentBean, name: name, oneLiner: oneLiner, tags: combined }) });
-                setTimeout(() => { document.getElementById('resultBeanInfo').innerText = currentBean; showSection('dashboardSection'); loadTeamData(currentCode, 'teamResultsContainer', 'summaryContainer'); autoRefreshInterval = setInterval(() => loadTeamData(currentCode, 'teamResultsContainer', 'summaryContainer'), 5000); }, 1200);
-            } catch(e) { btn.innerText = "제출 및 대시보드 보기"; btn.disabled = false; }
+            try { await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ accessCode: currentSession.accessCode, type: 'regular', beanInfo: currentSession.beanInfo, name: name, oneLiner: one, tags: cols ? `[색채:${cols}] ${tags}` : tags }) }); setTimeout(() => { openSession(currentSession.accessCode, 'result'); btn.innerText="제출 및 결과 보기"; btn.disabled=false; }, 1000); } catch(e) {}
         }
 
-        async function loadTeamData(code, containerId, summaryId) {
-            const cont = document.getElementById(containerId); const sumCont = document.getElementById(summaryId);
-            try {
-                const res = await fetch(GOOGLE_SCRIPT_URL + "?accessCode=" + code); const data = await res.json();
-                if(data.length === 0) { cont.innerHTML = "<p style='text-align:center;'>데이터 없음</p>"; sumCont.innerHTML = ""; return; }
-                let html = ""; let cFreq = {}; let tFreq = {};
-                data.forEach(item => {
-                    let cH = ""; let tT = item.tags || ''; const cM = tT.match(/\[색채:\s*(.*?)\]/);
-                    if (cM && cM[1]) { cM[1].split(',').forEach(h => { let hc = h.trim(); cH += `<div class="result-circle" style="background-color: ${hc};"></div>`; cFreq[hc] = (cFreq[hc]||0)+1; }); tT = tT.replace(cM[0], '').trim(); }
-                    if(tT) { tT.split(',').forEach(t => { let tag = t.trim(); if(tag) tFreq[tag] = (tFreq[tag]||0)+1; }); }
-                    html += `<div class="card"><h3>👤 ${item.name}</h3>${cH ? `<div class="result-circles-container">${cH}</div>` : ''}${tT ? `<p style="font-size:0.85em;"><strong>상세 노트:</strong> ${tT}</p>` : ''}<p>${item.oneLiner || '-'}</p></div>`;
-                }); cont.innerHTML = html;
-                let topC = Object.keys(cFreq).sort((a,b) => cFreq[b]-cFreq[a]).slice(0, 4); let topT = Object.keys(tFreq).sort((a,b) => tFreq[b]-tFreq[a]);
-                if(topC.length > 0 || topT.length > 0) {
-                    let sH = `<div class="summary-box">`;
-                    if(topC.length > 0) { sH += `<div><h3>🎨 팀 대표 색채</h3><div class="result-circles-container">`; topC.forEach(c => sH += `<div class="result-circle" style="background-color:${c}; width:32px; height:32px;"></div>`); sH += `</div></div>`; }
-                    if(topT.length > 0) { sH += `<div><h3>🏷️ 노트 집계</h3><div class="summary-row">`; topT.forEach(t => sH += `<div class="top-tag">${t} <span>(${tFreq[t]})</span></div>`); sH += `</div></div>`; }
-                    sumCont.innerHTML = sH + `</div>`;
-                } else sumCont.innerHTML = "";
-            } catch (e) { cont.innerHTML = "<p>오류</p>"; }
+        /* 제출 - 랭킹 폼 */
+        async function submitRanking() {
+            const name = document.getElementById('rankingName').value.trim(); if(!name) return;
+            let payload = { accessCode: currentSession.accessCode, type: 'ranking', beanInfo: currentSession.beanInfo, name: name, overall: document.getElementById('rankingOverall').value.trim() };
+            let picksUsed = [];
+            for(let i=1; i<=currentSession.picks; i++) {
+                let v = document.getElementById(`rankPick${i}`).value;
+                if(!v) { alert("모든 순위를 선택해주세요."); return; }
+                if(picksUsed.includes(v)) { alert("순위별로 다른 샘플을 선택해주세요."); return; }
+                picksUsed.push(v); payload[`top${i}`] = v; payload[`reason${i}`] = document.getElementById(`rankReason${i}`).value.trim();
+            }
+            const btn = document.getElementById('submitRankBtn'); btn.innerText = "제출 중..."; btn.disabled = true;
+            try { await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }); setTimeout(() => { openSession(currentSession.accessCode, 'result'); btn.innerText="투표 제출하기"; btn.disabled=false; }, 1000); } catch(e) {}
         }
 
-        function startCompare() {
-            const c1 = document.getElementById('compCode1').value.trim(); const c2 = document.getElementById('compCode2').value.trim(); if(!c1 || !c2) return;
-            document.getElementById('compBean1').innerText = "코드: " + c1; document.getElementById('compBean2').innerText = "코드: " + c2;
-            showSection('compareDashboardSection'); if(autoRefreshInterval) clearInterval(autoRefreshInterval);
-            loadTeamData(c1, 'compResults1', 'compSummary1'); loadTeamData(c2, 'compResults2', 'compSummary2');
+        /* 대시보드 불러오기 */
+        async function loadDashboardData() {
+            const area = document.getElementById('resultContentArea');
+            try {
+                const res = await fetch(`${GOOGLE_SCRIPT_URL}?accessCode=${currentSession.accessCode}&type=${currentSession.type}`); const data = await res.json();
+                if(data.length === 0) { area.innerHTML = "<p style='text-align:center;'>제출된 데이터가 없습니다.</p>"; return; }
+                
+                if (currentSession.type === "ranking") {
+                    // 점수 없이, 각 샘플별로 누가 몇위로 뽑았는지 집계
+                    let sampleMap = {}; let detailsHtml = "<h3 style='margin-top:20px; border-bottom:2px solid #e5ded4; padding-bottom:8px;'>개인별 상세 픽 & 총평</h3>";
+                    data.forEach(d => {
+                        let ranks = [ {r: 1, s: d.top1}, {r: 2, s: d.top2}, {r: 3, s: d.top3} ];
+                        let pLabel = ["🥇", "🥈", "🥉"];
+                        let pText = "";
+                        ranks.forEach((obj, idx) => {
+                            if(obj.s) {
+                                if(!sampleMap[obj.s]) sampleMap[obj.s] = [];
+                                sampleMap[obj.s].push(`${pLabel[idx]} ${d.name}(${obj.r}위)`);
+                                pText += `<div style="font-size:0.85em; margin-bottom:6px;"><strong>${pLabel[idx]} ${obj.r}위 (${obj.s}번):</strong> ${d[`reason${obj.r}`] || '-'}</div>`;
+                            }
+                        });
+                        detailsHtml += `<div class="card" style="border-left:4px solid #c98860;"><h4 style="margin:0 0 10px 0;">👤 ${d.name}</h4>${pText}<div style="font-size:0.85em; margin-top:8px; padding-top:8px; border-top:1px dashed #e5ded4;"><strong>총평:</strong> ${d.overall || '-'}</div></div>`;
+                    });
+                    
+                    let sumHtml = `<h3 style="color:#b86b35;">📊 샘플별 선택 현황</h3>`;
+                    let sortedSamples = Object.keys(sampleMap).sort((a,b)=> Number(a) - Number(b));
+                    sortedSamples.forEach(s => {
+                        sumHtml += `<div class="rank-summary-card"><div class="rank-summary-header"><span>${s}번 샘플</span></div><div class="rank-summary-body">${sampleMap[s].join(', ')}</div></div>`;
+                    });
+                    area.innerHTML = sumHtml + detailsHtml;
+                } else {
+                    let html = ""; let cFreq = {}; let tFreq = {};
+                    data.forEach(item => {
+                        let cH = "", tT = item.tags || '', cM = tT.match(/\[색채:\s*(.*?)\]/);
+                        if (cM && cM[1]) { cM[1].split(',').forEach(h => { let hc = h.trim(); cH += `<div class="result-circle" style="background-color: ${hc};"></div>`; cFreq[hc] = (cFreq[hc]||0)+1; }); tT = tT.replace(cM[0], '').trim(); }
+                        if(tT) tT.split(',').forEach(t => { let tag = t.trim(); if(tag) tFreq[tag] = (tFreq[tag]||0)+1; });
+                        html += `<div class="card"><h3>👤 ${item.name}</h3>${cH ? `<div>${cH}</div>` : ''}${tT ? `<p style="font-size:0.85em; margin:8px 0;"><strong>노트:</strong> ${tT}</p>` : ''}<p style="margin:0; font-size:0.9em;">${item.oneLiner || '-'}</p></div>`;
+                    });
+                    let topC = Object.keys(cFreq).sort((a,b) => cFreq[b]-cFreq[a]).slice(0, 4); let topT = Object.keys(tFreq).sort((a,b) => tFreq[b]-tFreq[a]);
+                    let sum = "";
+                    if(topC.length || topT.length) {
+                        sum += `<div style="background:#fff5eb; padding:15px; border-radius:10px; margin-bottom:20px;">`;
+                        if(topC.length) { sum += `<strong>🎨 대표 색채:</strong> `; topC.forEach(c => sum+=`<div class="result-circle" style="background-color:${c};"></div>`); sum += `<br><br>`; }
+                        if(topT.length) { sum += `<strong>🏷️ 노트 집계:</strong> ` + topT.map(t=>`${t}(${tFreq[t]})`).join(', '); }
+                        sum += `</div>`;
+                    }
+                    area.innerHTML = sum + html;
+                }
+            } catch(e) { area.innerHTML = "오류"; }
         }
 
         async function openHistory() {
-            showSection('historySection'); const cont = document.getElementById('historyListContainer');
+            showSection('historySection'); const c = document.getElementById('historyListContainer'); c.innerHTML="불러오는 중...";
             try {
                 const res = await fetch(GOOGLE_SCRIPT_URL + "?action=history"); const data = await res.json();
-                if(data.length === 0) { cont.innerHTML = "<p style='text-align:center;'>기록 없음</p>"; return; }
+                if(!data.length) { c.innerHTML="기록 없음"; return; }
                 let html = "";
                 data.forEach(i => {
-                    const d = new Date(i.lastDate); const ds = `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
-                    html += `<div class="history-item" onclick="openHistoryItem('${i.accessCode}', '${i.beanInfo}')"><div class="history-date">${ds} · 참여 ${i.count}명</div><div class="history-bean">${i.beanInfo}</div><div class="history-code">코드: ${i.accessCode}</div></div>`;
-                }); cont.innerHTML = html;
-            } catch(e) { cont.innerHTML = "<p>오류</p>"; }
+                    const d = new Date(i.lastDate), ds = `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
+                    html += `<div class="history-item" onclick="sessionMap['${i.code}']={accessCode:'${i.code}', beanInfo:'${i.name}', type:'${i.type}'}; openSession('${i.code}', 'result')">
+                        <div class="history-date">${ds} · 참여 ${i.count}명</div>
+                        <div class="history-bean">${i.type==='ranking'?'🏆 ':'☕ '}${i.name}</div>
+                        <div style="font-size:0.75em; margin-top:5px; background:var(--tag-bg); display:inline-block; padding:2px 8px; border-radius:10px;">코드: ${i.code}</div></div>`;
+                }); c.innerHTML = html;
+            } catch(e) { c.innerHTML = "오류"; }
         }
-        function openHistoryItem(code, beanName) { currentCode = code; currentBean = beanName; document.getElementById('resultBeanInfo').innerText = currentBean; showSection('dashboardSection'); loadTeamData(code, 'teamResultsContainer', 'summaryContainer'); }
+
+        async function startCompare() {
+            const c1 = document.getElementById('compCode1').value.trim().toUpperCase(), c2 = document.getElementById('compCode2').value.trim().toUpperCase(); if(!c1||!c2) return;
+            document.getElementById('compBean1').innerText = "코드: " + c1; document.getElementById('compBean2').innerText = "코드: " + c2;
+            showSection('compareDashboardSection'); if(autoRefreshInterval) clearInterval(autoRefreshInterval);
+            
+            const fetchRes = async (code, tgt) => {
+                const el = document.getElementById(tgt);
+                try { const r = await fetch(`${GOOGLE_SCRIPT_URL}?accessCode=${code}&type=regular`); const d = await r.json();
+                    let h = ""; d.forEach(i => h+= `<div style="background:#faf8f5; padding:10px; border-radius:8px; margin-bottom:10px;"><strong style="font-size:0.9em;">👤 ${i.name}</strong><div style="font-size:0.85em; margin-top:5px;">${i.tags||''}</div><div style="font-size:0.85em;">${i.oneLiner||''}</div></div>`);
+                    el.innerHTML = h || "데이터 없음"; } catch(e) { el.innerHTML="오류"; }
+            };
+            fetchRes(c1, 'compRes1'); fetchRes(c2, 'compRes2');
+        }
     </script>
 </body>
 </html>
