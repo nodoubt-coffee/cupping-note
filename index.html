@@ -229,6 +229,7 @@
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwpTu3I_mt-UeNUQ-QwTmFf4uJLbyqhaeMqCUxXsbXGZPDV9xmY5WG9FzHwNBAmxNAQ-g/exec";
 
         let currentSession = {}; let autoRefreshInterval = null; let customTagsList = []; let sessionMap = {};
+        const fmtTxt = (txt) => (txt || '').replace(/\n/g, '<br>'); // 엔터키 변환 헬퍼 함수
 
         window.addEventListener('DOMContentLoaded', loadLiveSessions);
 
@@ -285,7 +286,6 @@
             let sampleList = String(currentSession.samples).split(',').map(s=>s.trim()).filter(Boolean);
             
             if (currentSession.picks == 0) {
-                // 순위 없음 모드: 각 컵마다 코멘트 작성
                 sampleList.forEach((s, idx) => {
                     container.innerHTML += `
                         <div class="rank-box"><h4 style="color:#b86b35;">✔️ ${s}</h4>
@@ -293,7 +293,6 @@
                         </div>`;
                 });
             } else {
-                // 랭킹 모드
                 let pickLabels = ["🥇 1위", "🥈 2위", "🥉 3위", "4위", "5위"];
                 for(let i=1; i<=currentSession.picks; i++) {
                     let options = `<option value="">샘플 선택</option>`;
@@ -366,7 +365,6 @@
             let payload = { accessCode: currentSession.accessCode, type: 'ranking', beanInfo: currentSession.beanInfo, name: name, overall: document.getElementById('rankingOverall').value.trim() };
             
             if (currentSession.picks == 0) {
-                // 순위 없음 모드 코멘트 수집
                 let sampleList = String(currentSession.samples).split(',').map(s=>s.trim()).filter(Boolean);
                 let commentsArr = [];
                 sampleList.forEach((s, idx) => {
@@ -375,7 +373,6 @@
                 });
                 payload.comments = commentsArr.join('\n');
             } else {
-                // 랭킹 모드 픽 수집
                 let picksUsed = [];
                 for(let i=1; i<=currentSession.picks; i++) {
                     let v = document.getElementById(`rankPick${i}`).value;
@@ -398,15 +395,14 @@
                 
                 if (currentSession.type === "ranking") {
                     if (currentSession.picks == 0) {
-                        // 순위 없음 모드 출력
                         let detailsHtml = "<h3 style='margin-top:20px; border-bottom:2px solid #e5ded4; padding-bottom:8px;'>팀원별 코멘트</h3>";
                         data.forEach(d => {
-                            let cHtml = (d.comments || "").replace(/\n/g, "<br><br>");
-                            detailsHtml += `<div class="card" style="border-left:4px solid #c98860;"><h4 style="margin:0 0 10px 0;">👤 ${d.name}</h4><div style="font-size:0.9em; line-height:1.5;">${cHtml}</div>${d.overall ? `<div style="font-size:0.85em; margin-top:12px; padding-top:12px; border-top:1px dashed #e5ded4;"><strong>총평:</strong> ${d.overall}</div>` : ''}</div>`;
+                            let cHtml = fmtTxt(d.comments);
+                            let ovHtml = fmtTxt(d.overall);
+                            detailsHtml += `<div class="card" style="border-left:4px solid #c98860;"><h4 style="margin:0 0 10px 0;">👤 ${d.name}</h4><div style="font-size:0.9em; line-height:1.5;">${cHtml}</div>${d.overall ? `<div style="font-size:0.85em; margin-top:12px; padding-top:12px; border-top:1px dashed #e5ded4;"><strong>총평:</strong><br>${ovHtml}</div>` : ''}</div>`;
                         });
                         area.innerHTML = detailsHtml;
                     } else {
-                        // 랭킹 모드 출력 (Top 3 합산)
                         let sampleScores = {};
                         let detailsHtml = "<h3 style='margin-top:20px; border-bottom:2px solid #e5ded4; padding-bottom:8px;'>개인별 상세 픽 & 총평</h3>";
                         data.forEach(d => {
@@ -415,14 +411,15 @@
                             let pText = "";
                             ranks.forEach((obj, idx) => {
                                 if(obj.s) {
-                                    let pts = Math.max(0, currentSession.picks - idx); // 순위별 점수 차등
+                                    let pts = Math.max(0, currentSession.picks - idx);
                                     if(!sampleScores[obj.s]) sampleScores[obj.s] = { points: 0, count: 0 };
                                     sampleScores[obj.s].points += pts;
                                     sampleScores[obj.s].count += 1;
-                                    pText += `<div style="font-size:0.85em; margin-bottom:6px;"><strong>${pLabel[idx]} ${obj.r}위 (${obj.s}):</strong> ${d[`reason${obj.r}`] || '-'}</div>`;
+                                    pText += `<div style="font-size:0.85em; margin-bottom:6px;"><strong>${pLabel[idx]} ${obj.r}위 (${obj.s}):</strong><br>${fmtTxt(d[`reason${obj.r}`]) || '-'}</div>`;
                                 }
                             });
-                            detailsHtml += `<div class="card" style="border-left:4px solid #c98860;"><h4 style="margin:0 0 10px 0;">👤 ${d.name}</h4>${pText}<div style="font-size:0.85em; margin-top:8px; padding-top:8px; border-top:1px dashed #e5ded4;"><strong>총평:</strong> ${d.overall || '-'}</div></div>`;
+                            let ovHtml = fmtTxt(d.overall);
+                            detailsHtml += `<div class="card" style="border-left:4px solid #c98860;"><h4 style="margin:0 0 10px 0;">👤 ${d.name}</h4>${pText}<div style="font-size:0.85em; margin-top:8px; padding-top:8px; border-top:1px dashed #e5ded4;"><strong>총평:</strong><br>${ovHtml || '-'}</div></div>`;
                         });
                         
                         let sortedSamples = Object.keys(sampleScores).sort((a,b) => sampleScores[b].points - sampleScores[a].points);
@@ -445,9 +442,17 @@
                     let html = ""; let cFreq = {}; let tFreq = {};
                     data.forEach(item => {
                         let cH = "", tT = item.tags || '', cM = tT.match(/\[색채:\s*(.*?)\]/);
-                        if (cM && cM[1]) { cM[1].split(',').forEach(h => { let hc = h.trim(); cH += `<div class="result-circle" style="background-color: ${hc};"></div>`; cFreq[hc] = (cFreq[hc]||0)+1; }); tT = tT.replace(cM[0], '').trim(); }
+                        if (cM && cM[1]) {
+                            cM[1].split(',').forEach(h => {
+                                let hc = h.trim();
+                                cH += `<div class="result-circle" style="background-color: ${hc};"></div>`;
+                                cFreq[hc] = (cFreq[hc] || 0) + 1;
+                            });
+                            tT = tT.replace(cM[0], '').trim();
+                        }
                         if(tT) tT.split(',').forEach(t => { let tag = t.trim(); if(tag) tFreq[tag] = (tFreq[tag]||0)+1; });
-                        html += `<div class="card"><h3>👤 ${item.name}</h3>${cH ? `<div>${cH}</div>` : ''}${tT ? `<p style="font-size:0.85em; margin:8px 0;"><strong>노트:</strong> ${tT}</p>` : ''}<p style="margin:0; font-size:0.9em;">${item.oneLiner || '-'}</p></div>`;
+                        let olHtml = fmtTxt(item.oneLiner);
+                        html += `<div class="card"><h3>👤 ${item.name}</h3>${cH ? `<div>${cH}</div>` : ''}${tT ? `<p style="font-size:0.85em; margin:8px 0;"><strong>노트:</strong> ${tT}</p>` : ''}<p style="margin:0; font-size:0.9em; line-height:1.5;">${olHtml || '-'}</p></div>`;
                     });
                     let topC = Object.keys(cFreq).sort((a,b) => cFreq[b]-cFreq[a]).slice(0, 4); let topT = Object.keys(tFreq).sort((a,b) => tFreq[b]-tFreq[a]);
                     let sum = "";
@@ -486,7 +491,10 @@
             const fetchRes = async (code, tgt) => {
                 const el = document.getElementById(tgt);
                 try { const r = await fetch(`${GOOGLE_SCRIPT_URL}?accessCode=${code}&type=regular`); const d = await r.json();
-                    let h = ""; d.forEach(i => h+= `<div style="background:#faf8f5; padding:10px; border-radius:8px; margin-bottom:10px;"><strong style="font-size:0.9em;">👤 ${i.name}</strong><div style="font-size:0.85em; margin-top:5px;">${i.tags||''}</div><div style="font-size:0.85em;">${i.oneLiner||''}</div></div>`);
+                    let h = ""; d.forEach(i => { 
+                        let olHtml = fmtTxt(i.oneLiner);
+                        h+= `<div style="background:#faf8f5; padding:10px; border-radius:8px; margin-bottom:10px;"><strong style="font-size:0.9em;">👤 ${i.name}</strong><div style="font-size:0.85em; margin-top:5px;">${i.tags||''}</div><div style="font-size:0.85em; line-height:1.5;">${olHtml||''}</div></div>` 
+                    });
                     el.innerHTML = h || "데이터 없음"; } catch(e) { el.innerHTML="오류"; }
             };
             fetchRes(c1, 'compRes1'); fetchRes(c2, 'compRes2');
