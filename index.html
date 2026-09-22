@@ -93,9 +93,6 @@
         /* 랭킹 폼 스타일 */
         .rank-box { background: white; border: 1px solid var(--border-color); padding: 15px; border-radius: 10px; margin-bottom: 15px; }
         .rank-box h4 { margin:0 0 10px 0; font-size:1.05em; color:var(--primary-color); }
-        .rank-summary-card { background: white; border: 1px solid #e5ded4; border-radius: 10px; margin-bottom: 15px; overflow: hidden; }
-        .rank-summary-header { background: #fbf9f6; padding: 12px 15px; font-weight: bold; font-size: 1.1em; border-bottom: 1px solid #e5ded4; display:flex; justify-content:space-between; }
-        .rank-summary-body { padding: 15px; font-size: 0.9em; line-height: 1.5; }
     </style>
 </head>
 <body>
@@ -132,7 +129,7 @@
             <h3 style="margin-top:0; color:#fbdcbb;">🛠️ 새 커핑 오픈하기</h3>
             <div class="admin-tab">
                 <button id="tabRegular" class="active" onclick="setAdminTab('regular')">☕ 정규 (1컵)</button>
-                <button id="tabRanking" onclick="setAdminTab('ranking')">🏆 다중 컵 랭킹</button>
+                <button id="tabRanking" onclick="setAdminTab('ranking')">🏆 다중 컵 랭킹/코멘트</button>
             </div>
             
             <div id="adminRegularSetup">
@@ -141,16 +138,19 @@
             
             <div id="adminRankingSetup" style="display:none;">
                 <div class="input-group"><label style="color:#ddd;">세션명</label><input type="text" id="newBeanRanking" placeholder="예: 게이샤 멸망전 또는 3종 비교" style="background:#1a1a1a; color:white; border:1px solid #555;"></div>
-                <div style="display:flex; gap:10px;">
-                    <div class="input-group" style="flex:2;"><label style="color:#ddd;">샘플 목록 (쉼표로 구분)</label><input type="text" id="rankSamples" placeholder="예: 1, 2, 3 또는 콜롬비아, 에티오피아" style="background:#1a1a1a; color:white; border:1px solid #555; font-size:0.9em;"></div>
-                    <div class="input-group" style="flex:1;"><label style="color:#ddd;">픽(Pick) 개수</label>
+                <div style="display:flex; gap:10px; flex-direction: column;">
+                    <div class="input-group" style="margin-bottom:5px;"><label style="color:#ddd;">샘플 목록 (쉼표로 구분)</label><input type="text" id="rankSamples" placeholder="예: 1, 2, 3 또는 콜롬비아, 에티오피아" style="background:#1a1a1a; color:white; border:1px solid #555; font-size:0.9em;"></div>
+                    <div class="input-group" style="margin-bottom:0;"><label style="color:#ddd;">픽(Pick) 개수 설정</label>
                         <select id="rankPicks" style="background:#1a1a1a; color:white; border:1px solid #555;">
-                            <option value="1">Top 1만</option><option value="2">Top 2까지</option><option value="3" selected>Top 3까지</option>
+                            <option value="3" selected>Top 3까지 선택</option>
+                            <option value="2">Top 2까지 선택</option>
+                            <option value="1">Top 1만 선택</option>
+                            <option value="0">순위 안 매김 (각 컵 느낌만 코멘트)</option>
                         </select>
                     </div>
                 </div>
             </div>
-            <button class="submit-btn" onclick="addNewSession()">오픈하기 (랜덤 코드 자동발급)</button>
+            <button class="submit-btn" style="margin-top:20px;" onclick="addNewSession()">오픈하기 (랜덤 코드 자동발급)</button>
 
             <hr style="border:0; border-top:1px solid #444; margin:20px 0;">
             <h4 style="margin:0 0 10px 0; font-size:0.95em; color:#fbdcbb;">📌 세션 관리</h4>
@@ -173,7 +173,6 @@
         <h3 style="margin-top:35px; font-size:1.05em; margin-bottom:10px;">🏷️ 2. 향미 노트</h3>
         <div class="selected-pool-container" id="selectedPool"><div class="empty-pool-text" id="emptyPoolText">선택하거나 입력해주세요.</div></div>
         <div class="custom-add-row"><input type="text" id="customNoteInput" placeholder="직접 입력 ➔" onkeypress="if(event.keyCode==13) addCustomNote()"><button type="button" onclick="addCustomNote()">추가</button></div>
-        <!-- 아코디언 메뉴들 -->
         <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🍓 1. 과일 (Fruity)</div><div class="accordion-content"><div class="sub-category">감귤류</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">레몬</div><div class="tag" onclick="toggleSelectTag(this)">라임</div><div class="tag" onclick="toggleSelectTag(this)">자몽</div><div class="tag" onclick="toggleSelectTag(this)">오렌지</div><div class="tag" onclick="toggleSelectTag(this)">귤</div><div class="tag" onclick="toggleSelectTag(this)">청귤</div></div><div class="sub-category">사과/배</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">청사과</div><div class="tag" onclick="toggleSelectTag(this)">적사과</div><div class="tag" onclick="toggleSelectTag(this)">배</div></div><div class="sub-category">멜론</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">참외</div><div class="tag" onclick="toggleSelectTag(this)">수박</div><div class="tag" onclick="toggleSelectTag(this)">멜론</div></div><div class="sub-category">포도/와인</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">청포도</div><div class="tag" onclick="toggleSelectTag(this)">적포도</div><div class="tag" onclick="toggleSelectTag(this)">캠벨포도</div><div class="tag" onclick="toggleSelectTag(this)">백포도주</div></div><div class="sub-category">열대과일</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">리치</div><div class="tag" onclick="toggleSelectTag(this)">패션후르츠</div><div class="tag" onclick="toggleSelectTag(this)">파인애플</div><div class="tag" onclick="toggleSelectTag(this)">망고</div><div class="tag" onclick="toggleSelectTag(this)">파파야</div><div class="tag" onclick="toggleSelectTag(this)">키위</div><div class="tag" onclick="toggleSelectTag(this)">바나나</div></div><div class="sub-category">핵과류</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">백도</div><div class="tag" onclick="toggleSelectTag(this)">황도</div><div class="tag" onclick="toggleSelectTag(this)">천도복숭아</div><div class="tag" onclick="toggleSelectTag(this)">살구</div><div class="tag" onclick="toggleSelectTag(this)">자두</div><div class="tag" onclick="toggleSelectTag(this)">체리</div></div><div class="sub-category">베리류</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">크랜베리</div><div class="tag" onclick="toggleSelectTag(this)">라즈베리</div><div class="tag" onclick="toggleSelectTag(this)">딸기</div><div class="tag" onclick="toggleSelectTag(this)">블루베리</div><div class="tag" onclick="toggleSelectTag(this)">블루베리 잼</div><div class="tag" onclick="toggleSelectTag(this)">블랙베리</div><div class="tag" onclick="toggleSelectTag(this)">블랙커런트</div></div><div class="sub-category">건과일</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">건포도</div><div class="tag" onclick="toggleSelectTag(this)">대추야자</div><div class="tag" onclick="toggleSelectTag(this)">건자두(푸룬)</div><div class="tag" onclick="toggleSelectTag(this)">말린 무화과</div></div></div></div>
         <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🌸 2. 꽃 / 차 (Floral & Tea)</div><div class="accordion-content"><div class="sub-category">꽃 (Floral)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">아카시아</div><div class="tag" onclick="toggleSelectTag(this)">자스민</div><div class="tag" onclick="toggleSelectTag(this)">장미</div><div class="tag" onclick="toggleSelectTag(this)">히비스커스</div><div class="tag" onclick="toggleSelectTag(this)">라벤더</div><div class="tag" onclick="toggleSelectTag(this)">오렌지 블라썸</div><div class="tag" onclick="toggleSelectTag(this)">캐모마일</div><div class="tag" onclick="toggleSelectTag(this)">목련</div></div><div class="sub-category">차 (Tea)</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">베르가못</div><div class="tag" onclick="toggleSelectTag(this)">레몬버베나</div><div class="tag" onclick="toggleSelectTag(this)">녹차</div><div class="tag" onclick="toggleSelectTag(this)">홍차</div><div class="tag" onclick="toggleSelectTag(this)">얼그레이</div><div class="tag" onclick="toggleSelectTag(this)">우롱차</div></div></div></div>
         <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🍫 3. 단맛 (Sweet)</div><div class="accordion-content"><div class="tags" style="margin-top:10px;"><div class="tag" onclick="toggleSelectTag(this)">바닐라</div><div class="tag" onclick="toggleSelectTag(this)">꿀</div><div class="tag" onclick="toggleSelectTag(this)">버터</div><div class="tag" onclick="toggleSelectTag(this)">카라멜</div><div class="tag" onclick="toggleSelectTag(this)">메이플 시럽</div><div class="tag" onclick="toggleSelectTag(this)">브라운 슈가</div><div class="tag" onclick="toggleSelectTag(this)">마시멜로</div><div class="tag" onclick="toggleSelectTag(this)">솜사탕</div></div></div></div>
@@ -190,7 +189,7 @@
         <div class="bean-display" id="rankingBeanInfo" style="background: #1a1a1a; color: #ffd700;"></div>
         <div class="input-group"><label>평가자 이름</label><input type="text" id="rankingName" placeholder="이름을 입력하세요"></div>
         <div id="rankingPickContainer"></div>
-        <div class="input-group" style="margin-top:20px;"><label>전체 총평</label><textarea id="rankingOverall" rows="3" placeholder="세션 전체에 대한 느낌을 자유롭게 적어주세요."></textarea></div>
+        <div class="input-group" style="margin-top:20px;"><label>전체 총평 (선택)</label><textarea id="rankingOverall" rows="3" placeholder="세션 전체에 대한 느낌을 자유롭게 적어주세요."></textarea></div>
         <button class="submit-btn" id="submitRankBtn" style="background: #1a1a1a; color: #ffd700;" onclick="submitRanking()">투표 제출하기</button>
         <button class="submit-btn outline" onclick="location.reload()">취소</button>
     </div>
@@ -250,7 +249,7 @@
                 let html = ""; sessionMap = {};
                 sessions.forEach(s => {
                     sessionMap[s.accessCode] = s; const isClosed = s.status === "마감"; const isRank = s.type === "ranking";
-                    const badge = isRank ? '<span class="badge-type">🏆 랭킹</span>' : '<span class="badge-type" style="background:#52b788; color:white;">☕ 정규</span>';
+                    const badge = isRank ? '<span class="badge-type">🏆 랭킹/다중컵</span>' : '<span class="badge-type" style="background:#52b788; color:white;">☕ 정규</span>';
                     html += `
                         <div class="live-card ${isClosed ? 'closed' : ''} ${isRank ? 'ranking-mode' : ''}">
                             <div class="live-card-top">
@@ -281,20 +280,30 @@
         }
 
         function buildRankingForm() {
-            document.getElementById('rankingBeanInfo').innerText = "🏆 " + currentSession.beanInfo;
+            document.getElementById('rankingBeanInfo').innerText = currentSession.picks > 0 ? "🏆 " + currentSession.beanInfo : "☕ " + currentSession.beanInfo;
             const container = document.getElementById('rankingPickContainer'); container.innerHTML = "";
-            let pickLabels = ["🥇 1위", "🥈 2위", "🥉 3위", "4위", "5위"];
-            
             let sampleList = String(currentSession.samples).split(',').map(s=>s.trim()).filter(Boolean);
             
-            for(let i=1; i<=currentSession.picks; i++) {
-                let options = `<option value="">샘플 선택</option>`;
-                sampleList.forEach(s => options += `<option value="${s}">${s}</option>`);
-                container.innerHTML += `
-                    <div class="rank-box"><h4>${pickLabels[i-1]} 픽</h4>
-                        <div class="input-group"><select id="rankPick${i}">${options}</select></div>
-                        <div class="input-group" style="margin:0;"><textarea id="rankReason${i}" rows="2" placeholder="선택 이유를 적어주세요"></textarea></div>
-                    </div>`;
+            if (currentSession.picks == 0) {
+                // 순위 없음 모드: 각 컵마다 코멘트 작성
+                sampleList.forEach((s, idx) => {
+                    container.innerHTML += `
+                        <div class="rank-box"><h4 style="color:#b86b35;">✔️ ${s}</h4>
+                            <div class="input-group" style="margin:0;"><textarea id="multiComment${idx}" rows="2" placeholder="이 컵에 대한 느낌을 적어주세요."></textarea></div>
+                        </div>`;
+                });
+            } else {
+                // 랭킹 모드
+                let pickLabels = ["🥇 1위", "🥈 2위", "🥉 3위", "4위", "5위"];
+                for(let i=1; i<=currentSession.picks; i++) {
+                    let options = `<option value="">샘플 선택</option>`;
+                    sampleList.forEach(s => options += `<option value="${s}">${s}</option>`);
+                    container.innerHTML += `
+                        <div class="rank-box"><h4>${pickLabels[i-1]} 픽</h4>
+                            <div class="input-group"><select id="rankPick${i}">${options}</select></div>
+                            <div class="input-group" style="margin:0;"><textarea id="rankReason${i}" rows="2" placeholder="선택 이유를 적어주세요"></textarea></div>
+                        </div>`;
+                }
             }
             showSection('rankingFormSection');
         }
@@ -355,13 +364,27 @@
         async function submitRanking() {
             const name = document.getElementById('rankingName').value.trim(); if(!name) return;
             let payload = { accessCode: currentSession.accessCode, type: 'ranking', beanInfo: currentSession.beanInfo, name: name, overall: document.getElementById('rankingOverall').value.trim() };
-            let picksUsed = [];
-            for(let i=1; i<=currentSession.picks; i++) {
-                let v = document.getElementById(`rankPick${i}`).value;
-                if(!v) { alert("모든 순위를 선택해주세요."); return; }
-                if(picksUsed.includes(v)) { alert("순위별로 다른 샘플을 선택해주세요."); return; }
-                picksUsed.push(v); payload[`top${i}`] = v; payload[`reason${i}`] = document.getElementById(`rankReason${i}`).value.trim();
+            
+            if (currentSession.picks == 0) {
+                // 순위 없음 모드 코멘트 수집
+                let sampleList = String(currentSession.samples).split(',').map(s=>s.trim()).filter(Boolean);
+                let commentsArr = [];
+                sampleList.forEach((s, idx) => {
+                    let val = document.getElementById(`multiComment${idx}`).value.trim();
+                    if(val) commentsArr.push(`[${s}] ${val}`);
+                });
+                payload.comments = commentsArr.join('\n');
+            } else {
+                // 랭킹 모드 픽 수집
+                let picksUsed = [];
+                for(let i=1; i<=currentSession.picks; i++) {
+                    let v = document.getElementById(`rankPick${i}`).value;
+                    if(!v) { alert("모든 순위를 선택해주세요."); return; }
+                    if(picksUsed.includes(v)) { alert("순위별로 다른 샘플을 선택해주세요."); return; }
+                    picksUsed.push(v); payload[`top${i}`] = v; payload[`reason${i}`] = document.getElementById(`rankReason${i}`).value.trim();
+                }
             }
+
             const btn = document.getElementById('submitRankBtn'); btn.innerText = "제출 중..."; btn.disabled = true;
             try { await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }); setTimeout(() => { openSession(currentSession.accessCode, 'result'); btn.innerText="투표 제출하기"; btn.disabled=false; }, 1000); } catch(e) {}
         }
@@ -374,29 +397,50 @@
                 if(data.length === 0) { area.innerHTML = "<p style='text-align:center;'>제출된 데이터가 없습니다.</p>"; return; }
                 
                 if (currentSession.type === "ranking") {
-                    let sampleMap = {}; let detailsHtml = "<h3 style='margin-top:20px; border-bottom:2px solid #e5ded4; padding-bottom:8px;'>개인별 상세 픽 & 총평</h3>";
-                    data.forEach(d => {
-                        let ranks = [ {r: 1, s: d.top1}, {r: 2, s: d.top2}, {r: 3, s: d.top3} ];
-                        let pLabel = ["🥇", "🥈", "🥉"];
-                        let pText = "";
-                        ranks.forEach((obj, idx) => {
-                            if(obj.s) {
-                                if(!sampleMap[obj.s]) sampleMap[obj.s] = [];
-                                sampleMap[obj.s].push(`${pLabel[idx]} ${d.name}(${obj.r}위)`);
-                                pText += `<div style="font-size:0.85em; margin-bottom:6px;"><strong>${pLabel[idx]} ${obj.r}위 (${obj.s}):</strong> ${d[`reason${obj.r}`] || '-'}</div>`;
-                            }
+                    if (currentSession.picks == 0) {
+                        // 순위 없음 모드 출력
+                        let detailsHtml = "<h3 style='margin-top:20px; border-bottom:2px solid #e5ded4; padding-bottom:8px;'>팀원별 코멘트</h3>";
+                        data.forEach(d => {
+                            let cHtml = (d.comments || "").replace(/\n/g, "<br><br>");
+                            detailsHtml += `<div class="card" style="border-left:4px solid #c98860;"><h4 style="margin:0 0 10px 0;">👤 ${d.name}</h4><div style="font-size:0.9em; line-height:1.5;">${cHtml}</div>${d.overall ? `<div style="font-size:0.85em; margin-top:12px; padding-top:12px; border-top:1px dashed #e5ded4;"><strong>총평:</strong> ${d.overall}</div>` : ''}</div>`;
                         });
-                        detailsHtml += `<div class="card" style="border-left:4px solid #c98860;"><h4 style="margin:0 0 10px 0;">👤 ${d.name}</h4>${pText}<div style="font-size:0.85em; margin-top:8px; padding-top:8px; border-top:1px dashed #e5ded4;"><strong>총평:</strong> ${d.overall || '-'}</div></div>`;
-                    });
-                    
-                    let sumHtml = `<h3 style="color:#b86b35;">📊 샘플별 선택 현황</h3>`;
-                    let originalOrder = String(currentSession.samples).split(',').map(s=>s.trim());
-                    let sortedSamples = Object.keys(sampleMap).sort((a,b) => originalOrder.indexOf(a) - originalOrder.indexOf(b));
-                    
-                    sortedSamples.forEach(s => {
-                        sumHtml += `<div class="rank-summary-card"><div class="rank-summary-header"><span>${s}</span></div><div class="rank-summary-body">${sampleMap[s].join(', ')}</div></div>`;
-                    });
-                    area.innerHTML = sumHtml + detailsHtml;
+                        area.innerHTML = detailsHtml;
+                    } else {
+                        // 랭킹 모드 출력 (Top 3 합산)
+                        let sampleScores = {};
+                        let detailsHtml = "<h3 style='margin-top:20px; border-bottom:2px solid #e5ded4; padding-bottom:8px;'>개인별 상세 픽 & 총평</h3>";
+                        data.forEach(d => {
+                            let ranks = [ {r: 1, s: d.top1}, {r: 2, s: d.top2}, {r: 3, s: d.top3} ];
+                            let pLabel = ["🥇", "🥈", "🥉"];
+                            let pText = "";
+                            ranks.forEach((obj, idx) => {
+                                if(obj.s) {
+                                    let pts = Math.max(0, currentSession.picks - idx); // 순위별 점수 차등
+                                    if(!sampleScores[obj.s]) sampleScores[obj.s] = { points: 0, count: 0 };
+                                    sampleScores[obj.s].points += pts;
+                                    sampleScores[obj.s].count += 1;
+                                    pText += `<div style="font-size:0.85em; margin-bottom:6px;"><strong>${pLabel[idx]} ${obj.r}위 (${obj.s}):</strong> ${d[`reason${obj.r}`] || '-'}</div>`;
+                                }
+                            });
+                            detailsHtml += `<div class="card" style="border-left:4px solid #c98860;"><h4 style="margin:0 0 10px 0;">👤 ${d.name}</h4>${pText}<div style="font-size:0.85em; margin-top:8px; padding-top:8px; border-top:1px dashed #e5ded4;"><strong>총평:</strong> ${d.overall || '-'}</div></div>`;
+                        });
+                        
+                        let sortedSamples = Object.keys(sampleScores).sort((a,b) => sampleScores[b].points - sampleScores[a].points);
+                        let sumHtml = `<h3 style="color:#b86b35;">📊 종합 랭킹 결과 (Top 3)</h3><div style="background:#fffcf5; border:1px solid #fbeedc; border-radius:10px; padding:15px; margin-bottom:20px;">`;
+                        
+                        if(sortedSamples.length === 0) {
+                            sumHtml += `데이터 없음`;
+                        } else {
+                            let medals = ["🥇 1위", "🥈 2위", "🥉 3위"];
+                            for(let i=0; i<Math.min(3, sortedSamples.length); i++) {
+                                let sName = sortedSamples[i];
+                                let sData = sampleScores[sName];
+                                sumHtml += `<div style="font-size: 1.05em; font-weight: bold; margin-bottom: 8px;">${medals[i]} : <span style="color:var(--primary-color);">${sName}</span> <span style="font-size:0.8em; font-weight:normal; color:#888; margin-left:4px;">(${sData.points}점 / 투표 ${sData.count}회)</span></div>`;
+                            }
+                        }
+                        sumHtml += `</div>`;
+                        area.innerHTML = sumHtml + detailsHtml;
+                    }
                 } else {
                     let html = ""; let cFreq = {}; let tFreq = {};
                     data.forEach(item => {
