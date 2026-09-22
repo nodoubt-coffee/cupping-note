@@ -162,7 +162,14 @@
     <!-- 📝 2. 정규 커핑 평가 폼 (1컵) -->
     <div class="app-section" id="formSection">
         <div class="bean-display" id="currentBeanInfo"></div>
-        <div class="input-group"><label>평가자 이름</label><input type="text" id="cupperName" placeholder="이름을 입력하세요"></div>
+        <div class="input-group">
+            <label>평가자 이름</label>
+            <div style="display:flex; gap:8px;">
+                <input type="text" id="cupperName" placeholder="이름을 입력하세요" onblur="checkExistingSubmission('regular')">
+                <button type="button" class="submit-btn secondary" style="width:auto; margin:0; padding:0 14px; font-size:0.85em;" onclick="loadMySubmission('regular')">불러오기</button>
+            </div>
+            <div id="editNoticeRegular" style="font-size:0.78em; color:var(--accent-color); margin-top:4px; display:none;">💡 기존에 제출한 기록이 있습니다. 내용을 불러와 수정 후 재제출할 수 있습니다!</div>
+        </div>
         <h3 style="margin-top:30px; font-size:1.05em;">🎨 1. 시각적 연상</h3>
         <div class="color-grid">
             <div class="color-chip" style="background-color: #FFD1DC;" data-bg="#FFD1DC" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #FFA6B5;" data-bg="#FFA6B5" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #FF4D6D;" data-bg="#FF4D6D" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #D00000;" data-bg="#D00000" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #7B111F;" data-bg="#7B111F" onclick="toggleColor(this)"></div><div class="color-chip" style="background-color: #4A0E17;" data-bg="#4A0E17" onclick="toggleColor(this)"></div>
@@ -180,17 +187,24 @@
         <div class="accordion-item"><div class="accordion-header" onclick="toggleAccordion(this)">🌾 5. 곡물 / 향신료 / 발효</div><div class="accordion-content"><div class="sub-category">곡물</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">그래놀라</div><div class="tag" onclick="toggleSelectTag(this)">토스트</div><div class="tag" onclick="toggleSelectTag(this)">오트밀</div></div><div class="sub-category">향신료/허브</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">계피</div><div class="tag" onclick="toggleSelectTag(this)">넛맥</div><div class="tag" onclick="toggleSelectTag(this)">세이지</div><div class="tag" onclick="toggleSelectTag(this)">딜</div><div class="tag" onclick="toggleSelectTag(this)">애플민트</div><div class="tag" onclick="toggleSelectTag(this)">바질</div><div class="tag" onclick="toggleSelectTag(this)">유칼립투스</div></div><div class="sub-category">발효</div><div class="tags"><div class="tag" onclick="toggleSelectTag(this)">와이니(Winey)</div><div class="tag" onclick="toggleSelectTag(this)">럼/위스키</div><div class="tag" onclick="toggleSelectTag(this)">요거트</div><div class="tag" onclick="toggleSelectTag(this)">콤부차</div><div class="tag" onclick="toggleSelectTag(this)">펑키(Funky)</div></div></div></div>
 
         <div class="input-group" style="margin-top: 25px;"><label>한줄평 / 종합 의견</label><textarea id="oneLiner" rows="3" placeholder="예: 첫 모금에 화사한 플로럴이 퍼집니다."></textarea></div>
-        <button class="submit-btn" id="submitBtn" onclick="submitRegular()">제출 및 결과 보기</button>
+        <button class="submit-btn" id="submitBtn" onclick="submitRegular()">제출 및 수정하기</button>
         <button class="submit-btn outline" onclick="location.reload()">취소</button>
     </div>
 
     <!-- 🏆 3. 블라인드 랭킹 평가 폼 -->
     <div class="app-section" id="rankingFormSection">
         <div class="bean-display" id="rankingBeanInfo" style="background: #1a1a1a; color: #ffd700;"></div>
-        <div class="input-group"><label>평가자 이름</label><input type="text" id="rankingName" placeholder="이름을 입력하세요"></div>
+        <div class="input-group">
+            <label>평가자 이름</label>
+            <div style="display:flex; gap:8px;">
+                <input type="text" id="rankingName" placeholder="이름을 입력하세요" onblur="checkExistingSubmission('ranking')">
+                <button type="button" class="submit-btn secondary" style="width:auto; margin:0; padding:0 14px; font-size:0.85em; background:#444;" onclick="loadMySubmission('ranking')">불러오기</button>
+            </div>
+            <div id="editNoticeRanking" style="font-size:0.78em; color:#ffd700; margin-top:4px; display:none;">💡 기존에 제출한 기록이 있습니다. 내용을 불러와 수정 후 재제출할 수 있습니다!</div>
+        </div>
         <div id="rankingPickContainer"></div>
         <div class="input-group" style="margin-top:20px;"><label>전체 총평 (선택)</label><textarea id="rankingOverall" rows="3" placeholder="세션 전체에 대한 느낌을 자유롭게 적어주세요."></textarea></div>
-        <button class="submit-btn" id="submitRankBtn" style="background: #1a1a1a; color: #ffd700;" onclick="submitRanking()">투표 제출하기</button>
+        <button class="submit-btn" id="submitRankBtn" style="background: #1a1a1a; color: #ffd700;" onclick="submitRanking()">투표 수정 및 제출하기</button>
         <button class="submit-btn outline" onclick="location.reload()">취소</button>
     </div>
 
@@ -229,7 +243,7 @@
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwpTu3I_mt-UeNUQ-QwTmFf4uJLbyqhaeMqCUxXsbXGZPDV9xmY5WG9FzHwNBAmxNAQ-g/exec";
 
         let currentSession = {}; let autoRefreshInterval = null; let customTagsList = []; let sessionMap = {};
-        const fmtTxt = (txt) => (txt || '').replace(/\n/g, '<br>'); // 엔터키 변환 헬퍼 함수
+        const fmtTxt = (txt) => (txt || '').replace(/\n/g, '<br>');
 
         window.addEventListener('DOMContentLoaded', loadLiveSessions);
 
@@ -270,7 +284,11 @@
             currentSession = sessionMap[code] || { accessCode: code, beanInfo: "세션 ("+code+")", type: "regular", samples:"", picks:0 };
             if(actionType === 'eval') {
                 if(currentSession.type === 'ranking') buildRankingForm();
-                else { document.getElementById('currentBeanInfo').innerText = currentSession.beanInfo; showSection('formSection'); }
+                else { 
+                    document.getElementById('currentBeanInfo').innerText = currentSession.beanInfo; 
+                    showSection('formSection'); 
+                    loadSavedNameInput('regular');
+                }
             } else {
                 document.getElementById('resultBeanInfo').innerText = currentSession.beanInfo;
                 document.getElementById('resultBeanInfo').style.background = currentSession.type === 'ranking' ? '#1a1a1a' : 'var(--sub-btn-bg)';
@@ -305,11 +323,108 @@
                 }
             }
             showSection('rankingFormSection');
+            loadSavedNameInput('ranking');
         }
 
         function startAction(type) {
             const code = document.getElementById('mainCodeInput').value.trim().toUpperCase(); if(!code) return;
             openSession(code, type);
+        }
+
+        /* 로컬스토리지 기반 내 제출 기록 관리 및 수정 기능 */
+        function loadSavedNameInput(formType) {
+            const nameInput = document.getElementById(formType === 'ranking' ? 'rankingName' : 'cupperName');
+            const savedName = localStorage.getItem(`cupper_name_${currentSession.accessCode}`);
+            if(savedName && !nameInput.value) {
+                nameInput.value = savedName;
+                checkExistingSubmission(formType);
+            }
+        }
+
+        async function checkExistingSubmission(formType) {
+            const nameInput = document.getElementById(formType === 'ranking' ? 'rankingName' : 'cupperName');
+            const noticeEl = document.getElementById(formType === 'ranking' ? 'editNoticeRanking' : 'editNoticeRegular');
+            const name = nameInput.value.trim();
+            if(!name) { noticeEl.style.display = 'none'; return; }
+
+            localStorage.setItem(`cupper_name_${currentSession.accessCode}`, name);
+            try {
+                const res = await fetch(`${GOOGLE_SCRIPT_URL}?accessCode=${currentSession.accessCode}&type=${currentSession.type}`);
+                const data = await res.json();
+                const found = data.find(d => d.name === name);
+                if(found) {
+                    noticeEl.style.display = 'block';
+                } else {
+                    noticeEl.style.display = 'none';
+                }
+            } catch(e) {}
+        }
+
+        async function loadMySubmission(formType) {
+            const nameInput = document.getElementById(formType === 'ranking' ? 'rankingName' : 'cupperName');
+            const name = nameInput.value.trim();
+            if(!name) { alert("이름을 먼저 입력해주세요."); return; }
+
+            try {
+                const res = await fetch(`${GOOGLE_SCRIPT_URL}?accessCode=${currentSession.accessCode}&type=${currentSession.type}`);
+                const data = await res.json();
+                const found = data.find(d => d.name === name);
+                if(!found) { alert("해당 이름으로 제출된 기록이 없습니다."); return; }
+
+                if(formType === 'regular') {
+                    // 정규 폼 복원
+                    document.getElementById('oneLiner').value = found.oneLiner || "";
+                    document.querySelectorAll('.color-chip').forEach(c => c.classList.remove('selected'));
+                    customTagsList = [];
+                    
+                    let tagsStr = found.tags || "";
+                    let cM = tagsStr.match(/\[색채:\s*(.*?)\]/);
+                    if(cM && cM[1]) {
+                        cM[1].split(',').forEach(hc => {
+                            let chip = document.querySelector(`.color-chip[data-bg="${hc.trim()}"]`);
+                            if(chip) chip.classList.add('selected');
+                        });
+                        tagsStr = tagsStr.replace(cM[0], '').trim();
+                    }
+                    
+                    document.querySelectorAll('.accordion-content .tag').forEach(t => t.classList.remove('selected'));
+                    if(tagsStr) {
+                        tagsStr.split(',').forEach(tName => {
+                            tName = tName.trim();
+                            let matchedTag = Array.from(document.querySelectorAll('.accordion-content .tag')).find(el => el.innerText === tName);
+                            if(matchedTag) matchedTag.classList.add('selected');
+                            else if(tName && !customTagsList.includes(tName)) customTagsList.push(tName);
+                        });
+                    }
+                    renderSelectedPool();
+                    alert("이전 제출 기록을 불러왔습니다! 수정 후 재제출할 수 있습니다.");
+                } else {
+                    // 랭킹 폼 복원
+                    document.getElementById('rankingOverall').value = found.overall || "";
+                    if(currentSession.picks == 0) {
+                        let sampleList = String(currentSession.samples).split(',').map(s=>s.trim()).filter(Boolean);
+                        // 각컵코멘트 파싱 형태: [샘플명] 내용\n[샘플명] 내용
+                        sampleList.forEach((s, idx) => {
+                            let ta = document.getElementById(`multiComment${idx}`);
+                            if(ta) {
+                                let regex = new RegExp(`\\[${s}\\]\\s*([^\\n]+(?:\\n(?!\\[)[^\\n]+)*)`, 'g');
+                                let match = regex.exec(found.comments || "");
+                                ta.value = match ? match[1].trim() : "";
+                            }
+                        });
+                    } else {
+                        let ranks = [found.top1, found.top2, found.top3];
+                        let reasons = [found.reason1, found.reason2, found.reason3];
+                        for(let i=1; i<=currentSession.picks; i++) {
+                            let sel = document.getElementById(`rankPick${i}`);
+                            let rText = document.getElementById(`rankReason${i}`);
+                            if(sel) sel.value = ranks[i-1] || "";
+                            if(rText) rText.value = reasons[i-1] || "";
+                        }
+                    }
+                    alert("이전 투표 기록을 불러왔습니다! 수정 후 재제출할 수 있습니다.");
+                }
+            } catch(e) { alert("기록을 불러오는데 실패했습니다."); }
         }
 
         function tryOpenAdmin() { if(prompt("관리자 비밀번호:") === "4538") { document.getElementById('adminPanel').style.display='block'; loadAdminSessions(); } else alert("오류"); }
@@ -356,7 +471,7 @@
             const cols = Array.from(document.querySelectorAll('.color-chip.selected')).map(c => c.getAttribute('data-bg')).join(',');
             const tags = [...Array.from(document.querySelectorAll('.accordion-content .tag.selected')).map(e=>e.innerText), ...customTagsList].join(', ');
             const btn = document.getElementById('submitBtn'); btn.innerText = "제출 중..."; btn.disabled = true;
-            try { await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ accessCode: currentSession.accessCode, type: 'regular', beanInfo: currentSession.beanInfo, name: name, oneLiner: one, tags: cols ? `[색채:${cols}] ${tags}` : tags }) }); setTimeout(() => { openSession(currentSession.accessCode, 'result'); btn.innerText="제출 및 결과 보기"; btn.disabled=false; }, 1000); } catch(e) {}
+            try { await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ accessCode: currentSession.accessCode, type: 'regular', beanInfo: currentSession.beanInfo, name: name, oneLiner: one, tags: cols ? `[색채:${cols}] ${tags}` : tags }) }); setTimeout(() => { openSession(currentSession.accessCode, 'result'); btn.innerText="제출 및 수정하기"; btn.disabled=false; }, 1000); } catch(e) {}
         }
 
         /* 제출 - 랭킹 폼 */
@@ -383,7 +498,7 @@
             }
 
             const btn = document.getElementById('submitRankBtn'); btn.innerText = "제출 중..."; btn.disabled = true;
-            try { await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }); setTimeout(() => { openSession(currentSession.accessCode, 'result'); btn.innerText="투표 제출하기"; btn.disabled=false; }, 1000); } catch(e) {}
+            try { await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) }); setTimeout(() => { openSession(currentSession.accessCode, 'result'); btn.innerText="투표 수정 및 제출하기"; btn.disabled=false; }, 1000); } catch(e) {}
         }
 
         /* 대시보드 불러오기 */
