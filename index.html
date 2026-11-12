@@ -89,6 +89,7 @@
         .admin-tab { display:flex; gap:10px; margin-bottom:20px; }
         .admin-tab button { flex:1; padding:10px; background:#443b35; color:#aaa; border:none; border-radius:8px; font-weight:bold; cursor:pointer; }
         .admin-tab button.active { background:var(--accent-color); color:white; }
+        .admin-action-btn { padding: 5px 8px; font-size: 0.82em; border-radius: 6px; border: none; cursor: pointer; background: #ede7de; color: #3c322c; font-weight: bold; }
         
         /* 랭킹 폼 스타일 */
         .rank-box { background: white; border: 1px solid var(--border-color); padding: 15px; border-radius: 10px; margin-bottom: 15px; }
@@ -372,7 +373,6 @@
                 if(!found) { alert("해당 이름으로 제출된 기록이 없습니다."); return; }
 
                 if(formType === 'regular') {
-                    // 정규 폼 복원
                     document.getElementById('oneLiner').value = found.oneLiner || "";
                     document.querySelectorAll('.color-chip').forEach(c => c.classList.remove('selected'));
                     customTagsList = [];
@@ -399,15 +399,14 @@
                     renderSelectedPool();
                     alert("이전 제출 기록을 불러왔습니다! 수정 후 재제출할 수 있습니다.");
                 } else {
-                    // 랭킹 폼 복원
                     document.getElementById('rankingOverall').value = found.overall || "";
                     if(currentSession.picks == 0) {
                         let sampleList = String(currentSession.samples).split(',').map(s=>s.trim()).filter(Boolean);
-                        // 각컵코멘트 파싱 형태: [샘플명] 내용\n[샘플명] 내용
                         sampleList.forEach((s, idx) => {
                             let ta = document.getElementById(`multiComment${idx}`);
                             if(ta) {
-                                let regex = new RegExp(`\\[${s}\\]\\s*([^\\n]+(?:\\n(?!\\[)[^\\n]+)*)`, 'g');
+                                let escapedS = s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                                let regex = new RegExp(`\\[${escapedS}\\]\\s*([^\\n]+(?:\\n(?!\\[)[^\\n]+)*)`, 'g');
                                 let match = regex.exec(found.comments || "");
                                 ta.value = match ? match[1].trim() : "";
                             }
@@ -434,12 +433,32 @@
                 const res = await fetch(GOOGLE_SCRIPT_URL + "?action=admin_all_sessions"); const all = await res.json();
                 let html = "";
                 all.forEach(s => {
-                    const isLive = s.status === "진행중", isHid = s.display === "숨김", typeTag = s.type==="ranking"?"🏆":"☕";
-                    html += `<div style="background:#3c322c; padding:10px; border-radius:8px; margin-bottom:8px; font-size:0.9em;">
-                        <div style="margin-bottom:6px; display:flex; justify-content:space-between;"><div><strong>[${s.accessCode}]</strong> ${typeTag} ${s.beanInfo}</div><div style="color:${isLive?'#52b788':'#e76f51'};">${s.status} ${isHid?'(숨김)':''}</div></div>
-                        <div style="display:flex; gap:5px;"><button onclick="updateSession(${s.rowIdx}, '${isLive?'마감':'진행중'}', null)" style="padding:4px; font-size:0.9em;">상태변경</button><button onclick="updateSession(${s.rowIdx}, null, '${isHid?'표시':'숨김'}')" style="padding:4px; font-size:0.9em;">노출변경</button><button onclick="updateSession(${s.rowIdx}, '삭제', null)" style="padding:4px; font-size:0.9em; background:#555;">삭제</button></div></div>`;
+                    const isLive = s.status === "진행중", isHid = s.display === "숨김", isRank = s.type === "ranking", typeTag = isRank ? "🏆" : "☕";
+                    const safeSamples = String(s.samples || "").replace(/'/g, "\\'");
+                    html += `<div style="background:#3c322c; padding:12px; border-radius:8px; margin-bottom:10px; font-size:0.9em;">
+                        <div style="margin-bottom:6px; display:flex; justify-content:space-between; align-items:center;">
+                            <div><strong>[${s.accessCode}]</strong> ${typeTag} ${s.beanInfo}</div>
+                            <div style="color:${isLive?'#52b788':'#e76f51'}; font-weight:bold;">${s.status} ${isHid?'(숨김)':''}</div>
+                        </div>
+                        ${isRank ? `<div style="font-size:0.82em; color:#fbdcbb; margin-bottom:8px; background:#2b2420; padding:6px 8px; border-radius:6px;">☕ 등록된 샘플: <strong>${s.samples || '없음'}</strong></div>` : ''}
+                        <div style="display:flex; gap:5px; flex-wrap:wrap;">
+                            <button class="admin-action-btn" onclick="updateSession(${s.rowIdx}, '${isLive?'마감':'진행중'}', null)">상태변경</button>
+                            <button class="admin-action-btn" onclick="updateSession(${s.rowIdx}, null, '${isHid?'표시':'숨김'}')">노출변경</button>
+                            ${isRank ? `<button class="admin-action-btn" style="background:#fbdcbb; color:#3c322c;" onclick="editSessionSamples(${s.rowIdx}, '${safeSamples}')">✏️ 샘플 수정/추가</button>` : ''}
+                            <button class="admin-action-btn" style="background:#555; color:#eee;" onclick="updateSession(${s.rowIdx}, '삭제', null)">삭제</button>
+                        </div>
+                    </div>`;
                 }); listEl.innerHTML = html || "세션 없음";
             } catch(e) { listEl.innerHTML = "실패"; }
+        }
+        async function editSessionSamples(idx, currentSamples) {
+            const newSamples = prompt("샘플(커피) 목록을 수정하거나 쉼표(,)로 추가하세요:", currentSamples);
+            if (newSamples === null) return;
+            const url = `${GOOGLE_SCRIPT_URL}?action=admin_update_session&rowIdx=${idx}&samples=${encodeURIComponent(newSamples.trim())}`;
+            await fetch(url);
+            loadAdminSessions();
+            loadLiveSessions();
+            alert("샘플 목록이 업데이트되었습니다!");
         }
         async function addNewSession() {
             const isRank = document.getElementById('tabRanking').classList.contains('active');
